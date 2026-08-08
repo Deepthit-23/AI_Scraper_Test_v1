@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Secrets — NEVER commit your real API key
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Output data (generated, not source)
+data/output/
+
+# OS
+.DS_Store
+Thumbs.db

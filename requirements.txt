@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+trafilatura
+lxml
+groq
+pdfplumber
+python-dotenv
+pydantic
+streamlit
+# Optional, only needed for JS-heavy sites (uncomment if you use fetch_raw_html_with_browser):
+# playwright

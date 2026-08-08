@@ -1,0 +1,41 @@
+SOURCE_URL: https://in.omega.com/pptst/SA1.html
+SOURCE_TYPE: webpage
+
+Ready-Made Surface Thermocouple with Self-Adhesive Backing(ANSI) - Package of 5
+SA1 SERIES
+Economic Surface Self-Adhesive Thermocouples | Omega Engineering | SA1 SERIES
+USD155.74 SA1-J
+
+- Patented Spool Caddy
+- Self Adhesive thermocouple for Easy Installation
+- Better Than 0.3 Second Response Time
+- 1 m (36") or 2 m (72") Color-Coded PFA Insulated Leads
+- Rated to 175°C (350°F) Long Term
+- Available in J, K, T, and E Calibrations
+
+Thermocouples and RTDs - View related products
+
+Description
+IEC Color Codes available. OMEGA's self-adhesive thermocouple temperature sensors have now been expanded to include the popular miniature connector with our patented spool caddy. The spool caddy provides a convenient way to store the thermocouple wire that is not needed for the application.
+
+Specifications
+Thermocouple Calibrations: J (Iron-Constantan), K (CHR-AL), T (Copper Constantan), E (CHR-Constantan)
+Adhesive: Silicon based cement
+Maximum Temperature: 175°C (350°F) continuous
+Minimum Temperature: -60°C (-75°F) continuous
+Dimensions: 25 L x 19 W x 0.3 mm (1 x 0.8 x 0.01")
+Laminates: High temperature polymer, and fiberglass reinforced polymer layers
+Wire: 30 AWG PFA-coated
+Adhesive Pad (TAP): Polymide Film with a silicone pressure sensitive adhesive.
+13% Polymide, 32% Polymethyl phenylsiloxane, 54% Saturated Paper
+
+Model No.-ANSI Color Code / Wire Gage / Length meter(in) / Insulation
+SA1-J: 30 AWG, 1m (40"), PFA
+SA1-K: 30 AWG, 1m (40"), PFA
+SA1-T: 30 AWG, 1m (40"), PFA
+SA1-E: 30 AWG, 1m (40"), PFA
+SA1-J-72: 30 AWG, 2m (80"), PFA
+SA1-K-72: 30 AWG, 2m (80"), PFA
+
+Note: 2 m (80") is the longest length available with spool caddy.
+NIST Traceable certification is available for this product - Consult Sales or Engineering
