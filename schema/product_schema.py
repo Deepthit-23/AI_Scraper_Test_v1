@@ -67,4 +67,25 @@ CATEGORY_EXPECTED_FIELDS = {
         "Pressure Rating", "Material", "Connection Size", "Flow Coefficient (Cv)",
         "Temperature Range", "Actuation Type"
     ],
+    # Unihack categories
+    "power tools & accessories": [
+        "Voltage Rating", "Battery Type", "Battery Amp-Hours", "Chuck Size",
+        "Max Torque", "No-Load Speed", "Tool Type", "Includes", "Weight"
+    ],
+    "impact drivers": [
+        "Voltage Rating", "No-Load Speed", "Max Torque", "Chuck Size",
+        "Battery Type", "Battery Amp-Hours", "Tool Type", "Weight"
+    ],
+    "drills & drivers": [
+        "Voltage Rating", "No-Load Speed", "Chuck Size", "Max Torque",
+        "Battery Type", "Battery Amp-Hours", "Tool Type", "Weight"
+    ],
+    "dishwashers": [
+        "Voltage Rating", "Amperage Rating", "Number of Wash Cycles",
+        "Sound Level", "Mounting Type", "Material", "Size", "Series"
+    ],
+    "led bulbs": [
+        "Wattage", "Lumens", "Color Temperature", "Base Type", "Voltage Rating"
+    ],
+    "abrasives": ["Grit", "Size", "Material", "Pack Quantity"],
 }
