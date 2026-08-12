@@ -73,6 +73,7 @@ OUTPUT_COLS = [
     *[f"ATTRIBUTE_UOM_{i}"   for i in range(1, 11)],
     # Pipeline metadata (prefixed _ so they're easy to strip for submission)
     "_classification_confidence", "_classification_method",
+    "_brand_resolution_method",
     "_enriched", "_enrichment_source",
     "_invoice_desc_ok", "_mobile_desc_ok",
 ]
@@ -99,8 +100,12 @@ def process_row(row: dict, enrich: bool = True) -> dict:
     part_manuf = (row.get("Part_Manuf")   or "").strip()
 
     # 1. Manufacturer / brand normalization
-    mfr = normalize_manufacturer(part_manuf)
+    # Resolve brand from input columns FIRST so it can seed the canonical lookup
+    # when Part_Manuf is a co-op / distributor rather than the real product maker.
     existing_brand = _resolve_brand(row)
+    mfr = normalize_manufacturer(
+        part_manuf, part_desc=part_desc, mpn=mpn, existing_brand=existing_brand
+    )
     brand_name = existing_brand if existing_brand else mfr["brand_name"]
 
     # 2. Classification (rule-first, LLM fallback)
@@ -161,6 +166,7 @@ def process_row(row: dict, enrich: bool = True) -> dict:
         "RETAIL_DESC": descs.retail_desc,
         "_classification_confidence": clf.get("confidence", ""),
         "_classification_method": clf.get("method", ""),
+        "_brand_resolution_method": mfr.get("_brand_resolution_method", "unknown"),
         "_enriched": str(enrichment.get("enriched", False)),
         "_enrichment_source": enrichment.get("source_url") or "",
         "_invoice_desc_ok": str(descs.invoice_ok),
@@ -232,6 +238,7 @@ def run_pipeline(
             out = process_row(row, enrich=enrich)
             results.append(out)
 
+            print(f"  Mfr:     {out['MANUFACTURER_NAME'] or '(none)'}  [{out['_brand_resolution_method']}]")
             print(f"  Brand:   {out['BRAND_NAME'] or '(none)'}")
             print(f"  Class:   {out['Classpath']}  [{out['_classification_method']}]")
             if out["_enriched"] == "True":

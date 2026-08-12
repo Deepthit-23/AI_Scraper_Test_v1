@@ -147,7 +147,11 @@ def _attr_rank(attr: dict) -> int:
 def _format_attr_value(attr: dict) -> str:
     val = attr.get("value", "").strip()
     unit = normalize_unit(attr.get("unit", ""))
-    return f"{val} {unit}".strip() if unit else val
+    if unit:
+        # Strip trailing unit already embedded in val to prevent "20V" + "V" -> "20V V"
+        val = re.sub(rf"\s*{re.escape(unit)}\s*$", "", val, flags=re.IGNORECASE).strip()
+        return f"{val} {unit}"
+    return val
 
 
 def _top_attrs(attributes: list[dict], n: int = 4) -> list[dict]:
@@ -220,9 +224,13 @@ def build_invoice_desc(inp: DescriptionInput) -> str:
         elif "material" in name_l:
             tokens.append(INVOICE_ABBREV.get(val.lower(), val[:3].upper()))
         elif unit in ("V", "A", "RPM", "Ah", "dBA", "W"):
-            tokens.append(f"{val}{unit}")
+            # Strip any trailing unit already in val to prevent "20V" + "V" -> "20VV"
+            clean_val = re.sub(rf"\s*{re.escape(unit)}\s*$", "", val, flags=re.IGNORECASE).strip()
+            tokens.append(f"{clean_val}{unit}")
         elif any(k in name_l for k in ["depth", "size", "chuck", "drive"]):
-            tokens.append(f"{val}{unit or 'IN'}")
+            eff_unit = unit or "IN"
+            clean_val = re.sub(rf"\s*{re.escape(eff_unit)}\s*$", "", val, flags=re.IGNORECASE).strip()
+            tokens.append(f"{clean_val}{eff_unit}")
 
     joined = " ".join(t for t in tokens if t)
     result = _apply_invoice_abbrev(joined)
@@ -233,6 +241,7 @@ def build_mobile_desc(inp: DescriptionInput) -> str:
     """
     60-80 chars, sentence case.
     Pattern: "{Mfr}[ {Brand}], {ProductType}, {Series}, {MPN}[, {MountingType}]"
+    When still under 60 after the core parts, pad with material then top attribute values.
     """
     mfr = inp.manufacturer_name or ""
     brand_clean = inp.brand_name.replace("®", "").replace("™", "").strip()
@@ -247,11 +256,19 @@ def build_mobile_desc(inp: DescriptionInput) -> str:
     parts = [p for p in [lead, inp.product_type, inp.series, inp.mpn, inp.mounting_type] if p]
     result = ", ".join(parts)
 
-    # Pad to 60 if too short (add material if available)
+    # Pad to 60 chars: material first, then top attribute values one by one
     if len(result) < 60 and inp.material:
         result += f", {inp.material}"
 
-    # Trim to 80 if over
+    if len(result) < 60:
+        for attr in _top_attrs(inp.attributes, n=6):
+            if len(result) >= 60:
+                break
+            val_str = _format_attr_value(attr)
+            if val_str:
+                result += f", {val_str}"
+
+    # Trim to 80 if over (word boundary)
     if len(result) > 80:
         result = _truncate_words(result, 80)
 

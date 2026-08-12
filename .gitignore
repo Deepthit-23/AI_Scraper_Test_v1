@@ -22,3 +22,6 @@ data/output/
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude Code internal files
+.claude/
