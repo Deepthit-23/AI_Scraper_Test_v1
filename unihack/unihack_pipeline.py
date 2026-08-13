@@ -4,19 +4,29 @@ Unihack product enrichment pipeline.
 Orchestrates: normalize -> classify -> enrich (web scrape) -> generate descriptions -> save CSV.
 
 Usage:
-    cd product-intel
-    python -m unihack.unihack_pipeline --eval-only         # just score the 2 GT items
-    python -m unihack.unihack_pipeline --limit 5 --no-enrich  # quick classify+describe, no web
-    python -m unihack.unihack_pipeline --limit 20 --category "drill"
-    python -m unihack.unihack_pipeline --limit 20 --category "impact"
-    python -m unihack.unihack_pipeline                     # full 1000 rows (ask first!)
+    # Fast baseline on the real 200-row eval set (no web enrichment):
+    python -m unihack.unihack_pipeline --eval-full --no-enrich
 
-Input files (place these before running):
+    # Full 200-row eval with web enrichment (slow, ~15-30 min):
+    python -m unihack.unihack_pipeline --eval-full
+
+    # Quick 2-row sanity check (legacy):
+    python -m unihack.unihack_pipeline --eval-mini
+    python -m unihack.unihack_pipeline --eval-only    # alias for --eval-mini
+
+    # Ad-hoc runs on the main 1000-row input:
+    python -m unihack.unihack_pipeline --limit 5 --no-enrich
+    python -m unihack.unihack_pipeline --limit 20 --category drill
+
+Input files:
     unihack/data/input/Sample_1000_Items.csv
-    unihack/data/ground_truth/expected_output_2rows.csv
+    unihack/data/ground_truth/input_200rows.csv           (--eval-full input)
+    unihack/data/ground_truth/expected_output_200rows.csv (--eval-full scoring target)
+    unihack/data/ground_truth/expected_output_2rows.csv   (--eval-mini scoring target)
 
 Output:
-    unihack/data/output/enriched_products.csv
+    unihack/data/output/enriched_products.csv    (ad-hoc / eval-mini runs)
+    unihack/data/output/enriched_200rows.csv     (--eval-full runs)
 """
 
 import os
@@ -33,6 +43,7 @@ sys.path.insert(0, str(_ROOT))
 from dotenv import load_dotenv
 load_dotenv(_ROOT / ".env")
 
+from unihack import llm_cache
 from unihack.normalization.manufacturer_lookup import normalize_manufacturer
 from unihack.normalization.uom_table import normalize_unit
 from unihack.classification.classifier import classify_product
@@ -48,8 +59,16 @@ INPUT_CSV      = _UNIHACK / "data" / "input"  / "Sample_1000_Items.csv"
 GT_CSV         = _UNIHACK / "data" / "ground_truth" / "expected_output_2rows.csv"
 OUTPUT_CSV     = _UNIHACK / "data" / "output" / "enriched_products.csv"
 
-# Ground-truth MPNs — always processed first so the eval runs even with --limit
+# 200-row real eval set (separate input+output pair)
+INPUT_200_CSV  = _UNIHACK / "data" / "ground_truth" / "input_200rows.csv"
+GT_200_CSV     = _UNIHACK / "data" / "ground_truth" / "expected_output_200rows.csv"
+OUTPUT_200_CSV = _UNIHACK / "data" / "output" / "enriched_200rows.csv"
+
+# 2-row mini eval MPNs — always processed first in normal runs
 _GT_MPNS = {"PDSH4816AF", "WDTS7024RZ"}
+
+# Verbose enrichment debug for these MPNs (display-only floor models)
+_VERBOSE_MPNS = {"PDSH4816AF", "WDTS7024RZ"}
 
 # Placeholder values in brand columns that mean "no brand"
 _BRAND_PLACEHOLDERS = {
@@ -118,9 +137,11 @@ def process_row(row: dict, enrich: bool = True) -> dict:
     }
     if enrich and mfr["manufacturer_name"]:
         try:
+            _verbose_enrich = mpn in _VERBOSE_MPNS
             enrichment = enrich_from_manufacturer(
                 mpn, mfr["manufacturer_name"], brand_name,
-                clf.get("product_type", "")
+                clf.get("product_type", ""),
+                verbose=_verbose_enrich,
             )
         except Exception as exc:
             enrichment["error"] = str(exc)
@@ -169,6 +190,7 @@ def process_row(row: dict, enrich: bool = True) -> dict:
         "_brand_resolution_method": mfr.get("_brand_resolution_method", "unknown"),
         "_enriched": str(enrichment.get("enriched", False)),
         "_enrichment_source": enrichment.get("source_url") or "",
+        "_enrichment_error": enrichment.get("error") or "",
         "_invoice_desc_ok": str(descs.invoice_ok),
         "_mobile_desc_ok": str(descs.mobile_ok),
     }
@@ -182,20 +204,201 @@ def process_row(row: dict, enrich: bool = True) -> dict:
     return out
 
 
-# ── Pipeline runner ───────────────────────────────────────────────────────────
+# ── Shared helpers ────────────────────────────────────────────────────────────
+
+def _print_row_summary(out: dict) -> None:
+    print(f"  Mfr:     {out['MANUFACTURER_NAME'] or '(none)'}  [{out['_brand_resolution_method']}]")
+    print(f"  Brand:   {out['BRAND_NAME'] or '(none)'}")
+    print(f"  Class:   {out['Classpath']}  [{out['_classification_method']}]")
+    if out["_enriched"] == "True":
+        n_attrs = sum(1 for k in out if k.startswith("ATTRIBUTE_LABEL_") and out[k])
+        print(f"  Enriched: YES — {n_attrs} attrs from {out['_enrichment_source'][:60]}")
+    else:
+        err = out.get("_enrichment_error") or ""
+        print(f"  Enriched: NO" + (f"  [{err[:80]}]" if err else ""))
+    print(f"  INVOICE: {out['INVOICE_DESC']}  [ok={out['_invoice_desc_ok']}]")
+    print(f"  MOBILE:  {out['MOBILE_DESC']}  [ok={out['_mobile_desc_ok']}]")
+
+
+def _print_run_stats(results: list[dict], label: str = "") -> None:
+    n = len(results)
+    if not n:
+        return
+    misc_path = "Hardware>General Hardware>Miscellaneous"
+    classified   = sum(1 for r in results if r.get("Classpath", "") != misc_path)
+    brand_ok     = sum(1 for r in results if r.get("BRAND_NAME", ""))
+    enriched     = sum(1 for r in results if r.get("_enriched") == "True")
+    invoice_pass = sum(1 for r in results if r.get("_invoice_desc_ok") == "True")
+    mobile_pass  = sum(1 for r in results if r.get("_mobile_desc_ok") == "True")
+
+    hdr = f"── This-run summary ({n} rows{', ' + label if label else ''}) "
+    print(f"\n{hdr}{'─' * max(0, 56 - len(hdr))}")
+    print(f"  Classified (non-misc):  {classified}/{n}  ({classified/n*100:.0f}%)")
+    print(f"  Brand resolved:         {brand_ok}/{n}  ({brand_ok/n*100:.0f}%)")
+    print(f"  Web-enriched:           {enriched}/{n}  ({enriched/n*100:.0f}%)")
+    print(f"  INVOICE_DESC pass:      {invoice_pass}/{n}  ({invoice_pass/n*100:.0f}%)")
+    print(f"  MOBILE_DESC pass:       {mobile_pass}/{n}  ({mobile_pass/n*100:.0f}%)")
+    print("─" * 56)
+
+
+def _write_output(results: list[dict], path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=OUTPUT_COLS, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(results)
+    print(f"\nOutput saved: {path}  ({len(results)} rows)")
+
+
+def _process_rows(
+    rows: list[dict],
+    enrich: bool,
+    label: str = "",
+) -> list[dict]:
+    """Process a list of input rows through the full pipeline. Returns output dicts."""
+    results: list[dict] = []
+    n = len(rows)
+
+    for i, row in enumerate(rows):
+        mpn = (row.get("Mfg_Part_Num") or "?").strip()
+        desc_preview = (row.get("Part_Desc") or "")[:55]
+        print(f"\n[{i+1}/{n}] {mpn}  |  {desc_preview}")
+
+        try:
+            out = process_row(row, enrich=enrich)
+            results.append(out)
+            _print_row_summary(out)
+        except Exception as exc:
+            print(f"  ERROR: {exc}")
+
+        delay = 1.0 if enrich else 0.1
+        if i < n - 1:
+            time.sleep(delay)
+
+    return results
+
+
+# ── Pipeline runners ──────────────────────────────────────────────────────────
+
+def run_eval_full(enrich: bool = True, limit: int | None = None) -> list[dict]:
+    """
+    Process all 200 rows from input_200rows.csv and score against
+    expected_output_200rows.csv.  Output goes to enriched_200rows.csv.
+    """
+    if not INPUT_200_CSV.exists():
+        print(f"\nERROR: 200-row input not found at:\n  {INPUT_200_CSV}")
+        return []
+
+    with open(INPUT_200_CSV, encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    if limit is not None:
+        rows = rows[:limit]
+        print(f"Loaded {limit} rows (of 200) from {INPUT_200_CSV.name}  [--limit {limit}]")
+    else:
+        print(f"Loaded {len(rows)} rows from {INPUT_200_CSV.name}")
+    enrich_flag = "no web enrichment" if not enrich else "with web enrichment"
+    print(f"Mode: --eval-full  [{enrich_flag}]")
+
+    llm_cache.reset_stats()
+    results = _process_rows(rows, enrich=enrich, label="eval-full")
+    if results:
+        _write_output(results, OUTPUT_200_CSV)
+        _print_run_stats(results, label="eval-full")
+
+    # Score against 200-row ground truth
+    if GT_200_CSV.exists():
+        gt = load_ground_truth(str(GT_200_CSV))
+        scored = [
+            score_product(r["Mfg_Part_Num"], gt.get(r["Mfg_Part_Num"], {}), r)
+            for r in results
+            if r.get("Mfg_Part_Num") in gt
+        ]
+        if scored:
+            print_report(scored)
+        else:
+            print("\n(No results matched GT MPNs — check Mfg_Part_Num column in input file)")
+    else:
+        print(f"\n(Skipping eval — GT file not found at {GT_200_CSV})")
+
+    stats = llm_cache.get_stats()
+    n_rows = len(results)
+    print(f"\n── Groq usage this run ──────────────────────────────────────────")
+    print(f"  Rows processed : {n_rows}")
+    print(f"  LLM calls      : {stats['calls']}")
+    print(f"  Tokens used    : {stats['tokens']:,}")
+    if n_rows and stats['calls']:
+        print(f"  Tokens/row     : {stats['tokens'] / n_rows:.0f}  |  tokens/call: {stats['tokens'] / stats['calls']:.0f}")
+    if n_rows and limit is None:
+        pass  # full run, no extrapolation needed
+    elif n_rows and limit is not None:
+        est_total = int(stats['tokens'] / n_rows * 200)
+        print(f"  Extrapolated 200-row total : ~{est_total:,} tokens")
+    print(f"────────────────────────────────────────────────────────────────")
+
+    return results
+
+
+def run_eval_mini(enrich: bool = True) -> list[dict]:
+    """
+    Process the 2 legacy ground-truth rows from Sample_1000_Items.csv.
+    Scores against expected_output_2rows.csv.  Output appended to enriched_products.csv.
+    """
+    if not INPUT_CSV.exists():
+        print(f"\nERROR: Input CSV not found at:\n  {INPUT_CSV}")
+        return []
+
+    with open(INPUT_CSV, encoding="utf-8") as f:
+        all_rows = list(csv.DictReader(f))
+
+    gt_rows = [r for r in all_rows if (r.get("Mfg_Part_Num") or "").strip() in _GT_MPNS]
+    if not gt_rows:
+        print(f"\nERROR: GT MPNs {_GT_MPNS} not found in {INPUT_CSV.name}")
+        return []
+
+    print(f"Loaded {len(gt_rows)} GT rows from {INPUT_CSV.name}  [--eval-mini]")
+    results = _process_rows(gt_rows, enrich=enrich, label="eval-mini")
+
+    if results:
+        _write_output(results, OUTPUT_CSV)
+        _print_run_stats(results, label="eval-mini")
+
+    if GT_CSV.exists():
+        gt = load_ground_truth(str(GT_CSV))
+        scored = [
+            score_product(r["Mfg_Part_Num"], gt.get(r["Mfg_Part_Num"], {}), r)
+            for r in results
+            if r.get("Mfg_Part_Num") in gt
+        ]
+        if scored:
+            print_report(scored)
+    else:
+        print(f"\n(Skipping eval — GT CSV not found at {GT_CSV})")
+
+    return results
+
 
 def run_pipeline(
     limit: int | None = None,
     category_filter: str | None = None,
     enrich: bool = True,
-    eval_only: bool = False,
+    eval_only: bool = False,   # legacy alias → eval_mini
+    eval_mini: bool = False,
+    eval_full: bool = False,
 ) -> list[dict]:
+    """
+    Main entry point.  Routes to the right sub-runner based on flags.
+    """
+    # ── Eval routing ──────────────────────────────────────────────────────────
+    if eval_full:
+        return run_eval_full(enrich=enrich, limit=limit)
 
+    if eval_mini or eval_only:
+        return run_eval_mini(enrich=enrich)
+
+    # ── Normal ad-hoc run on Sample_1000_Items.csv ───────────────────────────
     if not INPUT_CSV.exists():
         print(f"\nERROR: Input CSV not found at:\n  {INPUT_CSV}")
-        print("\nPlease copy your files:")
-        print(f"  Sample_1000_Items.csv       -> {INPUT_CSV}")
-        print(f"  expected_output_2rows.csv   -> {GT_CSV}")
         return []
 
     with open(INPUT_CSV, encoding="utf-8") as f:
@@ -203,11 +406,10 @@ def run_pipeline(
 
     print(f"Loaded {len(all_rows)} rows from {INPUT_CSV.name}")
 
-    # Always process ground-truth rows first (needed for eval)
+    # Always process GT rows first so mini-eval is embedded in every run
     gt_rows    = [r for r in all_rows if (r.get("Mfg_Part_Num") or "").strip() in _GT_MPNS]
     other_rows = [r for r in all_rows if (r.get("Mfg_Part_Num") or "").strip() not in _GT_MPNS]
 
-    # Optional category keyword filter on the non-GT rows
     if category_filter:
         kw = category_filter.lower()
         other_rows = [
@@ -220,88 +422,27 @@ def run_pipeline(
     if limit is not None:
         other_rows = other_rows[:limit]
 
-    to_process = gt_rows + ([] if eval_only else other_rows)
+    to_process = gt_rows + other_rows
+    enrich_flag = "[no web enrichment]" if not enrich else ""
     print(f"Processing {len(to_process)} rows "
-          f"({len(gt_rows)} GT + {len(to_process) - len(gt_rows)} other)"
-          + ("  [eval-only]" if eval_only else "")
-          + ("  [no web enrichment]" if not enrich else ""))
+          f"({len(gt_rows)} GT + {len(other_rows)} other)  {enrich_flag}")
 
-    OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
-    results: list[dict] = []
-
-    for i, row in enumerate(to_process):
-        mpn = (row.get("Mfg_Part_Num") or "?").strip()
-        desc_preview = (row.get("Part_Desc") or "")[:55]
-        print(f"\n[{i+1}/{len(to_process)}] {mpn}  |  {desc_preview}")
-
-        try:
-            out = process_row(row, enrich=enrich)
-            results.append(out)
-
-            print(f"  Mfr:     {out['MANUFACTURER_NAME'] or '(none)'}  [{out['_brand_resolution_method']}]")
-            print(f"  Brand:   {out['BRAND_NAME'] or '(none)'}")
-            print(f"  Class:   {out['Classpath']}  [{out['_classification_method']}]")
-            if out["_enriched"] == "True":
-                n_attrs = sum(1 for k in out if k.startswith("ATTRIBUTE_LABEL_") and out[k])
-                print(f"  Enriched: YES — {n_attrs} attributes from {out['_enrichment_source'][:60]}")
-            else:
-                print(f"  Enriched: NO")
-            print(f"  INVOICE: {out['INVOICE_DESC']}  [ok={out['_invoice_desc_ok']}]")
-            print(f"  MOBILE:  {out['MOBILE_DESC']}  [ok={out['_mobile_desc_ok']}]")
-
-        except Exception as exc:
-            print(f"  ERROR: {exc}")
-
-        # Polite delay to avoid hitting Groq rate limits
-        if enrich and i < len(to_process) - 1:
-            time.sleep(1.0)
-        elif i < len(to_process) - 1:
-            time.sleep(0.2)
-
-    # Write output CSV
+    results = _process_rows(to_process, enrich=enrich)
     if results:
-        with open(OUTPUT_CSV, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=OUTPUT_COLS, extrasaction="ignore")
-            writer.writeheader()
-            writer.writerows(results)
-        print(f"\nOutput saved: {OUTPUT_CSV}  ({len(results)} rows)")
+        _write_output(results, OUTPUT_CSV)
+        _print_run_stats(results)
 
-    # ── Evaluation against ground truth ───────────────────────────────────────
+    # Mini-eval against 2-row GT
     if GT_CSV.exists():
         gt = load_ground_truth(str(GT_CSV))
         gt_results = [r for r in results if r.get("Mfg_Part_Num", "") in _GT_MPNS]
-        scores = [
+        scored = [
             score_product(r["Mfg_Part_Num"], gt.get(r["Mfg_Part_Num"], {}), r)
             for r in gt_results
             if r.get("Mfg_Part_Num") in gt
         ]
-        if scores:
-            print_report(scores)
-        elif gt_results:
-            print("\n(Ground-truth MPNs processed but not found in GT CSV — check column names)")
-        else:
-            print("\n(No GT rows in this run — run without --category or add GT MPNs to filter)")
-    else:
-        print(f"\n(Skipping eval — GT CSV not found at {GT_CSV})")
-
-    # ── Catalog-wide stats ────────────────────────────────────────────────────
-    if results:
-        n = len(results)
-        misc_path = "Hardware>General Hardware>Miscellaneous"
-        classified   = sum(1 for r in results if r.get("Classpath", "") != misc_path)
-        brand_ok     = sum(1 for r in results if r.get("BRAND_NAME", ""))
-        enriched     = sum(1 for r in results if r.get("_enriched") == "True")
-        invoice_pass = sum(1 for r in results if r.get("_invoice_desc_ok") == "True")
-        mobile_pass  = sum(1 for r in results if r.get("_mobile_desc_ok") == "True")
-
-        print("\n── Catalog-wide stats ──────────────────────────────────")
-        print(f"  Rows processed:         {n}")
-        print(f"  Classified (non-misc):  {classified}/{n}  ({classified/n*100:.0f}%)")
-        print(f"  Brand resolved:         {brand_ok}/{n}  ({brand_ok/n*100:.0f}%)")
-        print(f"  Web-enriched:           {enriched}/{n}  ({enriched/n*100:.0f}%)")
-        print(f"  INVOICE_DESC pass:      {invoice_pass}/{n}  ({invoice_pass/n*100:.0f}%)")
-        print(f"  MOBILE_DESC pass:       {mobile_pass}/{n}  ({mobile_pass/n*100:.0f}%)")
-        print("────────────────────────────────────────────────────────")
+        if scored:
+            print_report(scored)
 
     return results
 
@@ -314,16 +455,26 @@ if __name__ == "__main__":
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python -m unihack.unihack_pipeline --eval-only
+  python -m unihack.unihack_pipeline --eval-full --no-enrich   # fast 200-row baseline
+  python -m unihack.unihack_pipeline --eval-full               # full 200-row eval (slow)
+  python -m unihack.unihack_pipeline --eval-mini               # 2-row sanity check
+  python -m unihack.unihack_pipeline --eval-only               # alias for --eval-mini
   python -m unihack.unihack_pipeline --limit 5 --no-enrich
   python -m unihack.unihack_pipeline --limit 20 --category impact
-  python -m unihack.unihack_pipeline --limit 20 --category drill --no-enrich
         """,
     )
-    parser.add_argument("--limit",      type=int,  default=None, help="Max non-GT rows to process")
+    parser.add_argument("--limit",      type=int,  default=None, help="Max non-GT rows (ad-hoc runs)")
     parser.add_argument("--category",   type=str,  default=None, help="Keyword filter on Part_Desc / Part_Manuf")
-    parser.add_argument("--no-enrich",  action="store_true",     help="Skip web enrichment (faster)")
-    parser.add_argument("--eval-only",  action="store_true",     help="Only run the 2 ground-truth rows")
+    parser.add_argument("--no-enrich",  action="store_true",     help="Skip web enrichment (fast mode)")
+
+    eval_group = parser.add_mutually_exclusive_group()
+    eval_group.add_argument("--eval-full", action="store_true",
+                            help="Run all 200 rows from input_200rows.csv and score against GT")
+    eval_group.add_argument("--eval-mini", action="store_true",
+                            help="Run the 2 legacy GT rows only (quick sanity check)")
+    eval_group.add_argument("--eval-only", action="store_true",
+                            help="Alias for --eval-mini (legacy)")
+
     args = parser.parse_args()
 
     run_pipeline(
@@ -331,4 +482,6 @@ Examples:
         category_filter=args.category,
         enrich=not args.no_enrich,
         eval_only=args.eval_only,
+        eval_mini=args.eval_mini,
+        eval_full=args.eval_full,
     )

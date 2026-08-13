@@ -162,45 +162,72 @@ def load_ground_truth(path: str) -> dict[str, dict]:
 _TIER_ICON = {"EXACT": "✓", "CLOSE": "~", "PARTIAL": "≈", "MISS": "✗"}
 
 
-def print_report(scores: list[ProductScore]) -> None:
+def print_report(scores: list[ProductScore], verbose_per_row: bool = True) -> None:
+    n_rows = len(scores)
+    label = f"N={n_rows}"
     print("\n" + "=" * 65)
-    print("EVALUATION REPORT  (N=2 sanity check, not an accuracy benchmark)")
+    print(f"EVALUATION REPORT  ({label})")
     print("=" * 65)
 
     for ps in scores:
         exact_pct = ps.exact_count / ps.total * 100 if ps.total else 0
         close_pct = ps.close_count / ps.total * 100 if ps.total else 0
-        print(f"\n── {ps.mpn}  |  exact={exact_pct:.0f}%  close={close_pct:.0f}%")
 
-        for fr in ps.field_results:
-            icon = _TIER_ICON[fr.tier]
-            print(f"   [{icon}] {fr.field:<30}  sim={fr.similarity:.0%}  {fr.format_note}")
-            if fr.tier not in ("EXACT",):
-                # Show first 90 chars of expected vs got for context
-                print(f"         EXP: {fr.expected[:90]}")
-                print(f"         GOT: {fr.got[:90]}")
+        if verbose_per_row or n_rows <= 10:
+            print(f"\n── {ps.mpn}  |  exact={exact_pct:.0f}%  close={close_pct:.0f}%")
+            for fr in ps.field_results:
+                icon = _TIER_ICON[fr.tier]
+                print(f"   [{icon}] {fr.field:<30}  sim={fr.similarity:.0%}  {fr.format_note}")
+                if fr.tier != "EXACT":
+                    print(f"         EXP: {fr.expected[:90]}")
+                    print(f"         GOT: {fr.got[:90]}")
 
-        print("\n   Char-limit checks:")
-        for fname, chk in ps.char_limit_checks.items():
-            icon = "✓" if chk["pass"] else "✗"
-            print(f"   [{icon}] {fname}: len={chk['length']}  "
-                  f"length_ok={chk['length_ok']}  case_ok={chk['case_ok']}")
-            print(f"         Value: {chk['value'][:80]}")
+            print("\n   Char-limit checks:")
+            for fname, chk in ps.char_limit_checks.items():
+                icon = "✓" if chk["pass"] else "✗"
+                print(f"   [{icon}] {fname}: len={chk['length']}  "
+                      f"length_ok={chk['length_ok']}  case_ok={chk['case_ok']}")
+                print(f"         Value: {chk['value'][:80]}")
 
-    # Aggregate summary
+    # ── Aggregate summary (always shown) ─────────────────────────────────────
     all_fields = [fr for ps in scores for fr in ps.field_results]
     total = len(all_fields)
     exact = sum(1 for f in all_fields if f.tier == "EXACT")
     close = sum(1 for f in all_fields if f.tier in ("EXACT", "CLOSE"))
+    partial = sum(1 for f in all_fields if f.tier in ("EXACT", "CLOSE", "PARTIAL"))
     char_checks = [chk for ps in scores for chk in ps.char_limit_checks.values()]
     char_pass = sum(1 for c in char_checks if c["pass"])
 
+    # Per-field breakdown
+    field_stats: dict[str, dict] = {}
+    for fr in all_fields:
+        s = field_stats.setdefault(fr.field, {"exact": 0, "close": 0, "partial": 0, "miss": 0, "n": 0})
+        s["n"] += 1
+        if fr.tier == "EXACT":    s["exact"] += 1
+        elif fr.tier == "CLOSE":  s["close"] += 1
+        elif fr.tier == "PARTIAL": s["partial"] += 1
+        else:                     s["miss"] += 1
+
     print("\n" + "=" * 65)
-    print("AGGREGATE  (N=2 — diagnostic only)")
-    print(f"  Exact match:          {exact}/{total}  ({exact/total*100:.0f}%)")
-    print(f"  Close match (≥80%):   {close}/{total}  ({close/total*100:.0f}%)")
-    print(f"  Char-limit pass:      {char_pass}/{len(char_checks)}")
+    print(f"AGGREGATE RESULTS  ({label}, {n_rows} products × {len(SCORED_FIELDS)} scored fields)")
+    print("-" * 65)
+    print(f"  {'Field':<30}  {'Exact':>6}  {'Close':>6}  {'≥50%':>6}  {'Miss':>6}")
+    print(f"  {'-'*30}  {'-'*6}  {'-'*6}  {'-'*6}  {'-'*6}")
+    for fname in SCORED_FIELDS:
+        s = field_stats.get(fname)
+        if not s:
+            continue
+        n = s["n"]
+        ex_pct = s["exact"] / n * 100
+        cl_pct = (s["exact"] + s["close"]) / n * 100
+        pa_pct = (s["exact"] + s["close"] + s["partial"]) / n * 100
+        mi_pct = s["miss"] / n * 100
+        print(f"  {fname:<30}  {ex_pct:>5.0f}%  {cl_pct:>5.0f}%  {pa_pct:>5.0f}%  {mi_pct:>5.0f}%")
+    print("-" * 65)
+    if total:
+        print(f"  {'OVERALL':<30}  {exact/total*100:>5.0f}%  {close/total*100:>5.0f}%  "
+              f"{partial/total*100:>5.0f}%  {(total-close)/total*100:>5.0f}%")
     print()
-    print("  NOTE: With N=2 any % figure has ±50 pp confidence interval.")
-    print("  Run on the full 1000-row dataset for meaningful accuracy numbers.")
+    print(f"  Char-limit pass (INVOICE + MOBILE):  {char_pass}/{len(char_checks)}"
+          + (f"  ({char_pass/len(char_checks)*100:.0f}%)" if char_checks else ""))
     print("=" * 65 + "\n")

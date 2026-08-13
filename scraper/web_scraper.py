@@ -38,7 +38,11 @@ DEFAULT_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-    )
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate",
+    "Referer": "https://www.google.com/",
 }
 
 
@@ -52,8 +56,10 @@ class ScrapedPage:
     error: Optional[str] = None
 
 
-def fetch_raw_html(url: str, timeout: int = 15) -> str:
-    """Plain HTTP fetch. Works for most static/server-rendered product pages."""
+def fetch_raw_html(url: str, timeout: tuple = (5, 15)) -> str:
+    """Plain HTTP fetch. Works for most static/server-rendered product pages.
+    timeout is a (connect_timeout, read_timeout) tuple: 5s connect fails fast on
+    Cloudflare-blocked sites; 15s read allows slow-but-live servers."""
     resp = requests.get(url, headers=DEFAULT_HEADERS, timeout=timeout, verify=False)
     resp.raise_for_status()
     # Force UTF-8: requests often guesses Latin-1 for sites that don't declare charset,

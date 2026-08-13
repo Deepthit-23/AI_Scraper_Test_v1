@@ -91,12 +91,48 @@ def get_client() -> Groq:
     return Groq(api_key=api_key)
 
 
+def _build_record(data: dict, source_id: str) -> ProductRecord:
+    """Build a ProductRecord from the raw LLM tool-call dict (cached or live)."""
+    attributes = [
+        Attribute(
+            name=a["name"],
+            value=a["value"],
+            unit=a.get("unit"),
+            confidence=a["confidence"],
+            source_snippet=a["source_snippet"],
+            source_id=source_id,
+            needs_review=(a["confidence"] == "low"),
+        )
+        for a in data.get("attributes", [])
+    ]
+    return ProductRecord(
+        product_name=data.get("product_name", "Unknown"),
+        category=data.get("category"),
+        manufacturer=data.get("manufacturer"),
+        model_numbers=data.get("model_numbers", []),
+        short_description=data.get("short_description"),
+        attributes=attributes,
+        sources=[source_id],
+    )
+
+
 def extract_product(source_text: str, source_id: str) -> ProductRecord:
     """
     source_text: cleaned text from a webpage, PDF, or OCR'd image
     source_id: an identifier for where this came from, e.g. "omega.com/pptst/SA1.html"
                 or "datasheet_page3.pdf" -- used for traceability
+
+    Results are cached in llm_cache keyed on source_id (URL) so re-running the
+    pipeline on already-extracted pages never re-spends Groq quota.
     """
+    try:
+        from unihack import llm_cache as _cache
+        cached = _cache.get("extract", source_id)
+        if cached is not None:
+            return _build_record(cached, source_id)
+    except Exception:
+        pass
+
     client = get_client()
 
     response = client.chat.completions.create(
@@ -110,35 +146,26 @@ def extract_product(source_text: str, source_id: str) -> ProductRecord:
             },
         ],
         tools=[EXTRACTION_TOOL],
-        tool_choice={"type": "function", "function": {"name": "record_product_data"}},  # force structured output
+        tool_choice={"type": "function", "function": {"name": "record_product_data"}},
     )
+
+    if hasattr(response, "usage") and response.usage:
+        try:
+            from unihack import llm_cache as _cache
+            _cache.record_usage(response.usage.total_tokens)
+        except Exception:
+            pass
 
     tool_call = response.choices[0].message.tool_calls[0]
     data = json.loads(tool_call.function.arguments)
 
-    # Attach source_id to every attribute (traceability) and build the validated record
-    attributes = [
-        Attribute(
-            name=a["name"],
-            value=a["value"],
-            unit=a.get("unit"),
-            confidence=a["confidence"],
-            source_snippet=a["source_snippet"],
-            source_id=source_id,
-            needs_review=(a["confidence"] == "low"),
-        )
-        for a in data.get("attributes", [])
-    ]
+    try:
+        from unihack import llm_cache as _cache
+        _cache.set("extract", source_id, data)
+    except Exception:
+        pass
 
-    return ProductRecord(
-        product_name=data.get("product_name", "Unknown"),
-        category=data.get("category"),
-        manufacturer=data.get("manufacturer"),
-        model_numbers=data.get("model_numbers", []),
-        short_description=data.get("short_description"),
-        attributes=attributes,
-        sources=[source_id],
-    )
+    return _build_record(data, source_id)
 
 
 if __name__ == "__main__":

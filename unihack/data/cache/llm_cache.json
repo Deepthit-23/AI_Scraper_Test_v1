@@ -1,0 +1,52 @@
+{
+  "mfr_infer": {
+    "MVWP586GW Washer Wh - Display::MVWP586GW::": {
+      "manufacturer_name": "Maytag",
+      "brand_name": "Maytag",
+      "_brand_resolution_method": "llm_inferred"
+    },
+    "XOU2470BCGS Tall Beverage Center SS::XOU2470BCGS::": {
+      "manufacturer_name": "U-Line",
+      "brand_name": "U-Line",
+      "_brand_resolution_method": "llm_inferred"
+    },
+    "HLBSL609FS5 6\" Down Light::HLBSL609FS5::": {
+      "manufacturer_name": "Halco",
+      "brand_name": "Halco",
+      "_brand_resolution_method": "llm_inferred"
+    },
+    "XOU24WDZGBR Beverage Center Bk::XOU24WDZGBR::": {
+      "manufacturer_name": "Whirlpool Corporation",
+      "brand_name": "Whirlpool\u00ae",
+      "_brand_resolution_method": "llm_inferred"
+    },
+    "WOSP30100SS Beko Wall Oven SS::WOSP30100SS::": {
+      "manufacturer_name": "Arcelik",
+      "brand_name": "Beko",
+      "_brand_resolution_method": "llm_inferred"
+    }
+  },
+  "classify": {
+    "MVWP586GW Washer Wh - Display::MVWP586GW": {
+      "category_key": "Top Load Washers",
+      "product_type": "Top Load Washer",
+      "Dept": "Appliances & Consumer Electronics",
+      "Class": "Laundry Appliances",
+      "Fine": "Top Loading Washers",
+      "Classpath": "Appliances & Consumer Electronics>Laundry Appliances>Top Loading Washers",
+      "confidence": "high",
+      "method": "llm"
+    },
+    "65-1222 1' Led Lt Multi CCT::65-1222": {
+      "category_key": "LED Light Bulbs",
+      "product_type": "Led Light",
+      "Dept": "Electrical",
+      "Class": "Lamps & Lightings",
+      "Fine": "Light Bulbs",
+      "Classpath": "Electrical>Lamps & Lightings>Light Bulbs>LED Light Bulbs",
+      "confidence": "high",
+      "method": "llm"
+    }
+  },
+  "extract": {}
+}

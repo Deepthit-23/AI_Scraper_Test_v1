@@ -193,6 +193,9 @@ def _llm_pick_top_attrs(attributes: list[dict], product_type: str, n: int = 5) -
                 {"role": "user", "content": attr_text},
             ],
         )
+        if hasattr(response, "usage") and response.usage:
+            from unihack import llm_cache
+            llm_cache.record_usage(response.usage.total_tokens)
         raw = response.choices[0].message.content.strip()
         indices = json.loads(re.search(r"\[.*\]", raw).group())
         picked = [attributes[i - 1] for i in indices if 1 <= i <= len(attributes)]
@@ -267,6 +270,38 @@ def build_mobile_desc(inp: DescriptionInput) -> str:
             val_str = _format_attr_value(attr)
             if val_str:
                 result += f", {val_str}"
+
+    # Final tier: if still short and we have a mounting type not already appended,
+    # try restatement as "<MountingType> Mounting" for clarity.
+    # This covers the common "no enrichment data at all" case.
+    if len(result) < 60 and inp.mounting_type:
+        mounting_phrase = f"{inp.mounting_type} Mounting"
+        if mounting_phrase.lower() not in result.lower():
+            result += f", {mounting_phrase}"
+
+    # Last resort: append a category-context phrase so the string reads informatively
+    # even with no enrichment data. Keyed on common words in product_type.
+    if len(result) < 60 and inp.product_type:
+        _context_hints = {
+            "dishwasher":    "Kitchen Appliance",
+            "refrigerator":  "Kitchen Appliance",
+            "oven":          "Kitchen Appliance",
+            "washer":        "Home Appliance",
+            "dryer":         "Home Appliance",
+            "impact driver": "Cordless Power Tool",
+            "drill":         "Power Tool",
+            "saw":           "Power Tool",
+            "sander":        "Power Tool",
+            "grinder":       "Power Tool",
+            "belt":          "Abrasive Tool",
+            "bulb":          "LED Lighting",
+            "led":           "LED Lighting",
+        }
+        pt_lower = inp.product_type.lower()
+        for kw, hint in _context_hints.items():
+            if kw in pt_lower and hint.lower() not in result.lower():
+                result += f", {hint}"
+                break
 
     # Trim to 80 if over (word boundary)
     if len(result) > 80:
