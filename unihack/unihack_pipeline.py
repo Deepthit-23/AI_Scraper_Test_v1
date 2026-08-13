@@ -36,6 +36,10 @@ import time
 import argparse
 from pathlib import Path
 
+# Force UTF-8 on Windows (cp1252 default can't encode box-drawing chars)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 # ── Path setup (makes product-intel/ the Python root) ────────────────────────
 _ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_ROOT))
@@ -142,6 +146,7 @@ def process_row(row: dict, enrich: bool = True) -> dict:
                 mpn, mfr["manufacturer_name"], brand_name,
                 clf.get("product_type", ""),
                 verbose=_verbose_enrich,
+                use_ddg=False,
             )
         except Exception as exc:
             enrichment["error"] = str(exc)

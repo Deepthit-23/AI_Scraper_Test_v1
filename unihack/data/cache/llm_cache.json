@@ -48,5 +48,263 @@
       "method": "llm"
     }
   },
-  "extract": {}
+  "extract": {
+    "https://speedqueen.com/products/electric-dryers/dr7004be/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Heat Source",
+          "source_snippet": "Heat Source: Electric 5350 W",
+          "unit": "W",
+          "value": "Electric 5350 W"
+        },
+        {
+          "confidence": "high",
+          "name": "Dryer Cyclinder",
+          "source_snippet": "Dryer Cyclinder: Galvanized",
+          "unit": "",
+          "value": "Galvanized"
+        },
+        {
+          "confidence": "high",
+          "name": "Heavy-Duty Fan",
+          "source_snippet": "Heavy-Duty Fan: 220 CFM",
+          "unit": "CFM",
+          "value": "220 CFM"
+        },
+        {
+          "confidence": "high",
+          "name": "Exterior",
+          "source_snippet": "Exterior: Durable 3-coat Finish",
+          "unit": "",
+          "value": "Durable 3-coat Finish"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color: Matte Black",
+          "unit": "",
+          "value": "Matte Black"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor",
+          "source_snippet": "Motor: 1/3 HP",
+          "unit": "HP",
+          "value": "1/3 HP"
+        },
+        {
+          "confidence": "high",
+          "name": "Multiple Vent Options",
+          "source_snippet": "Multiple Vent Options: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Preset Cycles",
+          "source_snippet": "Preset Cycles: 10",
+          "unit": "",
+          "value": "10"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature Selections",
+          "source_snippet": "Temperature Selections: 4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize",
+          "source_snippet": "Sanitize: Steam Sanitize",
+          "unit": "",
+          "value": "Steam Sanitize"
+        },
+        {
+          "confidence": "high",
+          "name": "Time Remaining Display",
+          "source_snippet": "Time Remaining Display: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Favorite Cycles",
+          "source_snippet": "Favorite Cycles: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Speed Cycle",
+          "source_snippet": "Speed Cycle: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Delay Start",
+          "source_snippet": "Delay Start: No",
+          "unit": "",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Pet Plus Cycles",
+          "source_snippet": "Pet Plus Cycles: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Refresh",
+          "source_snippet": "Steam Refresh: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Boost",
+          "source_snippet": "Steam Boost: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Anti-Static",
+          "source_snippet": "Anti-Static: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Extended Tumble",
+          "source_snippet": "Extended Tumble: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Moisture Sensor",
+          "source_snippet": "Moisture Sensor: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Adaptive Cool-Down Technology",
+          "source_snippet": "Adaptive Cool-Down Technology: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR Certified",
+          "source_snippet": "ENERGY STAR Certified: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Eco Dry",
+          "source_snippet": "Eco Dry: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Cylinder Light",
+          "source_snippet": "Cylinder Light: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Reversible Door",
+          "source_snippet": "Reversible Door: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Up-Front Lint Filter",
+          "source_snippet": "Up-Front Lint Filter: Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity: 7.0",
+          "unit": "",
+          "value": "7.0"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width: 26-7/8",
+          "unit": "",
+          "value": "26-7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height: 42-3/4",
+          "unit": "",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth: 28",
+          "unit": "",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Work Surface Height",
+          "source_snippet": "Work Surface Height: 36",
+          "unit": "",
+          "value": "36"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth with Door Open",
+          "source_snippet": "Depth with Door Open: 51 1/2",
+          "unit": "",
+          "value": "51 1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Shipping Weight",
+          "source_snippet": "Shipping Weight: 136",
+          "unit": "",
+          "value": "136"
+        },
+        {
+          "confidence": "high",
+          "name": "Parts & Labor Warranty",
+          "source_snippet": "Parts & Labor Warranty: 7-Years",
+          "unit": "Years",
+          "value": "7-Years"
+        },
+        {
+          "confidence": "high",
+          "name": "Agency Approvals",
+          "source_snippet": "Agency Approvals: cULus",
+          "unit": "",
+          "value": "cULus"
+        }
+      ],
+      "category": "electric dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DR7004BE",
+        "ADEE9RYS178TB01"
+      ],
+      "product_name": "DR7",
+      "short_description": "Electric dryer with various features like steam sanitize, anti-static, and over-dry protection technology"
+    }
+  }
 }

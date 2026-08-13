@@ -259,13 +259,15 @@ def find_manufacturer_page(
     manufacturer_name: str,
     brand_name: str,
     verbose: bool = False,
+    use_ddg: bool = True,
 ) -> str | None:
     """
     Find the manufacturer's OWN official product page for this MPN.
     Returns URL or None.
 
-    Pass verbose=True to print each step of the search chain (useful for debugging
-    why enrichment is failing for specific products).
+    use_ddg=False skips the DuckDuckGo fallback entirely; rows with no URL
+    template will return None immediately with a clean "no template" message.
+    Set False in production to avoid DDG rate-limiting and wasted latency.
     """
     brand_key = _BRAND_KEY_MAP.get(brand_name.lower().strip(), "")
 
@@ -295,7 +297,12 @@ def find_manufacturer_page(
             if verbose:
                 print(f"  [enrich] no direct URL template for brand_key='{brand_key}'")
 
-    # Stage 2: DuckDuckGo search
+    # Stage 2: DuckDuckGo search (skipped when use_ddg=False)
+    if not use_ddg:
+        if verbose:
+            print(f"  [enrich] no template for {mpn} — DDG disabled, no enrichment available")
+        return None
+
     domain = _BRAND_DOMAINS.get(brand_key, {}).get("domain", "")
     if domain:
         query = f"site:{domain} {mpn} specifications"
@@ -342,6 +349,7 @@ def enrich_from_manufacturer(
     brand_name: str,
     product_type: str = "",
     verbose: bool = False,
+    use_ddg: bool = True,
 ) -> dict:
     """
     Full enrichment for one product:
@@ -364,7 +372,7 @@ def enrich_from_manufacturer(
         "error": None,
     }
 
-    url = find_manufacturer_page(mpn, manufacturer_name, brand_name, verbose=verbose)
+    url = find_manufacturer_page(mpn, manufacturer_name, brand_name, verbose=verbose, use_ddg=use_ddg)
     if not url:
         result["error"] = f"No manufacturer page found for {mpn} ({brand_name})"
         return result
