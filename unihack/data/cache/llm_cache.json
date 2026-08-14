@@ -2883,6 +2883,59 @@
       ],
       "product_name": "Speed Queen Gas Dryer",
       "short_description": "Commercial-grade gas dryer with sanitize cycle and multiple features"
+    },
+    "https://www.frigidaire.com/en/p/kitchen/dishwashers/PDSH4816AF": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Sound Level",
+          "source_snippet": "Sound Level\n 47 dBA",
+          "unit": "dBA",
+          "value": "47 dBA"
+        },
+        {
+          "confidence": "high",
+          "name": "Annual Energy",
+          "source_snippet": "Annual Energy\n 240 kWh",
+          "unit": "kWh",
+          "value": "240"
+        },
+        {
+          "confidence": "high",
+          "name": "Product Weight",
+          "source_snippet": "Product Weight\n 86 lbs",
+          "unit": "lbs",
+          "value": "86"
+        },
+        {
+          "confidence": "high",
+          "name": "Prop 65 Label",
+          "source_snippet": "Prop 65 Label\n No",
+          "unit": "",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty - Labor",
+          "source_snippet": "Warranty - Labor\n 1 Year",
+          "unit": "years",
+          "value": "1 Year"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty - Parts",
+          "source_snippet": "Warranty - Parts\n 1 Year",
+          "unit": "years",
+          "value": "1 Year"
+        }
+      ],
+      "category": "dishwasher",
+      "manufacturer": "Frigidaire",
+      "model_numbers": [
+        "PDSH4816AF"
+      ],
+      "product_name": "Frigidaire Professional 24\" Stainless Steel Tub Built-In Dishwasher with CleanBoost\u2122",
+      "short_description": "A 24\" built-in dishwasher with stainless steel tub and CleanBoost\u2122 feature"
     }
   }
 }
