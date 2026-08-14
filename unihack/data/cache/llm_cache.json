@@ -53,258 +53,223 @@
       "attributes": [
         {
           "confidence": "high",
-          "name": "Heat Source",
-          "source_snippet": "Heat Source: Electric 5350 W",
-          "unit": "W",
-          "value": "Electric 5350 W"
-        },
-        {
-          "confidence": "high",
-          "name": "Dryer Cyclinder",
-          "source_snippet": "Dryer Cyclinder: Galvanized",
-          "unit": "",
-          "value": "Galvanized"
-        },
-        {
-          "confidence": "high",
-          "name": "Heavy-Duty Fan",
-          "source_snippet": "Heavy-Duty Fan: 220 CFM",
-          "unit": "CFM",
-          "value": "220 CFM"
-        },
-        {
-          "confidence": "high",
-          "name": "Exterior",
-          "source_snippet": "Exterior: Durable 3-coat Finish",
-          "unit": "",
-          "value": "Durable 3-coat Finish"
-        },
-        {
-          "confidence": "high",
           "name": "Color",
-          "source_snippet": "Color: Matte Black",
+          "source_snippet": "Color\nMatte Black",
           "unit": "",
           "value": "Matte Black"
         },
         {
           "confidence": "high",
-          "name": "Motor",
-          "source_snippet": "Motor: 1/3 HP",
-          "unit": "HP",
-          "value": "1/3 HP"
-        },
-        {
-          "confidence": "high",
-          "name": "Multiple Vent Options",
-          "source_snippet": "Multiple Vent Options: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Preset Cycles",
-          "source_snippet": "Preset Cycles: 10",
-          "unit": "",
-          "value": "10"
-        },
-        {
-          "confidence": "high",
-          "name": "Temperature Selections",
-          "source_snippet": "Temperature Selections: 4",
-          "unit": "",
-          "value": "4"
-        },
-        {
-          "confidence": "high",
-          "name": "Sanitize",
-          "source_snippet": "Sanitize: Steam Sanitize",
-          "unit": "",
-          "value": "Steam Sanitize"
-        },
-        {
-          "confidence": "high",
-          "name": "Time Remaining Display",
-          "source_snippet": "Time Remaining Display: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Favorite Cycles",
-          "source_snippet": "Favorite Cycles: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Speed Cycle",
-          "source_snippet": "Speed Cycle: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Delay Start",
-          "source_snippet": "Delay Start: No",
-          "unit": "",
-          "value": "No"
-        },
-        {
-          "confidence": "high",
-          "name": "Pet Plus Cycles",
-          "source_snippet": "Pet Plus Cycles: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Steam Refresh",
-          "source_snippet": "Steam Refresh: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Steam Boost",
-          "source_snippet": "Steam Boost: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Anti-Static",
-          "source_snippet": "Anti-Static: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Extended Tumble",
-          "source_snippet": "Extended Tumble: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Moisture Sensor",
-          "source_snippet": "Moisture Sensor: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Adaptive Cool-Down Technology",
-          "source_snippet": "Adaptive Cool-Down Technology: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "ENERGY STAR Certified",
-          "source_snippet": "ENERGY STAR Certified: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Eco Dry",
-          "source_snippet": "Eco Dry: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Cylinder Light",
-          "source_snippet": "Cylinder Light: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Reversible Door",
-          "source_snippet": "Reversible Door: Yes",
-          "unit": "",
-          "value": "Yes"
-        },
-        {
-          "confidence": "high",
-          "name": "Up-Front Lint Filter",
-          "source_snippet": "Up-Front Lint Filter: Yes",
-          "unit": "",
-          "value": "Yes"
+          "name": "Heat Source",
+          "source_snippet": "Heat Source\nElectric 5350 W",
+          "unit": "W",
+          "value": "Electric 5350 W"
         },
         {
           "confidence": "high",
           "name": "Capacity",
-          "source_snippet": "Capacity: 7.0",
+          "source_snippet": "Capacity\n7.0",
           "unit": "",
           "value": "7.0"
         },
         {
           "confidence": "high",
           "name": "Width",
-          "source_snippet": "Width: 26-7/8",
+          "source_snippet": "Width\n26-7/8",
           "unit": "",
           "value": "26-7/8"
         },
         {
           "confidence": "high",
           "name": "Height",
-          "source_snippet": "Height: 42-3/4",
+          "source_snippet": "Height\n42-3/4",
           "unit": "",
           "value": "42-3/4"
         },
         {
           "confidence": "high",
           "name": "Depth",
-          "source_snippet": "Depth: 28",
+          "source_snippet": "Depth\n28",
           "unit": "",
           "value": "28"
         },
         {
           "confidence": "high",
-          "name": "Work Surface Height",
-          "source_snippet": "Work Surface Height: 36",
-          "unit": "",
-          "value": "36"
-        },
-        {
-          "confidence": "high",
-          "name": "Depth with Door Open",
-          "source_snippet": "Depth with Door Open: 51 1/2",
-          "unit": "",
-          "value": "51 1/2"
-        },
-        {
-          "confidence": "high",
-          "name": "Shipping Weight",
-          "source_snippet": "Shipping Weight: 136",
+          "name": "Weight",
+          "source_snippet": "Shipping Weight\n136",
           "unit": "",
           "value": "136"
         },
         {
           "confidence": "high",
-          "name": "Parts & Labor Warranty",
-          "source_snippet": "Parts & Labor Warranty: 7-Years",
-          "unit": "Years",
-          "value": "7-Years"
+          "name": "Motor",
+          "source_snippet": "Motor\n1/3 HP",
+          "unit": "HP",
+          "value": "1/3 HP"
         },
         {
           "confidence": "high",
-          "name": "Agency Approvals",
-          "source_snippet": "Agency Approvals: cULus",
+          "name": "Fan",
+          "source_snippet": "Heavy-Duty Fan\n220 CFM",
+          "unit": "CFM",
+          "value": "220 CFM"
+        },
+        {
+          "confidence": "high",
+          "name": "Number of Preset Cycles",
+          "source_snippet": "Preset Cycles\n10",
           "unit": "",
-          "value": "cULus"
+          "value": "10"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature Selections",
+          "source_snippet": "Temperature Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize",
+          "source_snippet": "Sanitize\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Sanitize",
+          "source_snippet": "Steam Sanitize\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Time Remaining Display",
+          "source_snippet": "Time Remaining Display\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Favorite Cycles",
+          "source_snippet": "Favorite Cycles\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Speed Cycle",
+          "source_snippet": "Speed Cycle\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Delay Start",
+          "source_snippet": "Delay Start\nNo",
+          "unit": "",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Pet Plus Cycles",
+          "source_snippet": "Pet Plus\u2122 Cycles\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Refresh",
+          "source_snippet": "Steam Refresh\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Boost",
+          "source_snippet": "Steam Boost\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Anti-Static",
+          "source_snippet": "Anti-Static\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Extended Tumble",
+          "source_snippet": "Extended Tumble\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Moisture Sensor",
+          "source_snippet": "Moisture Sensor\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Adaptive Cool-Down Technology",
+          "source_snippet": "Adaptive Cool-Down Technology\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR Certified",
+          "source_snippet": "ENERGY STAR\u00ae Certified\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Eco Dry",
+          "source_snippet": "Eco Dry\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Cylinder Light",
+          "source_snippet": "Cylinder Light\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Reversible Door",
+          "source_snippet": "Reversible Door\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Up-Front Lint Filter",
+          "source_snippet": "Up-Front Lint Filter\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Parts & Labor Warranty\n7-Years",
+          "unit": "years",
+          "value": "7-Years"
         }
       ],
-      "category": "electric dryer",
+      "category": "dryer",
       "manufacturer": "Speed Queen",
       "model_numbers": [
         "DR7004BE",
         "ADEE9RYS178TB01"
       ],
-      "product_name": "DR7",
-      "short_description": "Electric dryer with various features like steam sanitize, anti-static, and over-dry protection technology"
+      "product_name": "DR7004BE Electric Dryer",
+      "short_description": "A commercial-quality electric dryer with multiple cycles and features."
     }
   }
 }

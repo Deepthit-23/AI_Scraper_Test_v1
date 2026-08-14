@@ -74,6 +74,8 @@ Rules:
 - If a value is ambiguous, incomplete, or you are inferring it indirectly, mark confidence as "low" or "medium" instead of "high".
 - Every attribute MUST include a source_snippet that is an exact verbatim quote from the source text.
 - Extract ALL measurable/specifiable facts including response time, ratings, dimensions, materials, certifications.
+- The source text is often a spec table rendered as flat lines: attribute name on one line, value on the next (e.g. "Color\\nMatte Black" or "Capacity\\n7.0"). Treat each such name/value pair as one attribute — do NOT skip Color, Finish, or material entries.
+- Always extract Color and Finish attributes when present — they are high-priority product identifiers.
 - Normalize units where obvious (e.g. keep both metric and imperial if the source gives both).
 - Do not extract marketing fluff ("easy to use", "best in class") — only concrete, measurable/specifiable facts.
 - If the source text is clearly NOT about a single specific product (e.g. it's a category listing page), still extract what you can but note it in short_description.

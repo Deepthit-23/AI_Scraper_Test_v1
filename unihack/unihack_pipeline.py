@@ -157,6 +157,18 @@ def process_row(row: dict, enrich: bool = True) -> dict:
         for a in enrichment.get("attributes", [])
     ]
 
+    # Infer capacity unit for appliances when source page omits it (e.g. Speed Queen
+    # pages show bare "7.0" with no "cu ft" label anywhere in the scraped text).
+    _pt_lower = clf.get("product_type", "").lower()
+    if any(k in _pt_lower for k in ("dryer", "washer", "refrigerator", "freezer")):
+        for _a in attrs_raw:
+            if "capacity" in _a["name"].lower() and not _a["unit"]:
+                try:
+                    _v = float(_a["value"].replace(",", "").strip())
+                    _a["unit"] = "cu ft" if _v <= 30 else "lb"
+                except (ValueError, TypeError):
+                    pass
+
     inp = DescriptionInput(
         brand_name=brand_name,
         manufacturer_name=mfr["manufacturer_name"],
