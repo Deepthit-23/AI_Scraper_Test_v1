@@ -51,6 +51,22 @@ def size() -> dict[str, int]:
     return {ns: len(entries) for ns, entries in cache.items()}
 
 
+def find_by_substring(namespace: str, substring: str) -> tuple[str, object] | None:
+    """
+    Return (key, value) for the first entry in `namespace` whose key contains
+    `substring` (case-insensitive), or None if no match.
+
+    Used to recover cached extractions when the original URL can no longer be
+    fetched (e.g. site is Cloudflare-blocked) but a prior successful extraction
+    was stored under that URL as the key.
+    """
+    sub_lower = substring.lower()
+    for key, val in _load().get(namespace, {}).items():
+        if sub_lower in key.lower():
+            return key, val
+    return None
+
+
 # ── Token / call tracking (in-process, reset each run) ────────────────────────
 
 _stats: dict[str, int] = {"calls": 0, "tokens": 0}

@@ -41,6 +41,16 @@
       "Classpath": "Electrical>Lamps & Lightings>Light Bulbs>LED Light Bulbs",
       "confidence": "high",
       "method": "llm"
+    },
+    "141465 15W Flor 18\" T12 27k::141465": {
+      "category_key": "Fluorescent Bulbs",
+      "product_type": "T12 Fluorescent Bulb",
+      "Dept": "Electrical",
+      "Class": "Lamps & Lightings",
+      "Fine": "Light Bulbs",
+      "Classpath": "Electrical>Lamps & Lightings>Light Bulbs>Fluorescent Light Bulbs",
+      "confidence": "high",
+      "method": "llm"
     }
   },
   "extract": {

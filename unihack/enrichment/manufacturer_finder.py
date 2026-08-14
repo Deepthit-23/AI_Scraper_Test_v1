@@ -532,6 +532,33 @@ def enrich_from_manufacturer(
                 print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars), running LLM extraction...")
             clean_text = page.clean_text
 
+    # ── Stage 2.5: MPN-based cache replay ────────────────────────────────────
+    # If stages 1+2 produced no URL (site blocked / no template), check whether
+    # a prior successful run already extracted this MPN and left a cached result.
+    # The extract cache is keyed by URL, so we scan for any key containing the
+    # MPN string. When extract_product() finds a cache hit it ignores source_text
+    # entirely, so passing "" is safe and costs zero tokens.
+    if url is None and clean_text is None:
+        try:
+            from unihack import llm_cache as _lc
+            match = _lc.find_by_substring("extract", mpn)
+            if match:
+                cached_url, _ = match
+                print(f"  [enrich] cache replay for {mpn} → {cached_url}")
+                record = extract_product("", source_id=cached_url)
+                result["enriched"] = True
+                result["source_url"] = cached_url
+                result["product_record"] = record
+                result["attributes"] = record.attributes
+                for attr in record.attributes:
+                    if "series" in attr.name.lower():
+                        result["series"] = attr.value
+                        break
+                return result
+        except Exception as _ce:
+            if verbose:
+                print(f"  [enrich] cache replay failed: {_ce}")
+
     # ── Stage 3: ScraperAPI fallback (last resort — costs credits) ──────────
     if clean_text is None:
         clean_text, s3_url = _scraperapi_stage3(
