@@ -168,6 +168,13 @@ def _throttle(url: str) -> None:
     _DOMAIN_LAST_HIT[domain] = time.monotonic()
 
 
+# Domains confirmed to block DDG (Cloudflare-protected; 0% success rate in audit).
+# These are ALWAYS skipped for DDG regardless of use_ddg flag.
+_DDG_BLOCKED_DOMAINS = {
+    "frigidaire.com",
+    "whirlpool.com",
+}
+
 _MARKETPLACE_DOMAINS = {
     "amazon", "ebay", "walmart", "homedepot", "lowes", "grainger",
     "mcmaster", "zoro", "wayfair", "target", "bestbuy", "costco",
@@ -297,13 +304,14 @@ def find_manufacturer_page(
             if verbose:
                 print(f"  [enrich] no direct URL template for brand_key='{brand_key}'")
 
-    # Stage 2: DuckDuckGo search (skipped when use_ddg=False)
-    if not use_ddg:
-        if verbose:
-            print(f"  [enrich] no template for {mpn} — DDG disabled, no enrichment available")
-        return None
-
+    # Stage 2: DuckDuckGo search
     domain = _BRAND_DOMAINS.get(brand_key, {}).get("domain", "")
+
+    if not use_ddg or domain in _DDG_BLOCKED_DOMAINS:
+        # Always print so callers can audit that DDG never fired — not just in verbose mode
+        reason = f"DDG blocked ({domain})" if domain in _DDG_BLOCKED_DOMAINS else "DDG disabled"
+        print(f"  [enrich] {reason} — skipping search for {mpn}")
+        return None
     if domain:
         query = f"site:{domain} {mpn} specifications"
     else:

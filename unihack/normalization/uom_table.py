@@ -60,10 +60,32 @@ UOM_TABLE: dict[str, str] = {
 
 # Ultra-short abbreviations used in INVOICE_DESC (ALL CAPS, ≤40 char budget)
 INVOICE_ABBREV: dict[str, str] = {
+    # Materials
     "stainless steel": "SST",
     "stainless": "SST",
+    "fingerprint resistant stainless steel": "FR SST",
+    "fingerprint resistant black stainless": "FR BLK",
+    # Colors — from GT: "MATTE BK", "WHT", "SST"
+    "matte black": "MATTE BK",
+    "matte black stainless": "MATTE BLK SST",
+    "black": "BLK",
+    "white": "WHT",
+    "slate": "SLT",
+    "gray": "GRY",
+    "grey": "GRY",
+    "bisque": "BSQ",
+    # Capacity units — allows "7.0 CU FT" → "7.0CU-FT" after space-stripping
+    "cu ft": "CU-FT",
+    "cu-ft": "CU-FT",
+    "cubic feet": "CU-FT",
+    "cubic foot": "CU-FT",
+    # Mounting
     "built-in": "BLTLN",
     "built in": "BLTLN",
+    "built-in mounting": "BLTLN",
+    "built in mounting": "BLTLN",
+    "leg mounting": "LEG",
+    # Power tools
     "cordless": "CDLS",
     "corded": "CORD",
     "battery": "BATT",

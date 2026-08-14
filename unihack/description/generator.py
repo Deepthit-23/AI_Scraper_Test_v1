@@ -119,20 +119,28 @@ def _title(s: str) -> str:
     return " ".join(_word(w) for w in s.split())
 
 
-# Priority order for attribute selection (lower index = higher priority)
+# Priority order for attribute selection (lower index = higher priority).
+# Derived from all 5 GT INVOICE/SHORT/RETAIL patterns:
+#   Dryers: capacity → color → voltage/amperage → material
+#   Dishwashers: mounting → cycle count → material → voltage → amperage → noise → dimension
 _ATTR_PRIORITY = [
-    "voltage", "volt",
-    "ampere-hour", "amp-hour", "ah",
-    "chuck", "drive size",
-    "no-load speed", "rpm",
-    "max torque", "torque",
-    "number of wash", "wash cycle",
-    "sound level", "dba",
-    "mounting",
-    "material",
-    "size", "dimension",
-    "capacity",
-    "wattage", "lumen",
+    "capacity",                          # 0  — 7CU-FT, 18LB  (strongest differentiator)
+    "color", "finish",                   # 1, 2 — Matte Black, White
+    "number of wash", "wash cycle",      # 3, 4 — dishwasher cycles
+    "dry cycle", "preset cycle",         # 5, 6 — dryer/washer cycles
+    "mounting",                          # 7  — Built-in, Leg
+    "material",                          # 8  — Stainless Steel, Galvanized
+    "sound level", "dba",                # 9, 10 — dishwasher noise
+    "voltage", "volt",                   # 11, 12 — electrical rating
+    "amperage", "current",               # 13, 14 — use specific names to avoid matching amp-hour
+    "size", "dimension",                 # 15, 16
+    "height", "width", "depth",          # 17, 18, 19 — dimensional specs
+    "chuck", "drive size",               # 20, 21 — tool-specific
+    "no-load speed", "rpm",              # 22, 23 — tool performance
+    "max torque", "torque",              # 24, 25 — tool torque
+    "ampere-hour", "amp-hour", "ah",     # 26, 27, 28 — battery capacity
+    "wattage", "watt",                   # 29, 30 — heat source/motor power (secondary)
+    "lumen",                             # 31 — lighting
 ]
 
 
@@ -222,8 +230,14 @@ def build_invoice_desc(inp: DescriptionInput) -> str:
         val = attr.get("value", "").strip()
         unit = normalize_unit(attr.get("unit", ""))
 
-        if any(k in name_l for k in ["wash cycle", "number of"]):
+        if any(k in name_l for k in ["wash cycle", "number of", "dry cycle", "preset cycle"]):
             tokens.append(val)
+        elif any(k in name_l for k in ["capacity"]):
+            # Compact "7.0CU-FT" or "18LB"; _apply_invoice_abbrev normalizes the unit suffix
+            fv = _format_attr_value(attr)      # "7.0", "7.0 cu-ft", "18 lb"
+            tokens.append(fv.replace(" ", "")) # remove spaces so "18 lb" → "18lb" → "18LB"
+        elif any(k in name_l for k in ["color", "finish"]):
+            tokens.append(val)                 # "Matte Black" → _apply_invoice_abbrev → "MATTE BK"
         elif "material" in name_l:
             tokens.append(INVOICE_ABBREV.get(val.lower(), val[:3].upper()))
         elif unit in ("V", "A", "RPM", "Ah", "dBA", "W"):
@@ -350,8 +364,8 @@ def build_long_desc(inp: DescriptionInput, use_llm: bool = True) -> str:
     if inp.series:
         parts.append(_title(inp.series))
 
-    # Split attributes into main (≤12) and additional trailer
-    attrs_to_use = inp.attributes
+    # Lead with highest-priority attrs; overflow goes to "Additional Information:"
+    attrs_to_use = sorted(inp.attributes, key=_attr_rank)
     for i, attr in enumerate(attrs_to_use):
         name = attr.get("name", "")
         val = _format_attr_value(attr)
