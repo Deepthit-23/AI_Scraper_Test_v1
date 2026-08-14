@@ -7,5 +7,6 @@ pdfplumber
 python-dotenv
 pydantic
 streamlit
+pandas
 # Optional, only needed for JS-heavy sites (uncomment if you use fetch_raw_html_with_browser):
 # playwright

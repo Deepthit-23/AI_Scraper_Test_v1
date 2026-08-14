@@ -176,6 +176,7 @@ def process_row(row: dict, enrich: bool = True) -> dict:
         product_type=clf.get("product_type", "Product"),
         series=enrichment.get("series") or "",
         attributes=attrs_raw,
+        classpath=clf.get("Classpath", ""),
     )
 
     # 5. Generate all five description types (pure template, no extra LLM call)

@@ -10,11 +10,6 @@
       "brand_name": "U-Line",
       "_brand_resolution_method": "llm_inferred"
     },
-    "HLBSL609FS5 6\" Down Light::HLBSL609FS5::": {
-      "manufacturer_name": "Halco",
-      "brand_name": "Halco",
-      "_brand_resolution_method": "llm_inferred"
-    },
     "XOU24WDZGBR Beverage Center Bk::XOU24WDZGBR::": {
       "manufacturer_name": "Whirlpool Corporation",
       "brand_name": "Whirlpool\u00ae",
@@ -270,6 +265,2624 @@
       ],
       "product_name": "DR7004BE Electric Dryer",
       "short_description": "A commercial-quality electric dryer with multiple cycles and features."
+    },
+    "https://speedqueen.com/products/electric-dryers/dc5004we/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Dryer Cylinder",
+          "source_snippet": "Dryer Cylinder\nGalvanized",
+          "unit": "",
+          "value": "Galvanized"
+        },
+        {
+          "confidence": "high",
+          "name": "Heat Source",
+          "source_snippet": "Heat Source\nElectric 5350 W",
+          "unit": "W",
+          "value": "Electric 5350 W"
+        },
+        {
+          "confidence": "high",
+          "name": "Heavy-Duty Fan",
+          "source_snippet": "Heavy-Duty Fan\n220 CFM",
+          "unit": "CFM",
+          "value": "220 CFM"
+        },
+        {
+          "confidence": "high",
+          "name": "ADA Compliant",
+          "source_snippet": "ADA Compliant\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Exterior",
+          "source_snippet": "Exterior\nDurable 3-coat Finish",
+          "unit": "",
+          "value": "Durable 3-coat Finish"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color\nWhite",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "End-of-Cycle Signal",
+          "source_snippet": "End-of-Cycle Signal\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor",
+          "source_snippet": "Motor\n1/3 HP",
+          "unit": "HP",
+          "value": "1/3 HP"
+        },
+        {
+          "confidence": "high",
+          "name": "Multiple Vent Options",
+          "source_snippet": "Multiple Vent Options\nYes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Door Hinge Location",
+          "source_snippet": "Door Hinge Location\nReversible",
+          "unit": "",
+          "value": "Reversible"
+        },
+        {
+          "confidence": "high",
+          "name": "Preset Cycles",
+          "source_snippet": "Preset Cycles\n6",
+          "unit": "",
+          "value": "6"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature Selections",
+          "source_snippet": "Temperature Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize",
+          "source_snippet": "Sanitize\nSanitize",
+          "unit": "",
+          "value": "Sanitize"
+        },
+        {
+          "confidence": "high",
+          "name": "Time Remaining Display",
+          "source_snippet": "Time Remaining Display\nNO",
+          "unit": "",
+          "value": "NO"
+        },
+        {
+          "confidence": "high",
+          "name": "Favorite Cycles",
+          "source_snippet": "Favorite Cycles\nNO",
+          "unit": "",
+          "value": "NO"
+        },
+        {
+          "confidence": "high",
+          "name": "Speed Cycle",
+          "source_snippet": "Speed Cycle\nNO",
+          "unit": "",
+          "value": "NO"
+        },
+        {
+          "confidence": "high",
+          "name": "Delay Start",
+          "source_snippet": "Delay Start\nNO",
+          "unit": "",
+          "value": "NO"
+        },
+        {
+          "confidence": "high",
+          "name": "Pet Plus\u2122 Cycles",
+          "source_snippet": "Pet Plus\u2122 Cycles\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Refresh",
+          "source_snippet": "Steam Refresh\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Boost",
+          "source_snippet": "Steam Boost\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Anti-Static",
+          "source_snippet": "Anti-Static\nNO",
+          "unit": "",
+          "value": "NO"
+        },
+        {
+          "confidence": "high",
+          "name": "Extended Tumble",
+          "source_snippet": "Extended Tumble\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Moisture Sensor",
+          "source_snippet": "Moisture Sensor\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Commercial Cool-Down Technology",
+          "source_snippet": "Commercial Cool-Down Technology\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR\u00ae Certified",
+          "source_snippet": "ENERGY STAR\u00ae Certified\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Eco Dry",
+          "source_snippet": "Eco Dry\nNO",
+          "unit": "",
+          "value": "NO"
+        },
+        {
+          "confidence": "high",
+          "name": "Cylinder Light",
+          "source_snippet": "Cylinder Light\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Reversible Door",
+          "source_snippet": "Reversible Door\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Up-Front Lint Filter",
+          "source_snippet": "Up-Front Lint Filter\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity\n7",
+          "unit": "",
+          "value": "7"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width\n26-7/8",
+          "unit": "\"",
+          "value": "26-7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height\n42-3/4",
+          "unit": "\"",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth\n28",
+          "unit": "\"",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Work Surface Height",
+          "source_snippet": "Work Surface Height\n36",
+          "unit": "\"",
+          "value": "36"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth with Door Open",
+          "source_snippet": "Depth with Door Open\n51-1/2",
+          "unit": "\"",
+          "value": "51-1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Shipping Weight",
+          "source_snippet": "Shipping Weight\n136",
+          "unit": "lb",
+          "value": "136"
+        },
+        {
+          "confidence": "high",
+          "name": "Parts & Labor Warranty",
+          "source_snippet": "Parts & Labor Warranty\n5-Years",
+          "unit": "years",
+          "value": "5-Years"
+        }
+      ],
+      "category": "dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DC5004WE",
+        "ADE6ARYS177TW01"
+      ],
+      "product_name": "Electric Dryer",
+      "short_description": "Electric dryer with sanitize feature and reversible door"
+    },
+    "https://speedqueen.com/products/electric-dryers/dc5004be/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Heat Source",
+          "source_snippet": "Heat Source\nElectric 5350 W",
+          "unit": "W",
+          "value": "Electric 5350 W"
+        },
+        {
+          "confidence": "high",
+          "name": "Dryer Cylinder",
+          "source_snippet": "Dryer Cylinder\nGalvanized",
+          "unit": "",
+          "value": "Galvanized"
+        },
+        {
+          "confidence": "high",
+          "name": "Heavy-Duty Fan",
+          "source_snippet": "Heavy-Duty Fan\n220 CFM",
+          "unit": "CFM",
+          "value": "220 CFM"
+        },
+        {
+          "confidence": "high",
+          "name": "ADA Compliant",
+          "source_snippet": "ADA Compliant\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Exterior",
+          "source_snippet": "Exterior\nDurable 3-coat Finish",
+          "unit": "",
+          "value": "Durable 3-coat Finish"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color\nMatte Black",
+          "unit": "",
+          "value": "Matte Black"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor",
+          "source_snippet": "Motor\n1/3 HP",
+          "unit": "HP",
+          "value": "1/3 HP"
+        },
+        {
+          "confidence": "high",
+          "name": "Door Hinge Location",
+          "source_snippet": "Door Hinge Location\nReversible",
+          "unit": "",
+          "value": "Reversible"
+        },
+        {
+          "confidence": "high",
+          "name": "Preset Cycles",
+          "source_snippet": "Preset Cycles\n6",
+          "unit": "",
+          "value": "6"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature Selections",
+          "source_snippet": "Temperature Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize",
+          "source_snippet": "Sanitize\nSanitize",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Pet Plus\u2122 Cycles",
+          "source_snippet": "Pet Plus\u2122 Cycles\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Refresh",
+          "source_snippet": "Steam Refresh\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Boost",
+          "source_snippet": "Steam Boost\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Extended Tumble",
+          "source_snippet": "Extended Tumble\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Moisture Sensor",
+          "source_snippet": "Moisture Sensor\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Commercial Cool-Down Technology",
+          "source_snippet": "Commercial Cool-Down Technology\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR\u00ae Certified",
+          "source_snippet": "ENERGY STAR\u00ae Certified\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Cylinder Light",
+          "source_snippet": "Cylinder Light\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Reversible Door",
+          "source_snippet": "Reversible Door\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Up-Front Lint Filter",
+          "source_snippet": "Up-Front Lint Filter\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity\n7",
+          "unit": "",
+          "value": "7"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width\n26-7/8",
+          "unit": "",
+          "value": "26-7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height\n42-3/4",
+          "unit": "",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth\n28",
+          "unit": "",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Work Surface Height",
+          "source_snippet": "Work Surface Height\n36",
+          "unit": "",
+          "value": "36"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth with Door Open",
+          "source_snippet": "Depth with Door Open\n51-1/2",
+          "unit": "",
+          "value": "51-1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Shipping Weight",
+          "source_snippet": "Shipping Weight\n136",
+          "unit": "",
+          "value": "136"
+        },
+        {
+          "confidence": "high",
+          "name": "Lint Filter Guard",
+          "source_snippet": "Lint Filter Guard\nIncluded",
+          "unit": "",
+          "value": "Included"
+        },
+        {
+          "confidence": "high",
+          "name": "Drying Rack",
+          "source_snippet": "Drying Rack\nNot Included",
+          "unit": "",
+          "value": "Not Included"
+        },
+        {
+          "confidence": "high",
+          "name": "Parts & Labor Warranty",
+          "source_snippet": "Parts & Labor Warranty\n5-Years",
+          "unit": "Years",
+          "value": "5-Years"
+        }
+      ],
+      "category": "dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DC5004BE",
+        "ADE6ARYS177TB01"
+      ],
+      "product_name": "Speed Queen Electric Dryer",
+      "short_description": " Electric dryer with sanitize feature and extended tumble"
+    },
+    "https://speedqueen.com/products/gas-dryers/dr5004wg/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color\nWhite",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Heat Source",
+          "source_snippet": "Heat Source\nGas 22500 BTU",
+          "unit": "",
+          "value": "Gas"
+        },
+        {
+          "confidence": "high",
+          "name": "BTU",
+          "source_snippet": "Heat Source\nGas 22500 BTU",
+          "unit": "",
+          "value": "22500"
+        },
+        {
+          "confidence": "high",
+          "name": "Fan CFM",
+          "source_snippet": "Heavy-Duty Fan\n220 CFM",
+          "unit": "",
+          "value": "220"
+        },
+        {
+          "confidence": "high",
+          "name": "ADA Compliant",
+          "source_snippet": "ADA Compliant\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor HP",
+          "source_snippet": "Motor\n1/3 HP",
+          "unit": "",
+          "value": "1/3"
+        },
+        {
+          "confidence": "high",
+          "name": "Number of Preset Cycles",
+          "source_snippet": "Preset Cycles\n9",
+          "unit": "",
+          "value": "9"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature Selections",
+          "source_snippet": "Temperature Selections\n5",
+          "unit": "",
+          "value": "5"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize",
+          "source_snippet": "Sanitize\nSanitize",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Refresh",
+          "source_snippet": "Steam Refresh\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Boost",
+          "source_snippet": "Steam Boost\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Extended Tumble",
+          "source_snippet": "Extended Tumble\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Moisture Sensor",
+          "source_snippet": "Moisture Sensor\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Commercial Cool-Down Technology",
+          "source_snippet": "Commercial Cool-Down Technology\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR Certified",
+          "source_snippet": "ENERGY STAR Certified\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity\n7",
+          "unit": "",
+          "value": "7"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width\n26-7/8",
+          "unit": "",
+          "value": "26-7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height\n42-3/4",
+          "unit": "",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth\n28",
+          "unit": "",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Work Surface Height",
+          "source_snippet": "Work Surface Height\n36",
+          "unit": "",
+          "value": "36"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth with Door Open",
+          "source_snippet": "Depth with Door Open\n51-1/2",
+          "unit": "",
+          "value": "51-1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Shipping Weight",
+          "source_snippet": "Shipping Weight\n136",
+          "unit": "",
+          "value": "136"
+        },
+        {
+          "confidence": "high",
+          "name": "Parts & Labor Warranty",
+          "source_snippet": "Parts & Labor Warranty\n5-Years",
+          "unit": "",
+          "value": "5-Years"
+        }
+      ],
+      "category": "dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DR5004WG",
+        "ADG6HRYS118TW01"
+      ],
+      "product_name": "Speed Queen Gas Dryer DR5004WG",
+      "short_description": "A gas dryer with steam boost, sanitize, and extended tumble features"
+    },
+    "https://speedqueen.com/products/gas-dryers/dc5004wg/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color\nWhite",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Heat Source",
+          "source_snippet": "Heat Source\nGas 22500 BTU",
+          "unit": "BTU",
+          "value": "Gas 22500 BTU"
+        },
+        {
+          "confidence": "high",
+          "name": "Fan Type",
+          "source_snippet": "Heavy-Duty Fan",
+          "unit": "",
+          "value": "Heavy-Duty"
+        },
+        {
+          "confidence": "high",
+          "name": "Fan Airflow",
+          "source_snippet": "220 CFM",
+          "unit": "CFM",
+          "value": "220"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor Power",
+          "source_snippet": "Motor\n1/3 HP",
+          "unit": "HP",
+          "value": "1/3"
+        },
+        {
+          "confidence": "high",
+          "name": "ADA Compliant",
+          "source_snippet": "ADA Compliant\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "End-of-Cycle Signal",
+          "source_snippet": "End-of-Cycle Signal\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize",
+          "source_snippet": "Sanitize\nSanitize",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Number of Preset Cycles",
+          "source_snippet": "Preset Cycles\n6",
+          "unit": "",
+          "value": "6"
+        },
+        {
+          "confidence": "high",
+          "name": "Number of Temperature Selections",
+          "source_snippet": "Temperature Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Pet Plus Cycles",
+          "source_snippet": "Pet Plus\u2122 Cycles\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Refresh",
+          "source_snippet": "Steam Refresh\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Steam Boost",
+          "source_snippet": "Steam Boost\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Anti-Static",
+          "source_snippet": "Anti-Static\nNO",
+          "unit": "",
+          "value": "NO"
+        },
+        {
+          "confidence": "high",
+          "name": "Extended Tumble",
+          "source_snippet": "Extended Tumble\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Moisture Sensor",
+          "source_snippet": "Moisture Sensor\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Commercial Cool-Down Technology",
+          "source_snippet": "Commercial Cool-Down Technology\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR Certified",
+          "source_snippet": "ENERGY STAR\u00ae Certified\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Eco Dry",
+          "source_snippet": "Eco Dry\nNO",
+          "unit": "",
+          "value": "NO"
+        },
+        {
+          "confidence": "high",
+          "name": "Cylinder Light",
+          "source_snippet": "Cylinder Light\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Reversible Door",
+          "source_snippet": "Reversible Door\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Up-Front Lint Filter",
+          "source_snippet": "Up-Front Lint Filter\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity\n7",
+          "unit": "",
+          "value": "7"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width\n26-7/8",
+          "unit": "",
+          "value": "26-7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height\n42-3/4",
+          "unit": "",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth\n28",
+          "unit": "",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Work Surface Height",
+          "source_snippet": "Work Surface Height\n36",
+          "unit": "",
+          "value": "36"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth with Door Open",
+          "source_snippet": "Depth with Door Open\n51-1/2",
+          "unit": "",
+          "value": "51-1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Shipping Weight",
+          "source_snippet": "Shipping Weight\n136",
+          "unit": "",
+          "value": "136"
+        },
+        {
+          "confidence": "high",
+          "name": "Parts & Labor Warranty",
+          "source_snippet": "Parts & Labor Warranty\n5-Years",
+          "unit": "years",
+          "value": "5-Years"
+        }
+      ],
+      "category": "dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DC5004WG",
+        "ADG6ARYS117TW01"
+      ],
+      "product_name": "Speed Queen Gas Dryer",
+      "short_description": "Gas dryer with sanitize feature and reversible door"
+    },
+    "https://speedqueen.com/products/top-load-washers/tr7006wn/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color\nWhite",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "Exterior\nDurable 3-coat Finish",
+          "unit": "",
+          "value": "Durable 3-coat Finish"
+        },
+        {
+          "confidence": "high",
+          "name": "Wash Tub Material",
+          "source_snippet": "Wash Tub\nStainless Steel",
+          "unit": "",
+          "value": "Stainless Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Outer Tub Material",
+          "source_snippet": "Outer Tub\nPorcelain",
+          "unit": "",
+          "value": "Porcelain"
+        },
+        {
+          "confidence": "high",
+          "name": "ADA Compliant",
+          "source_snippet": "ADA Compliant\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Agitator",
+          "source_snippet": "Agitator\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "End-of-Cycle Signal",
+          "source_snippet": "End-of-Cycle Signal\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor Type",
+          "source_snippet": "Motor\nVariable Speed, 1 HP",
+          "unit": "",
+          "value": "Variable Speed, 1 HP"
+        },
+        {
+          "confidence": "high",
+          "name": "Preset Cycles",
+          "source_snippet": "Preset Cycles\n16",
+          "unit": "",
+          "value": "16"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature Selections",
+          "source_snippet": "Temperature Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Load Size Selections",
+          "source_snippet": "Load Size Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Soil Level Selections",
+          "source_snippet": "Soil Level Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Quiet Agitation",
+          "source_snippet": "Quiet Agitation (43dB)\nYES",
+          "unit": "dB",
+          "value": "43dB"
+        },
+        {
+          "confidence": "high",
+          "name": "Pre-Wash",
+          "source_snippet": "Pre-Wash\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Extra Rinse",
+          "source_snippet": "Extra Rinse\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Warm Rinse",
+          "source_snippet": "Warm Rinse\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Soak Cycle",
+          "source_snippet": "Soak Cycle\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Max Spin Speed",
+          "source_snippet": "Max Spin Speed\n820",
+          "unit": "",
+          "value": "820"
+        },
+        {
+          "confidence": "high",
+          "name": "Time Remaining Display",
+          "source_snippet": "Time Remaining Display\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Favorite Cycles",
+          "source_snippet": "Favorite Cycles\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Speed Cycle",
+          "source_snippet": "Speed Cycle\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Delay Start",
+          "source_snippet": "Delay Start\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Delayed Lid-Lock",
+          "source_snippet": "Delayed Lid-Lock\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity\n3.2",
+          "unit": "",
+          "value": "3.2"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width\n25-5/8",
+          "unit": "",
+          "value": "25-5/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height\n42-3/4",
+          "unit": "",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth\n28",
+          "unit": "",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Height with Lid Open",
+          "source_snippet": "Height with Lid Open\n53",
+          "unit": "",
+          "value": "53"
+        },
+        {
+          "confidence": "high",
+          "name": "Shipping Weight",
+          "source_snippet": "Shipping Weight\n196",
+          "unit": "",
+          "value": "196"
+        },
+        {
+          "confidence": "high",
+          "name": "Parts & Labor Warranty",
+          "source_snippet": "Parts & Labor Warranty\n7-Years",
+          "unit": "",
+          "value": "7-Years"
+        },
+        {
+          "confidence": "high",
+          "name": "Agency Approvals",
+          "source_snippet": "Agency Approvals\ncULus",
+          "unit": "",
+          "value": "cULus"
+        }
+      ],
+      "category": "Washer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "TR7006WN",
+        "AWNE9RSN119TW01"
+      ],
+      "product_name": "Speed Queen TR7006WN",
+      "short_description": "Top-load washer with Perfect Wash technology and ultra-quiet operation"
+    },
+    "https://www.satco.com/products/65-1222": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "10 Watts",
+          "unit": "Watts",
+          "value": "10 Watts"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT Selectable",
+          "source_snippet": "27K/30K/35K/40K/50K CCT Selectable",
+          "unit": "Kelvin",
+          "value": "27K/30K/35K/40K/50K"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "White Finish",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "120 Volt",
+          "unit": "Volts",
+          "value": "120 Volt"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material | Steel",
+          "unit": "",
+          "value": "Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Fixture Type",
+          "source_snippet": "Fixture Type | Strip Light",
+          "unit": "",
+          "value": "Strip Light"
+        },
+        {
+          "confidence": "high",
+          "name": "Surge Protection",
+          "source_snippet": "Built-in surge protection - 2.5KV",
+          "unit": "Volts",
+          "value": "2.5KV"
+        },
+        {
+          "confidence": "high",
+          "name": "Total Harmonic Distortion",
+          "source_snippet": "Total Harmonic Distortion | <20%",
+          "unit": "%",
+          "value": "<20%"
+        },
+        {
+          "confidence": "high",
+          "name": "Amps",
+          "source_snippet": "Amps | 0.090A",
+          "unit": "Amps",
+          "value": "0.090A"
+        },
+        {
+          "confidence": "high",
+          "name": "Connectable Units",
+          "source_snippet": "Connectable Units | 30",
+          "unit": "",
+          "value": "30"
+        },
+        {
+          "confidence": "high",
+          "name": "Power Factor",
+          "source_snippet": "Power Factor | 0.9",
+          "unit": "",
+          "value": "0.9"
+        },
+        {
+          "confidence": "high",
+          "name": "Indoor/Outdoor",
+          "source_snippet": "Indoor Outdoor | Indoor",
+          "unit": "",
+          "value": "Indoor"
+        },
+        {
+          "confidence": "high",
+          "name": "Product Technology",
+          "source_snippet": "Product Technology | LED",
+          "unit": "",
+          "value": "LED"
+        },
+        {
+          "confidence": "high",
+          "name": "Incandescent Equivalent",
+          "source_snippet": "Incandescent Equivalent | 60W",
+          "unit": "Watts",
+          "value": "60W"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimmable",
+          "source_snippet": "Dimmable | Non-Dimmable",
+          "unit": "",
+          "value": "Non-Dimmable"
+        },
+        {
+          "confidence": "high",
+          "name": "Hours Rated",
+          "source_snippet": "Hours Rated | 50000",
+          "unit": "Hours",
+          "value": "50000"
+        },
+        {
+          "confidence": "high",
+          "name": "Beam Angle",
+          "source_snippet": "Beam Angle (degree) | 110",
+          "unit": "degrees",
+          "value": "110"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temp",
+          "source_snippet": "Color Temp | Warm White to Natural Light",
+          "unit": "",
+          "value": "Warm White to Natural Light"
+        },
+        {
+          "confidence": "high",
+          "name": "CRI",
+          "source_snippet": "CRI | 90+",
+          "unit": "",
+          "value": "90+"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Frequency",
+          "source_snippet": "Operating Frequency | 60Hz",
+          "unit": "Hz",
+          "value": "60Hz"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Temp",
+          "source_snippet": "Operating Temp | -4F to +104F (-20C to +40C)",
+          "unit": "F/C",
+          "value": "-4F to +104F (-20C to +40C)"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "Lumens | 800L-1000L",
+          "unit": "Lumens",
+          "value": "800L-1000L"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Warranty | 5-Years",
+          "unit": "Years",
+          "value": "5-Years"
+        },
+        {
+          "confidence": "high",
+          "name": "CA Prop 65",
+          "source_snippet": "CA Prop 65 | Lead",
+          "unit": "",
+          "value": "Lead"
+        },
+        {
+          "confidence": "high",
+          "name": "FCC Compliant",
+          "source_snippet": "FCC Compliant | Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Safety Listing",
+          "source_snippet": "Safety Listing | cETLus",
+          "unit": "",
+          "value": "cETLus"
+        },
+        {
+          "confidence": "high",
+          "name": "UPC",
+          "source_snippet": "UPC | 045923658457",
+          "unit": "",
+          "value": "045923658457"
+        }
+      ],
+      "category": "lighting",
+      "manufacturer": "NUVO",
+      "model_numbers": [
+        "65-1222"
+      ],
+      "product_name": "LED 1 Foot Connectable Strip Light",
+      "short_description": "Connectable LED strip light with selectable CCT and white finish"
+    },
+    "https://www.satco.com/products/65-771R3": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "Wattage 150W/175W/200W and CCT Selectable 3K/4K/5K LED UFO High Bay",
+          "unit": "W",
+          "value": "150W/175W/200W"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT",
+          "source_snippet": "Wattage 150W/175W/200W and CCT Selectable 3K/4K/5K LED UFO High Bay",
+          "unit": "K",
+          "value": "3K/4K/5K"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "120-347 Volt",
+          "unit": "V",
+          "value": "120-347V"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "Black Finish",
+          "unit": "",
+          "value": "Black"
+        },
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "Diameter | 13.4",
+          "unit": "",
+          "value": "13.4"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material | Die-cast Aluminum",
+          "unit": "",
+          "value": "Die-cast Aluminum"
+        },
+        {
+          "confidence": "high",
+          "name": "Fixture Type",
+          "source_snippet": "Fixture Type | UFO Hi-Bay",
+          "unit": "",
+          "value": "UFO Hi-Bay"
+        },
+        {
+          "confidence": "high",
+          "name": "Surge Protection",
+          "source_snippet": "Built-in surge protection - 6KV",
+          "unit": "V",
+          "value": "6KV"
+        },
+        {
+          "confidence": "high",
+          "name": "Total Harmonic Distortion",
+          "source_snippet": "Total Harmonic Distortion | 15%",
+          "unit": "%",
+          "value": "15%"
+        },
+        {
+          "confidence": "high",
+          "name": "Wire Length",
+          "source_snippet": "Wire Length | 72.0",
+          "unit": "",
+          "value": "72.0"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT Selectable",
+          "source_snippet": "CCT Selectable | Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Wattage Selectable",
+          "source_snippet": "Wattage Selectable | Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish Family",
+          "source_snippet": "Finish Family | Black",
+          "unit": "",
+          "value": "Black"
+        },
+        {
+          "confidence": "high",
+          "name": "Amps",
+          "source_snippet": "Amps | 1.250-0.432/1.458-0.504/1.667-0.576A",
+          "unit": "A",
+          "value": "1.250-0.432/1.458-0.504/1.667-0.576A"
+        },
+        {
+          "confidence": "high",
+          "name": "Lens Finish",
+          "source_snippet": "Lens Finish | Clear",
+          "unit": "",
+          "value": "Clear"
+        },
+        {
+          "confidence": "high",
+          "name": "Lens Material",
+          "source_snippet": "Lens Material | Polycarbonate (PC)",
+          "unit": "",
+          "value": "Polycarbonate (PC)"
+        },
+        {
+          "confidence": "high",
+          "name": "Power Factor",
+          "source_snippet": "Power Factor | 0.9",
+          "unit": "",
+          "value": "0.9"
+        },
+        {
+          "confidence": "high",
+          "name": "Incandescent Equivalent",
+          "source_snippet": "Incandescent Equivalent | 1000W/1500W/2000W",
+          "unit": "W",
+          "value": "1000W/1500W/2000W"
+        },
+        {
+          "confidence": "high",
+          "name": "Beam Angle",
+          "source_snippet": "Beam Angle (degree) | 90",
+          "unit": "degree",
+          "value": "90"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temp",
+          "source_snippet": "Color Temp | Warm White to Natural Light",
+          "unit": "",
+          "value": "Warm White to Natural Light"
+        },
+        {
+          "confidence": "high",
+          "name": "CRI",
+          "source_snippet": "CRI | 80+",
+          "unit": "",
+          "value": "80+"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimming Type",
+          "source_snippet": "Dimming Type | 0-10V Dimming",
+          "unit": "",
+          "value": "0-10V Dimming"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Frequency",
+          "source_snippet": "Operating Frequency | 50/60Hz",
+          "unit": "Hz",
+          "value": "50/60Hz"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Temp",
+          "source_snippet": "Operating Temp | -40F to +122F (-40C to +50C)",
+          "unit": "F/C",
+          "value": "-40F to +122F (-40C to +50C)"
+        },
+        {
+          "confidence": "high",
+          "name": "HID Equivalent",
+          "source_snippet": "HID Equivalent | 400W-450W",
+          "unit": "W",
+          "value": "400W-450W"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "Lumens | 22200L-28800L",
+          "unit": "L",
+          "value": "22200L-28800L"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Warranty | 5-Years",
+          "unit": "years",
+          "value": "5-Years"
+        },
+        {
+          "confidence": "high",
+          "name": "IP Rating",
+          "source_snippet": "IP Rating | IP65",
+          "unit": "",
+          "value": "IP65"
+        },
+        {
+          "confidence": "high",
+          "name": "Location Rating",
+          "source_snippet": "Location Rating | Wet",
+          "unit": "",
+          "value": "Wet"
+        },
+        {
+          "confidence": "high",
+          "name": "Safety Listing",
+          "source_snippet": "Safety Listing | cULus - Certified",
+          "unit": "",
+          "value": "cULus - Certified"
+        }
+      ],
+      "category": "LED High Bay",
+      "manufacturer": "NUVO",
+      "model_numbers": [
+        "65-771R3"
+      ],
+      "product_name": "65-771R3",
+      "short_description": "150W/175W/200W and CCT Selectable 3K/4K/5K LED UFO High Bay"
+    },
+    "https://www.satco.com/products/62-1850": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "12.5 Watts",
+          "unit": "Watts",
+          "value": "12.5 Watts"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT Selectable",
+          "source_snippet": "27K/30K/35K/40K/50K CCT Selectable",
+          "unit": "Kelvin",
+          "value": "27K/30K/35K/40K/50K"
+        },
+        {
+          "confidence": "high",
+          "name": "Shape",
+          "source_snippet": "Round Shape",
+          "unit": "",
+          "value": "Round"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "White Finish",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "120 Volt",
+          "unit": "Volts",
+          "value": "120 Volt"
+        },
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "Diameter | 11.0",
+          "unit": "",
+          "value": "11.0"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material | Steel",
+          "unit": "",
+          "value": "Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Fixture Type",
+          "source_snippet": "Fixture Type | Flush Mount",
+          "unit": "",
+          "value": "Flush Mount"
+        },
+        {
+          "confidence": "high",
+          "name": "Amps",
+          "source_snippet": "Amps | 0.104A",
+          "unit": "Amps",
+          "value": "0.104A"
+        },
+        {
+          "confidence": "high",
+          "name": "Power Factor",
+          "source_snippet": "Power Factor | 0.9",
+          "unit": "",
+          "value": "0.9"
+        },
+        {
+          "confidence": "high",
+          "name": "Incandescent Equivalent",
+          "source_snippet": "Incandescent Equivalent | 75W",
+          "unit": "Watts",
+          "value": "75W"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimmable",
+          "source_snippet": "Dimmable | Yes-Dimmable",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Hours Rated",
+          "source_snippet": "Hours Rated | 50000",
+          "unit": "Hours",
+          "value": "50000"
+        },
+        {
+          "confidence": "high",
+          "name": "Beam Angle",
+          "source_snippet": "Beam Angle (degree) | 110",
+          "unit": "Degrees",
+          "value": "110"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temp",
+          "source_snippet": "Color Temp | Warm White to Natural Light",
+          "unit": "",
+          "value": "Warm White to Natural Light"
+        },
+        {
+          "confidence": "high",
+          "name": "CRI",
+          "source_snippet": "CRI | 90+",
+          "unit": "",
+          "value": "90+"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Frequency",
+          "source_snippet": "Operating Frequency | 60Hz",
+          "unit": "Hz",
+          "value": "60Hz"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Temp",
+          "source_snippet": "Operating Temp | -4F to +104F (-20C to +40C)",
+          "unit": "Degrees",
+          "value": "-4F to +104F (-20C to +40C)"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "Lumens | 1100L-1180L",
+          "unit": "Lumens",
+          "value": "1100L-1180L"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Warranty | 5-Years",
+          "unit": "Years",
+          "value": "5-Years"
+        }
+      ],
+      "manufacturer": "NUVO",
+      "model_numbers": [
+        "62-1850"
+      ],
+      "product_name": "11 Inch LED Cloud Fixture",
+      "short_description": "11 Inch LED Cloud Fixture with 12.5 Watts and 27K/30K/35K/40K/50K CCT Selectable"
+    },
+    "https://www.satco.com/products/62-1852": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "15 Watts",
+          "unit": "Watts",
+          "value": "15 Watts"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT",
+          "source_snippet": "27K/30K/35K/40K/50K CCT Selectable",
+          "unit": "Kelvin",
+          "value": "27K/30K/35K/40K/50K"
+        },
+        {
+          "confidence": "high",
+          "name": "Shape",
+          "source_snippet": "Round Shape",
+          "unit": "",
+          "value": "Round"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "White Finish",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "120 Volt",
+          "unit": "Volts",
+          "value": "120 Volt"
+        },
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "Diameter | 13.98",
+          "unit": "",
+          "value": "13.98"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material | Steel",
+          "unit": "",
+          "value": "Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Fixture Type",
+          "source_snippet": "Fixture Type | Flush Mount",
+          "unit": "",
+          "value": "Flush Mount"
+        },
+        {
+          "confidence": "high",
+          "name": "Surge Protection",
+          "source_snippet": "Surge Protection | Built-in surge protection - 2.5KV",
+          "unit": "",
+          "value": "Built-in surge protection - 2.5KV"
+        },
+        {
+          "confidence": "high",
+          "name": "Amps",
+          "source_snippet": "Amps | 0.125A",
+          "unit": "Amps",
+          "value": "0.125A"
+        },
+        {
+          "confidence": "high",
+          "name": "Power Factor",
+          "source_snippet": "Power Factor | 0.9",
+          "unit": "",
+          "value": "0.9"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "Lumens | 1340L-1440L",
+          "unit": "Lumens",
+          "value": "1340L-1440L"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temp",
+          "source_snippet": "Color Temp | Warm White to Natural Light",
+          "unit": "",
+          "value": "Warm White to Natural Light"
+        },
+        {
+          "confidence": "high",
+          "name": "CRI",
+          "source_snippet": "CRI | 90+",
+          "unit": "",
+          "value": "90+"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimmable",
+          "source_snippet": "Dimmable | Yes-Dimmable",
+          "unit": "",
+          "value": "Yes-Dimmable"
+        },
+        {
+          "confidence": "high",
+          "name": "Hours Rated",
+          "source_snippet": "Hours Rated | 50000",
+          "unit": "Hours",
+          "value": "50000"
+        },
+        {
+          "confidence": "high",
+          "name": "Beam Angle",
+          "source_snippet": "Beam Angle (degree) | 110",
+          "unit": "degrees",
+          "value": "110"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Temperature",
+          "source_snippet": "Operating Temp | -4F to +104F (-20C to +40C)",
+          "unit": "Temperature",
+          "value": "-4F to +104F (-20C to +40C)"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Warranty | 5-Years",
+          "unit": "Years",
+          "value": "5-Years"
+        }
+      ],
+      "category": "lighting",
+      "manufacturer": "NUVO",
+      "model_numbers": [
+        "62-1852"
+      ],
+      "product_name": "14 Inch LED Cloud Fixture",
+      "short_description": "14 Inch LED Cloud Fixture with selectable CCT and built-in surge protection"
+    },
+    "https://www.satco.com/products/S11860": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "15 Watt",
+          "unit": "Watt",
+          "value": "15"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT Selectable",
+          "source_snippet": "CCT Selectable",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "Diameter | 7.48",
+          "unit": "",
+          "value": "7.48"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material | Aluminum",
+          "unit": "",
+          "value": "Aluminum"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish Family",
+          "source_snippet": "Finish Family | White",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "White",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT (Kelvin Temp)",
+          "source_snippet": "CCT (Kelvin Temp) | 2700K/3000K/3500K/4000K/5000K",
+          "unit": "Kelvin",
+          "value": "2700K/3000K/3500K/4000K/5000K"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "Lumens | 1280L-1400L",
+          "unit": "",
+          "value": "1280L-1400L"
+        },
+        {
+          "confidence": "high",
+          "name": "Volts",
+          "source_snippet": "Volts | 120v",
+          "unit": "",
+          "value": "120v"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Warranty | 5-Years",
+          "unit": "",
+          "value": "5-Years"
+        }
+      ],
+      "category": "LED Downlight",
+      "manufacturer": "SATCO",
+      "model_numbers": [
+        "S11860"
+      ],
+      "product_name": "S11860",
+      "short_description": "15 Watt, CCT Selectable, LED Direct Wire Downlight"
+    },
+    "https://www.satco.com/products/S11646": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "12.5 Watt LED High Lumen Downlight Retrofit",
+          "unit": "W",
+          "value": "12.5W"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "120 Volts",
+          "unit": "V",
+          "value": "120"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temperature",
+          "source_snippet": "27K/30K/35K/40K/50K CCT Selectable",
+          "unit": "K",
+          "value": "2700K/3000K/3500K/4000K/5000K"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimmable",
+          "source_snippet": "Dimmable",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "White Finish",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "Diameter | 7.36",
+          "unit": "",
+          "value": "7.36"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material | Steel",
+          "unit": "",
+          "value": "Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumen",
+          "source_snippet": "Lumens | 1100L",
+          "unit": "lm",
+          "value": "1100"
+        },
+        {
+          "confidence": "high",
+          "name": "Beam Angle",
+          "source_snippet": "Beam Angle (degree) | 100",
+          "unit": "degree",
+          "value": "100"
+        },
+        {
+          "confidence": "high",
+          "name": "Certifications",
+          "source_snippet": "Safety Listing | cRUus - Recognized Component, cULus - Certified, cULus - Classified",
+          "unit": "",
+          "value": "cRUus - Recognized Component, cULus - Certified, cULus - Classified"
+        }
+      ],
+      "category": "Lighting",
+      "manufacturer": "SATCO",
+      "model_numbers": [
+        "S11646"
+      ],
+      "product_name": "12.5 Watt LED High Lumen Downlight Retrofit",
+      "short_description": "12.5 Watt LED High Lumen Downlight Retrofit"
+    },
+    "https://speedqueen.com/products/gas-dryers/dr7004bg/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color\nMatte Black",
+          "unit": "",
+          "value": "Matte Black"
+        },
+        {
+          "confidence": "high",
+          "name": "Heat Source",
+          "source_snippet": "Heat Source\nGas 22500 BTU",
+          "unit": "BTU",
+          "value": "Gas 22500 BTU"
+        },
+        {
+          "confidence": "high",
+          "name": "Fan Speed",
+          "source_snippet": "Heavy-Duty Fan\n220 CFM",
+          "unit": "CFM",
+          "value": "220 CFM"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor Power",
+          "source_snippet": "Motor\n1/3 HP",
+          "unit": "HP",
+          "value": "1/3 HP"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity\n7",
+          "unit": "cu. ft.",
+          "value": "7"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width\n26-7/8",
+          "unit": "in",
+          "value": "26-7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height\n42-3/4",
+          "unit": "in",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth\n28",
+          "unit": "in",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Weight",
+          "source_snippet": "Shipping Weight\n140",
+          "unit": "lbs",
+          "value": "140"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize",
+          "source_snippet": "Sanitize\nSteam Sanitize",
+          "unit": "",
+          "value": "Steam Sanitize"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR Certified",
+          "source_snippet": "ENERGY STAR\u00ae Certified\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Parts & Labor Warranty\n7-Years",
+          "unit": "years",
+          "value": "7-Years"
+        }
+      ],
+      "category": "dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DR7004BG",
+        "ADGE9RYS118TB01"
+      ],
+      "product_name": "DR7004BG Gas Dryer",
+      "short_description": "A gas dryer with multiple cycles and features, including steam refresh and sanitize, with a capacity of 7 cu. ft."
+    },
+    "https://speedqueen.com/products/gas-dryers/dr7004wg/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color\nWhite",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Heat Source",
+          "source_snippet": "Heat Source\nGas 22500 BTU",
+          "unit": "",
+          "value": "Gas"
+        },
+        {
+          "confidence": "high",
+          "name": "BTU",
+          "source_snippet": "Heat Source\nGas 22500 BTU",
+          "unit": "",
+          "value": "22500"
+        },
+        {
+          "confidence": "high",
+          "name": "Fan CFM",
+          "source_snippet": "Heavy-Duty Fan\n220 CFM",
+          "unit": "",
+          "value": "220"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor HP",
+          "source_snippet": "Motor\n1/3 HP",
+          "unit": "",
+          "value": "1/3"
+        },
+        {
+          "confidence": "high",
+          "name": "Cycle Count",
+          "source_snippet": "Preset Cycles\n10",
+          "unit": "",
+          "value": "10"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature Selections",
+          "source_snippet": "Temperature Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "End-of-Cycle Signal",
+          "source_snippet": "End-of-Cycle Signal\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "ADA Compliant",
+          "source_snippet": "ADA Compliant\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity\n7",
+          "unit": "",
+          "value": "7"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width\n26-7/8",
+          "unit": "",
+          "value": "26-7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height\n42-3/4",
+          "unit": "",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth\n28",
+          "unit": "",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Work Surface Height",
+          "source_snippet": "Work Surface Height\n36",
+          "unit": "",
+          "value": "36"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth with Door Open",
+          "source_snippet": "Depth with Door Open\n51-1/2",
+          "unit": "",
+          "value": "51-1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Shipping Weight",
+          "source_snippet": "Shipping Weight\n140",
+          "unit": "",
+          "value": "140"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Parts & Labor Warranty\n7-Years",
+          "unit": "",
+          "value": "7-Years"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR Certified",
+          "source_snippet": "ENERGY STAR\u00ae Certified\nYES",
+          "unit": "",
+          "value": "YES"
+        }
+      ],
+      "category": "dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DR7004WG",
+        "ADGE9RYS118TW01"
+      ],
+      "product_name": "DR7004WG Gas Dryer",
+      "short_description": "Gas dryer with multiple cycles and features, including steam refresh and sanitize"
+    },
+    "https://www.satco.com/products/65-1224": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "30 Watts",
+          "unit": "Watts",
+          "value": "30 Watts"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT Selectable",
+          "source_snippet": "27K/30K/35K/40K/50K CCT Selectable",
+          "unit": "Kelvin",
+          "value": "27K/30K/35K/40K/50K"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "White Finish",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "120 Volt",
+          "unit": "Volts",
+          "value": "120 Volt"
+        },
+        {
+          "confidence": "high",
+          "name": "Fixture Type",
+          "source_snippet": "Fixture Type | Strip Light",
+          "unit": "",
+          "value": "Strip Light"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material | Steel",
+          "unit": "",
+          "value": "Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Surge Protection",
+          "source_snippet": "Built-in surge protection - 2.5KV",
+          "unit": "Volts",
+          "value": "2.5KV"
+        },
+        {
+          "confidence": "high",
+          "name": "Total Harmonic Distortion",
+          "source_snippet": "Total Harmonic Distortion | <20%",
+          "unit": "%",
+          "value": "<20%"
+        },
+        {
+          "confidence": "high",
+          "name": "Amps",
+          "source_snippet": "Amps | 0.250A",
+          "unit": "Amps",
+          "value": "0.250A"
+        },
+        {
+          "confidence": "high",
+          "name": "Power Factor",
+          "source_snippet": "Power Factor | 0.9",
+          "unit": "",
+          "value": "0.9"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "Lumens | 2700L-3100L",
+          "unit": "Lumens",
+          "value": "2700L-3100L"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Temperature",
+          "source_snippet": "Operating Temp | -4F to +104F (-20C to +40C)",
+          "unit": "Fahrenheit/Celsius",
+          "value": "-4F to +104F (-20C to +40C)"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Warranty | 5-Years",
+          "unit": "Years",
+          "value": "5-Years"
+        }
+      ],
+      "category": "Lighting",
+      "manufacturer": "NUVO",
+      "model_numbers": [
+        "65-1224"
+      ],
+      "product_name": "LED 4 Foot Connectable Strip Light",
+      "short_description": "4 Foot Connectable Strip Light with selectable CCT and white finish"
+    },
+    "https://www.satco.com/products/64-110": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Dimension",
+          "source_snippet": "16 ft.",
+          "unit": "ft",
+          "value": "16 ft."
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "RGB plus Tunable White",
+          "unit": "",
+          "value": "RGB and Tunable White"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "White Finish",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Connection Type",
+          "source_snippet": "Plug connection",
+          "unit": "",
+          "value": "Plug"
+        },
+        {
+          "confidence": "high",
+          "name": "Remote Included",
+          "source_snippet": "IR Remote Included",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material | Plastic",
+          "unit": "",
+          "value": "Plastic"
+        },
+        {
+          "confidence": "high",
+          "name": "Fixture Type",
+          "source_snippet": "Fixture Type | Tape Light",
+          "unit": "",
+          "value": "Tape Light"
+        },
+        {
+          "confidence": "high",
+          "name": "Includes",
+          "source_snippet": "Kit includes: Plug-in Driver; Receiver; IR Remote; 1-5M Reel",
+          "unit": "",
+          "value": "Plug-in Driver; Receiver; IR Remote; 1-5M Reel"
+        },
+        {
+          "confidence": "high",
+          "name": "CCT (Kelvin Temp)",
+          "source_snippet": "CCT (Kelvin Temp) | 2700K-6500K",
+          "unit": "K",
+          "value": "2700K-6500K"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimmable",
+          "source_snippet": "Dimmable | Yes-Dimmable",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Hours Rated",
+          "source_snippet": "Hours Rated | 50000",
+          "unit": "hours",
+          "value": "50000"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temp",
+          "source_snippet": "Color Temp | RGB and Tunable White",
+          "unit": "",
+          "value": "RGB and Tunable White"
+        },
+        {
+          "confidence": "high",
+          "name": "CRI",
+          "source_snippet": "CRI | 80+",
+          "unit": "",
+          "value": "80+"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimming Type",
+          "source_snippet": "Dimming Type | Dimmable only via remote",
+          "unit": "",
+          "value": "Dimmable only via remote"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Frequency",
+          "source_snippet": "Operating Frequency | 50/60Hz",
+          "unit": "Hz",
+          "value": "50/60Hz"
+        },
+        {
+          "confidence": "high",
+          "name": "Operating Temp",
+          "source_snippet": "Operating Temp | -4F to +104F (-20C to +40C)",
+          "unit": "F/C",
+          "value": "-4F to +104F (-20C to +40C)"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "Lumens | 1120L",
+          "unit": "L",
+          "value": "1120"
+        },
+        {
+          "confidence": "high",
+          "name": "Volts",
+          "source_snippet": "Volts | 24V",
+          "unit": "V",
+          "value": "24"
+        },
+        {
+          "confidence": "high",
+          "name": "Watts",
+          "source_snippet": "Watts | 12W",
+          "unit": "W",
+          "value": "12"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Warranty | 1-Year",
+          "unit": "",
+          "value": "1-Year"
+        },
+        {
+          "confidence": "high",
+          "name": "UPC",
+          "source_snippet": "UPC | 045923640254",
+          "unit": "",
+          "value": "045923640254"
+        }
+      ],
+      "manufacturer": "NUVO",
+      "model_numbers": [
+        "64-110"
+      ],
+      "product_name": "Dimension Performer",
+      "short_description": "Tape Light strip, RGB plus Tunable White, Plug connection, IR Remote Included, White Finish, Discontinued"
+    },
+    "https://speedqueen.com/products/gas-dryers/dc5004bg/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Heat Source",
+          "source_snippet": "Heat Source\nGas 22500 BTU",
+          "unit": "BTU",
+          "value": "Gas 22500 BTU"
+        },
+        {
+          "confidence": "high",
+          "name": "Heavy-Duty Fan",
+          "source_snippet": "Heavy-Duty Fan\n220 CFM",
+          "unit": "CFM",
+          "value": "220 CFM"
+        },
+        {
+          "confidence": "high",
+          "name": "ADA Compliant",
+          "source_snippet": "ADA Compliant\nYES",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color\nMatte Black",
+          "unit": "",
+          "value": "Matte Black"
+        },
+        {
+          "confidence": "high",
+          "name": "Motor",
+          "source_snippet": "Motor\n1/3 HP",
+          "unit": "HP",
+          "value": "1/3 HP"
+        },
+        {
+          "confidence": "high",
+          "name": "Preset Cycles",
+          "source_snippet": "Preset Cycles\n6",
+          "unit": "",
+          "value": "6"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature Selections",
+          "source_snippet": "Temperature Selections\n4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize",
+          "source_snippet": "Sanitize\nSanitize",
+          "unit": "",
+          "value": "YES"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity\n7",
+          "unit": "",
+          "value": "7"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width\n26-7/8",
+          "unit": "",
+          "value": "26-7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height\n42-3/4",
+          "unit": "",
+          "value": "42-3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth\n28",
+          "unit": "",
+          "value": "28"
+        },
+        {
+          "confidence": "high",
+          "name": "Work Surface Height",
+          "source_snippet": "Work Surface Height\n36",
+          "unit": "",
+          "value": "36"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth with Door Open",
+          "source_snippet": "Depth with Door Open\n51-1/2",
+          "unit": "",
+          "value": "51-1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Shipping Weight",
+          "source_snippet": "Shipping Weight\n136",
+          "unit": "",
+          "value": "136"
+        },
+        {
+          "confidence": "high",
+          "name": "Parts & Labor Warranty",
+          "source_snippet": "Parts & Labor Warranty\n5-Years",
+          "unit": "",
+          "value": "5-Years"
+        }
+      ],
+      "category": "dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DC5004BG",
+        "ADG6ARYS117TB01"
+      ],
+      "product_name": "Speed Queen Gas Dryer",
+      "short_description": "Commercial-grade gas dryer with sanitize cycle and multiple features"
     }
   }
 }

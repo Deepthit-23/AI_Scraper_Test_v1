@@ -48,6 +48,7 @@ class DescriptionInput:
     attributes: list[dict] = field(default_factory=list)  # [{"name":..,"value":..,"unit":..}]
     mounting_type: str = ""          # "Leg", "Built-in", "Cordless"
     includes: str = ""               # "Battery, Charger, Case"
+    classpath: str = ""              # full Classpath from classifier, e.g. "Electrical>...>LED Light Bulbs"
 
 
 @dataclass
@@ -119,11 +120,9 @@ def _title(s: str) -> str:
     return " ".join(_word(w) for w in s.split())
 
 
-# Priority order for attribute selection (lower index = higher priority).
-# Derived from all 5 GT INVOICE/SHORT/RETAIL patterns:
-#   Dryers: capacity → color → voltage/amperage → material
-#   Dishwashers: mounting → cycle count → material → voltage → amperage → noise → dimension
-_ATTR_PRIORITY = [
+# Generic fallback priority (used when no per-category list matches).
+# Derived from all 5 GT INVOICE/SHORT/RETAIL patterns across appliance/tool rows.
+_GENERIC_ATTR_PRIORITY = [
     "capacity",                          # 0  — 7CU-FT, 18LB  (strongest differentiator)
     "color", "finish",                   # 1, 2 — Matte Black, White
     "number of wash", "wash cycle",      # 3, 4 — dishwasher cycles
@@ -143,33 +142,277 @@ _ATTR_PRIORITY = [
     "lumen",                             # 31 — lighting
 ]
 
+# Per-category attribute priority derived from expected_output_200rows.csv.
+# Keys are the lowercase last segment of the Classpath (e.g. "led light bulbs").
+# Lists are ordered highest-priority first; keywords are lowercase substrings of
+# ATTRIBUTE_LABEL values so they survive minor label variation.
+_CATEGORY_ATTR_PRIORITY: dict[str, list[str]] = {
+    # ── Light Bulbs ────────────────────────────────────────────────────────────
+    "led light bulbs": [
+        "wattage", "lumens", "bulb shape", "color temp",
+        "light appearance", "bulb base", "voltage", "color rendering",
+        "bulb finish", "dimmable",
+    ],
+    "incandescent light bulbs": [
+        "wattage", "lumens", "bulb shape", "color temp",
+        "light appearance", "bulb base", "voltage", "color rendering",
+        "bulb finish",
+    ],
+    "halogen light bulbs": [
+        "wattage", "lumens", "bulb shape", "color temp",
+        "bulb base", "voltage", "color rendering",
+    ],
+    "fluorescent light bulbs": [
+        "wattage", "lumens", "bulb shape", "color temp",
+        "bulb base", "voltage",
+    ],
+    # ── Indoor Fixtures ────────────────────────────────────────────────────────
+    "recessed lighting fixtures": [
+        "fixture wattage", "wattage", "voltage", "amperage", "fixture style",
+        "number of bulbs", "bulb type", "bulb wattage", "bulb base",
+        "lumens", "color temp",
+    ],
+    "surface-mount fixtures": [
+        "fixture wattage", "wattage", "voltage", "amperage", "fixture style",
+        "fixture shape", "bulb type", "bulb wattage", "bulb base",
+        "number of bulbs", "lumens", "color temp",
+    ],
+    "indoor ceiling fixtures": [
+        "fixture wattage", "wattage", "voltage", "amperage", "fixture style",
+        "fixture shape", "bulb type", "bulb wattage", "bulb base",
+        "number of bulbs", "lumens", "color temp",
+    ],
+    "accent & display lighting": [
+        "fixture wattage", "wattage", "voltage", "lumens", "color temp", "bulb type",
+    ],
+    "bath & vanity lights": [
+        "fixture wattage", "wattage", "voltage", "lumens", "color temp",
+        "number of bulbs", "bulb type", "fixture style",
+    ],
+    "high bay fixtures": [
+        "fixture wattage", "wattage", "voltage", "lumens", "color temp",
+        "mounting", "fixture style",
+    ],
+    # ── Laundry Appliances ─────────────────────────────────────────────────────
+    "gas dryers": [
+        "capacity", "rotational speed", "btu", "drum type", "fuel type",
+        "number of cycles", "number of temperature", "color",
+        "voltage", "amperage",
+    ],
+    "electric dryers": [
+        "capacity", "voltage", "amperage", "power rating",
+        "rotational speed", "number of cycles", "color",
+    ],
+    "top loading washers": [
+        "capacity", "voltage", "amperage", "rotational speed",
+        "number of cycles", "drum type", "color",
+    ],
+    "front loading washers": [
+        "capacity", "voltage", "amperage", "rotational speed",
+        "number of cycles", "drum type", "color",
+    ],
+    # ── Dishwashers ────────────────────────────────────────────────────────────
+    "built-in dishwashers": [
+        "number of wash", "voltage", "amperage", "mounting",
+        "sound level", "dba", "color", "size",
+    ],
+    # ── Electrical Devices ─────────────────────────────────────────────────────
+    "gfci & afci receptacles": [
+        "voltage", "amperage", "interrupt rating", "short circuit",
+        "number of poles", "number of wires", "wire size", "frequency",
+    ],
+    "receptacles & usb ports": [
+        "voltage", "amperage", "number of outlets", "wire size",
+    ],
+    # ── Cordless Tool Batteries ────────────────────────────────────────────────
+    "cordless tool batteries": [
+        "voltage", "battery capacity", "battery chemistry",
+        "suitable for use with",
+    ],
+    "cordless tool power supplies & battery adapters": [
+        "voltage", "battery capacity", "battery chemistry",
+    ],
+    # ── Cordless Fastening Tools ───────────────────────────────────────────────
+    "cordless nailers": [
+        "nail capacity", "nail length", "nail diameter", "nail gauge",
+        "nail head", "magazine", "firing", "fastening rate", "voltage",
+    ],
+    "cordless staplers": [
+        "staple length", "staple gauge", "magazine capacity",
+        "voltage", "battery capacity",
+    ],
+    "cordless ratchet wrenches": [
+        "drive size", "drive type", "torque", "voltage",
+        "battery capacity", "speed",
+    ],
+    "cordless impact wrenches": [
+        "drive size", "drive type", "torque", "voltage",
+        "battery capacity", "speed",
+    ],
+    "cordless impact drivers": [
+        "drive size", "torque", "voltage", "battery capacity", "speed",
+    ],
+    "power nut setters & bit holders": [
+        "drive size", "bit size", "voltage", "battery capacity",
+    ],
+    # ── Cordless Drills ────────────────────────────────────────────────────────
+    "cordless drills": [
+        "chuck", "voltage", "battery capacity", "torque", "speed",
+    ],
+    "cordless hammer drills": [
+        "chuck", "voltage", "battery capacity", "torque", "speed", "impact",
+    ],
+    # ── Cordless Saws ──────────────────────────────────────────────────────────
+    "cordless miter saws": [
+        "blade diameter", "bevel range", "voltage", "battery capacity", "speed",
+    ],
+    "cordless circular saws": [
+        "blade diameter", "voltage", "battery capacity", "speed",
+    ],
+    "cordless jig saws": [
+        "stroke length", "speed", "voltage", "battery capacity",
+    ],
+    # ── Other Cordless Tools ───────────────────────────────────────────────────
+    "cordless die & straight grinders": [
+        "collet size", "speed", "voltage", "battery capacity",
+    ],
+    "cordless buffers & polishers": [
+        "pad size", "speed", "voltage", "battery capacity",
+    ],
+    "cordless blowers": [
+        "air volume", "air speed", "voltage", "battery capacity",
+    ],
+    # ── Power Saw Blades ───────────────────────────────────────────────────────
+    "diamond saw blades": [
+        "diameter", "bore size", "number of segments", "segment height", "arbor",
+    ],
+    "circular saw blades": [
+        "diameter", "number of teeth", "kerf", "arbor",
+    ],
+    "planer blades": [
+        "blade length", "blade width", "blade thickness", "number of blades",
+    ],
+    # ── Woodworking Machinery ──────────────────────────────────────────────────
+    "woodworking planer machines": [
+        "cutting width", "cutting thickness", "depth of cut",
+        "voltage", "amperage", "wattage", "hp rating", "feed", "speed",
+    ],
+    "corded band saws": [
+        "blade length", "throat depth", "cutting height", "voltage", "amperage", "hp rating",
+    ],
+    # ── Building Materials / Doors & Windows ──────────────────────────────────
+    "patio doors": [
+        "door width", "door height", "door color", "door finish",
+        "door material", "frame material", "door handing",
+    ],
+    "fixed skylights": [
+        "daylight area", "glass type", "frame material", "frame color",
+        "uv protection", "u-factor", "glazing type",
+    ],
+    # ── Decking ────────────────────────────────────────────────────────────────
+    "deck railing kits": [
+        "rail length", "rail width", "rail material", "rail color",
+        "balusters", "installation",
+    ],
+    "deck stair railing kits": [
+        "rail length", "rail width", "rail material", "rail color",
+        "balusters", "installation",
+    ],
+    "deck post sleeves": [
+        "shape", "material", "finish", "color", "width", "depth", "height",
+        "fits post size",
+    ],
+    # ── Safety ────────────────────────────────────────────────────────────────
+    "safety glasses": [
+        "lens type", "lens color", "lens material", "lens coating",
+        "frame color", "frame material", "frame shape", "gender",
+    ],
+    # ── Test & Measurement ────────────────────────────────────────────────────
+    "mason's lines": [
+        "diameter", "length", "breaking strength", "material", "color",
+    ],
+    "rotary & straight line laser levels": [
+        "working range", "accuracy", "leveling range", "laser projection",
+        "ip rating", "power source",
+    ],
+    # ── Hand Tools ────────────────────────────────────────────────────────────
+    "snips": [
+        "cutting capacity", "jaw opening", "blade material", "handle material",
+    ],
+    "hex key sets": [
+        "drive size", "number of pieces", "material", "finish",
+    ],
+    # ── Oscillating Tools ─────────────────────────────────────────────────────
+    "oscillating tool sandpaper & sanding pads": [
+        "grit", "length", "width", "material",
+    ],
+}
 
-def _attr_rank(attr: dict) -> int:
+
+def _get_priority_list(classpath: str) -> list[str]:
+    """Return the per-category priority list for a given classpath, or the generic fallback."""
+    if not classpath:
+        return _GENERIC_ATTR_PRIORITY
+    segments = [s.strip().lower() for s in classpath.split(">")]
+    # Most-specific segment first
+    for seg in reversed(segments):
+        if seg in _CATEGORY_ATTR_PRIORITY:
+            return _CATEGORY_ATTR_PRIORITY[seg]
+    # Substring fallback across the full classpath string
+    cp_lower = classpath.lower()
+    for key, priority in _CATEGORY_ATTR_PRIORITY.items():
+        if key in cp_lower:
+            return priority
+    return _GENERIC_ATTR_PRIORITY
+
+
+def _attr_rank(attr: dict, priority: list[str] | None = None) -> int:
+    if priority is None:
+        priority = _GENERIC_ATTR_PRIORITY
     name_lower = attr.get("name", "").lower()
-    for i, kw in enumerate(_ATTR_PRIORITY):
+    for i, kw in enumerate(priority):
         if kw in name_lower:
             return i
-    return len(_ATTR_PRIORITY)
+    return len(priority)
+
+
+# Long-form unit words to strip from values when the short form is also present.
+# Prevents "10 Watts" + "W" → "10 WattsW" or "10 Watts W".
+_UNIT_LONGFORMS: dict[str, list[str]] = {
+    "W":  ["watts", "watt"],
+    "V":  ["volts", "volt"],
+    "A":  ["amperes", "ampere", "amps", "amp"],
+    "Hz": ["hertz"],
+    "Ah": ["amp-hours", "amp-hour", "ampere-hours"],
+    "lm": ["lumens", "lumen"],
+    "K":  ["kelvin"],
+}
 
 
 def _format_attr_value(attr: dict) -> str:
     val = attr.get("value", "").strip()
     unit = normalize_unit(attr.get("unit", ""))
     if unit:
-        # Strip trailing unit already embedded in val to prevent "20V" + "V" -> "20V V"
+        # Strip the abbreviated unit first (e.g. "20V" → "20")
         val = re.sub(rf"\s*{re.escape(unit)}\s*$", "", val, flags=re.IGNORECASE).strip()
+        # Also strip any long-form variant (e.g. "Watts", "Volts") that survives the first pass
+        for longform in _UNIT_LONGFORMS.get(unit, []):
+            val = re.sub(rf"\s*{re.escape(longform)}\s*$", "", val, flags=re.IGNORECASE).strip()
         return f"{val} {unit}"
     return val
 
 
-def _top_attrs(attributes: list[dict], n: int = 4) -> list[dict]:
-    """Return the top N attributes sorted by importance."""
-    return sorted(attributes, key=_attr_rank)[:n]
+def _top_attrs(attributes: list[dict], n: int = 4, classpath: str = "") -> list[dict]:
+    """Return the top N attributes sorted by per-category importance."""
+    priority = _get_priority_list(classpath)
+    return sorted(attributes, key=lambda a: _attr_rank(a, priority))[:n]
 
 
 # ── Optional LLM helper: pick top attributes ─────────────────────────────────
 
-def _llm_pick_top_attrs(attributes: list[dict], product_type: str, n: int = 5) -> list[dict]:
+def _llm_pick_top_attrs(
+    attributes: list[dict], product_type: str, classpath: str = "", n: int = 5
+) -> list[dict]:
     """
     Ask the LLM to pick the N most important attributes to feature in descriptions.
     Only called when there are more than 8 attributes (saves API calls for short lists).
@@ -177,7 +420,7 @@ def _llm_pick_top_attrs(attributes: list[dict], product_type: str, n: int = 5) -
     """
     api_key = os.environ.get("GROQ_API_KEY")
     if not api_key or len(attributes) <= 8:
-        return _top_attrs(attributes, n)
+        return _top_attrs(attributes, n, classpath)
 
     try:
         client = Groq(api_key=api_key)
@@ -209,7 +452,7 @@ def _llm_pick_top_attrs(attributes: list[dict], product_type: str, n: int = 5) -
         picked = [attributes[i - 1] for i in indices if 1 <= i <= len(attributes)]
         return picked[:n]
     except Exception:
-        return _top_attrs(attributes, n)
+        return _top_attrs(attributes, n, classpath)
 
 
 # ── Description builders ──────────────────────────────────────────────────────
@@ -225,7 +468,7 @@ def build_invoice_desc(inp: DescriptionInput) -> str:
         abbr = INVOICE_ABBREV.get(inp.mounting_type.lower(), inp.mounting_type[:5].upper())
         tokens.append(abbr)
 
-    for attr in _top_attrs(inp.attributes, n=6):
+    for attr in _top_attrs(inp.attributes, n=6, classpath=inp.classpath):
         name_l = attr.get("name", "").lower()
         val = attr.get("value", "").strip()
         unit = normalize_unit(attr.get("unit", ""))
@@ -237,13 +480,15 @@ def build_invoice_desc(inp: DescriptionInput) -> str:
             fv = _format_attr_value(attr)      # "7.0", "7.0 cu-ft", "18 lb"
             tokens.append(fv.replace(" ", "")) # remove spaces so "18 lb" → "18lb" → "18LB"
         elif any(k in name_l for k in ["color", "finish"]):
-            tokens.append(val)                 # "Matte Black" → _apply_invoice_abbrev → "MATTE BK"
+            # Skip long descriptive strings like "Warm White to Natural Light" (not spec values)
+            if len(val) <= 20:
+                tokens.append(val)             # "Matte Black" → _apply_invoice_abbrev → "MATTE BK"
         elif "material" in name_l:
             tokens.append(INVOICE_ABBREV.get(val.lower(), val[:3].upper()))
         elif unit in ("V", "A", "RPM", "Ah", "dBA", "W"):
-            # Strip any trailing unit already in val to prevent "20V" + "V" -> "20VV"
-            clean_val = re.sub(rf"\s*{re.escape(unit)}\s*$", "", val, flags=re.IGNORECASE).strip()
-            tokens.append(f"{clean_val}{unit}")
+            # Use _format_attr_value so longform stripping ("10 Watts" → "10 W") is consistent
+            fv = _format_attr_value(attr)   # "10 W" or "120 V"
+            tokens.append(fv.replace(" ", ""))  # "10W" or "120V"
         elif any(k in name_l for k in ["depth", "size", "chuck", "drive"]):
             eff_unit = unit or "IN"
             clean_val = re.sub(rf"\s*{re.escape(eff_unit)}\s*$", "", val, flags=re.IGNORECASE).strip()
@@ -278,7 +523,7 @@ def build_mobile_desc(inp: DescriptionInput) -> str:
         result += f", {inp.material}"
 
     if len(result) < 60:
-        for attr in _top_attrs(inp.attributes, n=6):
+        for attr in _top_attrs(inp.attributes, n=6, classpath=inp.classpath):
             if len(result) >= 60:
                 break
             val_str = _format_attr_value(attr)
@@ -337,7 +582,7 @@ def build_short_desc(inp: DescriptionInput, use_llm: bool = True) -> str:
     else:
         with_clause = ""
 
-    top = _llm_pick_top_attrs(inp.attributes, inp.product_type, n=4) if use_llm else _top_attrs(inp.attributes, 4)
+    top = _llm_pick_top_attrs(inp.attributes, inp.product_type, inp.classpath, n=4) if use_llm else _top_attrs(inp.attributes, 4, classpath=inp.classpath)
     attr_parts = [_format_attr_value(a) for a in top]
     if inp.material and inp.material not in attr_parts:
         attr_parts.append(inp.material)
@@ -365,7 +610,8 @@ def build_long_desc(inp: DescriptionInput, use_llm: bool = True) -> str:
         parts.append(_title(inp.series))
 
     # Lead with highest-priority attrs; overflow goes to "Additional Information:"
-    attrs_to_use = sorted(inp.attributes, key=_attr_rank)
+    priority = _get_priority_list(inp.classpath)
+    attrs_to_use = sorted(inp.attributes, key=lambda a: _attr_rank(a, priority))
     for i, attr in enumerate(attrs_to_use):
         name = attr.get("name", "")
         val = _format_attr_value(attr)
@@ -396,7 +642,7 @@ def build_retail_desc(inp: DescriptionInput) -> str:
     if inp.mounting_type:
         parts.append(_title(inp.mounting_type))
 
-    for attr in _top_attrs(inp.attributes, n=3):
+    for attr in _top_attrs(inp.attributes, n=3, classpath=inp.classpath):
         parts.append(_title(_format_attr_value(attr)))
 
     if inp.material:

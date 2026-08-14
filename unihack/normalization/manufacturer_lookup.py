@@ -80,8 +80,36 @@ MANUFACTURER_CANONICAL: dict[str, dict] = {
 
     # ── Satco / NUVO ─────────────────────────────────────────────────────────
     "satco prod inc":     {"manufacturer_name": "Satco Products, Inc", "brand_name": "SATCO®"},
+    "5573":               {"manufacturer_name": "Satco Products, Inc", "brand_name": "SATCO®"},
     "satco":              {"manufacturer_name": "Satco Products, Inc", "brand_name": "SATCO®"},
     "nuvo":               {"manufacturer_name": "Satco Products, Inc", "brand_name": "NUVO® by SATCO"},
+
+    # ── United Window & Door ───────────────────────────────────────────────
+    "united window & door": {"manufacturer_name": "United Window & Door", "brand_name": "United Window & Door"},
+    "united window":      {"manufacturer_name": "United Window & Door", "brand_name": "United Window & Door"},
+    "uniwi":              {"manufacturer_name": "United Window & Door", "brand_name": "United Window & Door"},
+
+    # ── VELUX Group ──────────────────────────────────────────────────
+    "velux america inc":  {"manufacturer_name": "VELUX Group", "brand_name": "VELUX®"},
+    "velux america":      {"manufacturer_name": "VELUX Group", "brand_name": "VELUX®"},
+    "velam":              {"manufacturer_name": "VELUX Group", "brand_name": "VELUX®"},
+    "velux":              {"manufacturer_name": "VELUX Group", "brand_name": "VELUX®"},
+
+    # ── HAGER COMPANIES ───────────────────────────────────────────────
+    "hager hinge co":     {"manufacturer_name": "HAGER COMPANIES", "brand_name": "HAGER®"},
+    "4189":               {"manufacturer_name": "HAGER COMPANIES", "brand_name": "HAGER®"},
+    "hager":              {"manufacturer_name": "HAGER COMPANIES", "brand_name": "HAGER®"},
+
+    # ── J.M. Huber / ZIP System ────────────────────────────────────────────
+    "huber eng wood llc": {"manufacturer_name": "J.M. Huber Corporation", "brand_name": "ZIP System®"},
+    "huber eng wood":     {"manufacturer_name": "J.M. Huber Corporation", "brand_name": "ZIP System®"},
+    "3158":               {"manufacturer_name": "J.M. Huber Corporation", "brand_name": "ZIP System®"},
+    "huber":              {"manufacturer_name": "J.M. Huber Corporation", "brand_name": "ZIP System®"},
+
+    # ── Schumacher Electric ───────────────────────────────────────────────
+    "schumacher electric corporation": {"manufacturer_name": "Schumacher Electric Corporation", "brand_name": "Schumacher®"},
+    "schumacher electric": {"manufacturer_name": "Schumacher Electric Corporation", "brand_name": "Schumacher®"},
+    "schumacher":         {"manufacturer_name": "Schumacher Electric Corporation", "brand_name": "Schumacher®"},
 
     # ── Lithonia Lighting / Acuity Brands ───────────────────────────────────
     "lithonia lighting":  {"manufacturer_name": "Acuity Brands Lighting", "brand_name": "Lithonia Lighting®"},
@@ -215,6 +243,14 @@ _MPN_PREFIXES: dict[str, dict] = {
     "GFD":  {"manufacturer_name": "Makita",                         "brand_name": "Makita®"},
     # Diablo (Freud America)
     "DCB5": {"manufacturer_name": "Freud America, Inc",             "brand_name": "DIABLO®"},
+    # NUVO® by SATCO (numeric-hyphenated SKUs: 62-xxxx, 64-xxxx, 65-xxxx)
+    "62-":  {"manufacturer_name": "Satco Products, Inc",            "brand_name": "NUVO® by SATCO"},
+    "64-":  {"manufacturer_name": "Satco Products, Inc",            "brand_name": "NUVO® by SATCO"},
+    "65-":  {"manufacturer_name": "Satco Products, Inc",            "brand_name": "NUVO® by SATCO"},
+    # Schumacher Electric — SL-series chargers/jump starters
+    "SL":   {"manufacturer_name": "Schumacher Electric Corporation", "brand_name": "Schumacher®"},
+    # J.M. Huber / ZIP System — specific MPN (Part_Manuf is "-" for this SKU)
+    "1501767": {"manufacturer_name": "J.M. Huber Corporation",      "brand_name": "ZIP System®"},
 }
 
 # Terms that flag a purchasing co-op / distributor rather than a real product manufacturer.
@@ -227,7 +263,6 @@ _NON_MANUFACTURER_TERMS = frozenset([
     "supply co",
     "buying group",
     "co-op",
-    "coop",
     "appde",
     "buying cooperative",
     "trade association",

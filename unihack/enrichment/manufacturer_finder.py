@@ -118,7 +118,7 @@ _BRAND_DOMAINS: dict[str, dict] = {
     },
     "leviton": {
         "domain": "leviton.com",
-        "product_url": None,
+        "product_url": "https://leviton.com/products/{mpn}",
     },
     "3m": {
         "domain": "3m.com",
@@ -174,6 +174,135 @@ _DDG_BLOCKED_DOMAINS = {
     "frigidaire.com",
     "whirlpool.com",
 }
+
+
+# ── ScraperAPI (Tier 3) ──────────────────────────────────────────────────────
+# Stats reset each process; mirrors the llm_cache.record_usage() pattern.
+_SCRAPERAPI_STATS: dict[str, int] = {"calls": 0, "credits": 0}
+
+
+def _scraperapi_fetch(
+    target_url: str,
+    api_key: str,
+    render: bool = True,
+) -> tuple[str, int, str | None]:
+    """
+    Wrap target_url through ScraperAPI's endpoint to bypass Cloudflare,
+    JS rendering, and CAPTCHA barriers that defeat plain requests.
+
+    Free tier: 1,000 credits/month recurring.  1 call = 1 credit.
+    Endpoint: http://api.scraperapi.com?api_key=KEY&url=TARGET&render=true
+    Returns (html_text, http_status_code, error_or_none).
+    """
+    from urllib.parse import quote as _quote
+    endpoint = (
+        "http://api.scraperapi.com"
+        f"?api_key={api_key}"
+        f"&url={_quote(target_url, safe='')}"
+        f"&render={'true' if render else 'false'}"
+    )
+    _throttle(target_url)   # rate-limit on the TARGET domain, not ScraperAPI's
+    try:
+        resp = requests.get(endpoint, timeout=(10, 25 if render else 45), verify=False)
+        _SCRAPERAPI_STATS["calls"] += 1
+        _SCRAPERAPI_STATS["credits"] += 1
+        print(
+            f"  [scraperapi] HTTP {resp.status_code}  "
+            f"len={len(resp.text):,}  "
+            f"credits_this_session={_SCRAPERAPI_STATS['credits']}"
+        )
+        if resp.status_code == 200:
+            return resp.text, resp.status_code, None
+        # Log up to 200 bytes of the error body — helps distinguish
+        # malformed request (ScraperAPI error JSON) from target-site block
+        body_preview = " ".join(resp.text[:200].split())
+        print(f"  [scraperapi] response body: {body_preview}")
+        return "", resp.status_code, f"HTTP {resp.status_code}"
+    except requests.exceptions.Timeout:
+        _SCRAPERAPI_STATS["calls"] += 1
+        _SCRAPERAPI_STATS["credits"] += 1   # charged by ScraperAPI even on timeout
+        print(f"  [scraperapi] TIMEOUT  credits_this_session={_SCRAPERAPI_STATS['credits']}")
+        return "", 0, "timeout"
+    except Exception as e:
+        return "", 0, str(e)
+
+
+def get_scraperapi_stats() -> dict[str, int]:
+    """Return ScraperAPI credit/call usage for this session."""
+    return dict(_SCRAPERAPI_STATS)
+
+
+def _scraperapi_stage3(
+    mpn: str,
+    manufacturer_name: str,
+    brand_name: str,
+    known_url: str | None,
+    verbose: bool = False,
+) -> tuple[str | None, str | None]:
+    """
+    Stage 3: ScraperAPI last-resort enrichment.
+    Only runs when SCRAPERAPI_KEY is set AND Stages 1+2 produced no clean text.
+
+    If a URL was already found by Stage 1/2 but normal scraping failed,
+    ScraperAPI re-fetches that same URL with JS rendering + proxy rotation.
+
+    If no URL was found at all (e.g. frigidaire.com / whirlpool.com where DDG
+    is blocked AND there is no direct URL template), runs DDG now — bypassing
+    _DDG_BLOCKED_DOMAINS, since ScraperAPI can actually scrape the result.
+
+    Returns (clean_text, url) or (None, None).
+    """
+    api_key = os.environ.get("SCRAPERAPI_KEY")
+    if not api_key:
+        return None, None   # key not configured — skip silently in production
+
+    stage3_url = known_url
+
+    # Discover URL via DDG if we don't have one yet (bypasses blocked-domain list)
+    if not stage3_url:
+        brand_key = _BRAND_KEY_MAP.get(brand_name.lower().strip(), "")
+        domain = _BRAND_DOMAINS.get(brand_key, {}).get("domain", "")
+        if domain:
+            _q = chr(34) + mpn + chr(34)
+            query = f"site:{domain} {_q} specifications"
+        else:
+            mfr_short = manufacturer_name.split(",")[0].strip()
+            _q = chr(34) + mpn + chr(34)
+            query = f"{mfr_short} {_q} specifications"
+        print(f"  [scraperapi] Stage3 DDG query (blocked-domain list bypassed): '{query}'")
+        ddg_results, ddg_status = _ddg_search(query)
+        print(f"  [scraperapi] DDG status={ddg_status}  {len(ddg_results)} results")
+        for r in ddg_results:
+            candidate = r["url"]
+            if _is_marketplace(candidate):
+                continue
+            if not domain or domain in candidate:
+                stage3_url = candidate
+                print(f"  [scraperapi] DDG found URL: {stage3_url}")
+                break
+        if not stage3_url:
+            print(f"  [scraperapi] no usable DDG URL for {mpn} — Stage 3 skipped")
+            return None, None
+
+    print(f"  [scraperapi] fetching: {stage3_url}")
+    html, status, err = _scraperapi_fetch(stage3_url, api_key)
+    if not html:
+        print(f"  [scraperapi] fetch failed: {err}")
+        return None, stage3_url
+
+    # Reuse the same trafilatura pipeline as web_scraper.py
+    from scraper.web_scraper import clean_html as _web_clean_html
+    extracted, _ = _web_clean_html(html)
+    char_count = len(extracted or "")
+    if not extracted or char_count < 100:
+        print(
+            f"  [scraperapi] HTTP {status} but content too sparse "
+            f"({char_count} chars) — may still be JS-gated or wrong page"
+        )
+        return None, stage3_url
+
+    print(f"  [scraperapi] content OK — {char_count:,} chars extracted")
+    return extracted, stage3_url
 
 _MARKETPLACE_DOMAINS = {
     "amazon", "ebay", "walmart", "homedepot", "lowes", "grainger",
@@ -361,14 +490,14 @@ def enrich_from_manufacturer(
 ) -> dict:
     """
     Full enrichment for one product:
-      1. Find manufacturer page
-      2. Scrape it (reuse scraper/web_scraper.py)
-      3. Extract attributes (reuse extractor/llm_extractor.py)
+      Stage 1: Direct URL template (fast, free)
+      Stage 2: DuckDuckGo search (free; skipped for blocked domains)
+      Stage 3: ScraperAPI (last resort — costs credits; only runs if SCRAPERAPI_KEY set)
 
     Returns:
         {enriched, source_url, attributes, series, product_record, error}
 
-    enriched=False means we tried but failed; caller should proceed without
+    enriched=False means all stages failed; caller should proceed without
     enrichment rather than raising.
     """
     result: dict = {
@@ -380,34 +509,45 @@ def enrich_from_manufacturer(
         "error": None,
     }
 
+    # ── Stages 1+2: direct URL template → DDG search (fast, free) ────────────
     url = find_manufacturer_page(mpn, manufacturer_name, brand_name, verbose=verbose, use_ddg=use_ddg)
-    if not url:
-        result["error"] = f"No manufacturer page found for {mpn} ({brand_name})"
-        return result
+    clean_text: str | None = None
 
-    result["source_url"] = url
-
-    if verbose:
-        print(f"  [enrich] scraping: {url}")
-    _throttle(url)
-    page = scrape_product_page(url)
-    if not page.success:
-        result["error"] = f"Scrape failed: {page.error}"
+    if url:
+        result["source_url"] = url
         if verbose:
-            print(f"  [enrich] scrape FAILED: {page.error}")
+            print(f"  [enrich] scraping: {url}")
+        _throttle(url)
+        page = scrape_product_page(url)
+        if not page.success:
+            result["error"] = f"Scrape failed: {page.error}"
+            if verbose:
+                print(f"  [enrich] scrape FAILED: {page.error}")
+        elif len(page.clean_text) < 100:
+            result["error"] = "Page text too short — likely JS-rendered or blocked"
+            if verbose:
+                print(f"  [enrich] page text too short ({len(page.clean_text)} chars) — JS-rendered or blocked")
+        else:
+            if verbose:
+                print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars), running LLM extraction...")
+            clean_text = page.clean_text
+
+    # ── Stage 3: ScraperAPI fallback (last resort — costs credits) ──────────
+    if clean_text is None:
+        clean_text, s3_url = _scraperapi_stage3(
+            mpn, manufacturer_name, brand_name, url, verbose=verbose
+        )
+        if s3_url:
+            result["source_url"] = s3_url
+
+    if clean_text is None:
+        if not result["error"]:
+            result["error"] = f"No manufacturer page found for {mpn} ({brand_name})"
         return result
 
-    if len(page.clean_text) < 100:
-        result["error"] = "Page text too short — likely JS-rendered or blocked"
-        if verbose:
-            print(f"  [enrich] page text too short ({len(page.clean_text)} chars) — JS-rendered or blocked")
-        return result
-
-    if verbose:
-        print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars), running LLM extraction...")
-
+    # ── LLM extraction (same path regardless of which tier fetched the page) ───
     try:
-        record = extract_product(page.clean_text, source_id=url)
+        record = extract_product(clean_text, source_id=result["source_url"])
         result["product_record"] = record
         result["attributes"] = record.attributes
         result["enriched"] = True
