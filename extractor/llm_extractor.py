@@ -35,11 +35,14 @@ EXTRACTION_TOOL = {
             "properties": {
                 "product_name": {"type": "string"},
                 "category": {"type": "string", "description": "e.g. thermocouple, sensor, valve, motor"},
-                "manufacturer": {"type": "string"},
+                "manufacturer": {
+                    "type": "string",
+                    "description": "Manufacturer name. Use empty string '' if not mentioned in the source."
+                },
                 "model_numbers": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": "Only model numbers that appear VERBATIM in the source text. Never infer or complete a series (e.g. if SA1-J-72 appears but SA1-T-72 does not, omit SA1-T-72)."
+                    "description": "Only model numbers that appear VERBATIM in the source text. Use empty array [] if none found. Never infer or complete a series."
                 },
                 "short_description": {"type": "string"},
                 "attributes": {
@@ -49,7 +52,10 @@ EXTRACTION_TOOL = {
                         "properties": {
                             "name": {"type": "string"},
                             "value": {"type": "string"},
-                            "unit": {"type": "string"},
+                            "unit": {
+                                "type": "string",
+                                "description": "Unit if applicable (e.g. 'W', 'V', 'Hz', 'lm/W'). Use empty string '' when no unit applies (e.g. for text attributes like Color or Dimmable)."
+                            },
                             "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
                             "source_snippet": {
                                 "type": "string",

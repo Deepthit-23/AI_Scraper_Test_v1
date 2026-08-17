@@ -354,6 +354,61 @@ def _is_promo_content(text: str) -> bool:
     return promo_hits >= 2 and spec_hits == 0
 
 
+def _brand_tokens(brand_name: str, manufacturer_name: str) -> frozenset[str]:
+    """
+    Build the set of lowercase identifiers we expect to see on a correct
+    product page.  Includes the cleaned brand name (whole + individual words
+    ≥ 4 chars) and the first word of the manufacturer name (company identity,
+    not geography/legal suffix).
+    """
+    tokens: set[str] = set()
+    brand_clean = re.sub(r"[®™]", "", brand_name).strip().lower()
+    if brand_clean:
+        tokens.add(brand_clean)
+        tokens.update(w for w in brand_clean.split() if len(w) >= 4)
+    # First word of manufacturer name (e.g. "Signify" from "Signify Netherlands B.V.")
+    mfr_words = re.sub(r"[®™,.()\[\]]", " ", manufacturer_name).split()
+    if mfr_words and len(mfr_words[0]) >= 4:
+        tokens.add(mfr_words[0].lower())
+    return frozenset(tokens)
+
+
+def _is_wrong_brand(
+    url: str,
+    page_text: str,
+    brand_name: str,
+    manufacturer_name: str,
+    verbose: bool = False,
+) -> tuple[bool, str]:
+    """
+    Return (True, reason) when the scraped page belongs to a different
+    manufacturer than the one we searched for.
+
+    A page passes when at least one brand/manufacturer token appears in the
+    hostname OR anywhere in the page text.  A page fails when none appear —
+    confirming the content belongs to a different company.
+
+    Returns (False, "") on pass; (True, human-readable reason) on fail.
+    """
+    tokens = _brand_tokens(brand_name, manufacturer_name)
+    if not tokens:
+        return False, ""   # can't verify — don't reject
+
+    hostname = urlparse(url).netloc.lower()
+    text_lower = page_text.lower()
+
+    for tok in tokens:
+        if tok in hostname or tok in text_lower:
+            return False, ""   # brand confirmed present
+
+    # Identify the actual brand from the hostname for a meaningful error message
+    host_bare = hostname.lstrip("www.").split(".")[0]
+    return True, (
+        f"source page appears to be for '{host_bare}', not '{brand_name}' "
+        f"(none of {sorted(tokens)} found in hostname or page text)"
+    )
+
+
 # ── Hard-excluded domains (Tavily exclude_domains list) ───────────────────────
 # Judging brief explicitly forbids Amazon, eBay, Walmart, Home Depot.
 # Expanded to cover all major regional TLDs so they can't slip through.
@@ -465,6 +520,33 @@ def _tavily_discover(
     if verbose:
         print(f"  [tavily] query: '{query}'")
 
+    # ── Pass A: domain-scoped search (manufacturer's own site) ───────────────
+    # When we know the manufacturer's domain, try restricting Tavily to that
+    # domain first.  This eliminates competitor pages for numeric MPNs (e.g.
+    # Philips 567313 matching Feit on a general search).  Only skip when
+    # mfr_domain is unknown.
+    if mfr_domain:
+        try:
+            scoped_resp = client.search(
+                query=query,
+                include_domains=[mfr_domain],
+                max_results=3,
+                include_raw_content=False,
+            )
+            for r in scoped_resp.get("results", []):
+                url = r.get("url", "")
+                score = r.get("score", 0)
+                if url:
+                    if verbose:
+                        print(f"  [tavily] domain-scoped hit [manufacturer] score={score:.3f}: {url}")
+                    return url, "manufacturer"
+        except Exception as e:
+            if verbose:
+                print(f"  [tavily] domain-scoped search error: {e}")
+        if verbose:
+            print(f"  [tavily] domain-scoped pass: no results on {mfr_domain} — falling back to general search")
+
+    # ── Pass B: general search with hard exclusions ───────────────────────────
     try:
         resp = client.search(
             query=query,
@@ -479,7 +561,7 @@ def _tavily_discover(
 
     results = resp.get("results", [])
     if verbose:
-        print(f"  [tavily] {len(results)} results returned")
+        print(f"  [tavily] general search: {len(results)} results")
 
     for r in results:
         url = r.get("url", "")
@@ -487,8 +569,7 @@ def _tavily_discover(
         if not url:
             continue
 
-        # Belt-and-suspenders: re-check hard exclusions (some regional TLDs
-        # may slip through if not in the exclude list)
+        # Belt-and-suspenders: re-check hard exclusions (regional TLDs may slip)
         host_lower = urlparse(url).netloc.lower()
         if any(excl.lstrip("www.") in host_lower for excl in _TAVILY_HARD_EXCLUDE):
             if verbose:
@@ -771,6 +852,18 @@ def enrich_from_manufacturer(
     if clean_text is None:
         if not result["error"]:
             result["error"] = f"No manufacturer page found for {mpn} ({brand_name})"
+        return result
+
+    # ── Brand-verification gate ───────────────────────────────────────────────
+    # Reject pages that belong to a different manufacturer (e.g. Feit specs
+    # returned for a Philips MPN).  Fires before LLM — no tokens wasted.
+    wrong_brand, brand_reason = _is_wrong_brand(
+        result["source_url"], clean_text, brand_name, manufacturer_name, verbose
+    )
+    if wrong_brand:
+        result["error"] = f"Brand mismatch: {brand_reason}"
+        if verbose:
+            print(f"  [enrich] brand-verification gate triggered for {mpn}: {brand_reason}")
         return result
 
     # ── Promo-content gate ────────────────────────────────────────────────────
