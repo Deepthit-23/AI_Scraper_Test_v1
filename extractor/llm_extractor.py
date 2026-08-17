@@ -21,7 +21,7 @@ import json
 from groq import Groq
 from schema.product_schema import ProductRecord, Attribute
 
-MODEL = "llama-3.3-70b-versatile"
+MODEL = "openai/gpt-oss-120b"
 
 # This is the "shape" we force the model to fill in.
 # It mirrors schema/product_schema.py -- keep them in sync.

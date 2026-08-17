@@ -17,14 +17,17 @@ import json
 from groq import Groq
 from unihack.classification.taxonomy import (
     TAXONOMY, get_classpath, get_dept_class_fine,
-    all_category_keys, taxonomy_prompt_text,
+    taxonomy_prompt_text,
 )
 from unihack import llm_cache
 
-_MODEL = "llama-3.3-70b-versatile"
+_MODEL = "openai/gpt-oss-120b"
 
 
-def _classification_tool(category_keys: list[str]) -> dict:
+def _classification_tool() -> dict:
+    # Note: enum is intentionally omitted — large enums (75+ items) cause
+    # openai/gpt-oss-120b to fail forced tool calls. The system prompt lists
+    # all valid keys; we validate the returned key against TAXONOMY afterward.
     return {
         "type": "function",
         "function": {
@@ -35,8 +38,7 @@ def _classification_tool(category_keys: list[str]) -> dict:
                 "properties": {
                     "category_key": {
                         "type": "string",
-                        "enum": category_keys,
-                        "description": "The single best matching taxonomy category key.",
+                        "description": "The single best matching category key from the system prompt category list.",
                     },
                     "product_type": {
                         "type": "string",
@@ -139,12 +141,11 @@ def classify_product(part_desc: str, mfg_part_num: str = "") -> dict:
         }
 
     client = Groq(api_key=api_key)
-    keys = all_category_keys()
 
     try:
         response = client.chat.completions.create(
             model=_MODEL,
-            max_tokens=200,
+            max_tokens=1000,
             messages=[
                 {
                     "role": "system",
@@ -159,7 +160,7 @@ def classify_product(part_desc: str, mfg_part_num: str = "") -> dict:
                     "content": f"MPN: {mfg_part_num}\nDescription: {part_desc}",
                 },
             ],
-            tools=[_classification_tool(keys)],
+            tools=[_classification_tool()],
             tool_choice={"type": "function", "function": {"name": "classify_product"}},
         )
 

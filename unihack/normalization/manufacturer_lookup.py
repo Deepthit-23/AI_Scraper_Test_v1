@@ -269,7 +269,7 @@ _NON_MANUFACTURER_TERMS = frozenset([
     "members cooperative",
 ])
 
-_MODEL = "llama-3.3-70b-versatile"
+_MODEL = "openai/gpt-oss-120b"
 
 
 def _is_non_manufacturer(name: str) -> bool:
@@ -325,7 +325,7 @@ def _infer_brand_from_desc(part_desc: str, mpn: str, existing_brand: str = "") -
             user_content += f"\nKnown brand hint: {existing_brand}"
         response = client.chat.completions.create(
             model=_MODEL,
-            max_tokens=150,
+            max_tokens=800,
             messages=[
                 {
                     "role": "system",

@@ -31,7 +31,7 @@ from dataclasses import dataclass, field
 from groq import Groq
 from unihack.normalization.uom_table import normalize_unit, INVOICE_ABBREV
 
-_MODEL = "llama-3.3-70b-versatile"
+_MODEL = "openai/gpt-oss-120b"
 
 # ── Input / output data structures ───────────────────────────────────────────
 
@@ -430,7 +430,7 @@ def _llm_pick_top_attrs(
         )
         response = client.chat.completions.create(
             model=_MODEL,
-            max_tokens=200,
+            max_tokens=1200,
             messages=[
                 {
                     "role": "system",

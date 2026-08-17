@@ -51,6 +51,56 @@
       "Classpath": "Electrical>Lamps & Lightings>Light Bulbs>Fluorescent Light Bulbs",
       "confidence": "high",
       "method": "llm"
+    },
+    "DCB518ASTS06G Diablo 1/2\"x18\" - Sanding Belt 6pc::DCB518ASTS06G": {
+      "category_key": "Oscillating Pads",
+      "product_type": "Sanding Belt",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Oscillating Tools",
+      "Classpath": "Tools & Equipment>Power Tools>Oscillating Tools>Oscillating Tool Sandpaper & Sanding Pads",
+      "confidence": "medium",
+      "method": "llm"
+    },
+    "3M 775L Stikit Film P150 - Cubitron II 50 Disc/Box::3MABR-7100075678": {
+      "category_key": "Oscillating Pads",
+      "product_type": "Cubitron II Abrasive Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Oscillating Tools",
+      "Classpath": "Tools & Equipment>Power Tools>Oscillating Tools>Oscillating Tool Sandpaper & Sanding Pads",
+      "confidence": "low",
+      "method": "llm"
+    },
+    "3M 775L Stikit Film P120 - Cubitron II 50 Disc/Box::3MABR-7100045865": {
+      "category_key": "Oscillating Pads",
+      "product_type": "Cubitron II Sanding Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Oscillating Tools",
+      "Classpath": "Tools & Equipment>Power Tools>Oscillating Tools>Oscillating Tool Sandpaper & Sanding Pads",
+      "confidence": "high",
+      "method": "llm"
+    },
+    "3M 775L Stikit Film P80 - Cubitron II 50 Disc/Box::3MABR-7100048736": {
+      "category_key": "Dust Extractor Bags",
+      "product_type": "Sanding Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Tool Accessories",
+      "Classpath": "Tools & Equipment>Power Tools>Power Tool Accessories>Dust Collector Accessories",
+      "confidence": "low",
+      "method": "llm"
+    },
+    "3M 775L Stikit Film P180 - Cubitron II 50 Disc/Box::3MABR-7100075690": {
+      "category_key": "Dust Extractor Bags",
+      "product_type": "Cubitron II Abrasive Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Tool Accessories",
+      "Classpath": "Tools & Equipment>Power Tools>Power Tool Accessories>Dust Collector Accessories",
+      "confidence": "low",
+      "method": "llm"
     }
   },
   "extract": {
