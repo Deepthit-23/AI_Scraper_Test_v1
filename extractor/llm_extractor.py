@@ -23,6 +23,12 @@ from schema.product_schema import ProductRecord, Attribute
 
 MODEL = "openai/gpt-oss-120b"
 
+# Overhead budget (system prompt + tool definition + user-message prefix) ≈ 1,000 tokens.
+# Hard cap on source_text leaves ~6,000 tokens for content, staying well under the
+# 8,000 TPM limit.  Trafilatura already removed nav/boilerplate, so a head-first
+# truncation keeps the product-spec region which appears near the top of clean_text.
+_MAX_SOURCE_CHARS = 24_000
+
 # This is the "shape" we force the model to fill in.
 # It mirrors schema/product_schema.py -- keep them in sync.
 EXTRACTION_TOOL = {
@@ -142,6 +148,12 @@ def extract_product(source_text: str, source_id: str) -> ProductRecord:
         pass
 
     client = get_client()
+
+    # Truncate to avoid hitting the 8,000 TPM limit on openai/gpt-oss-120b.
+    # Trafilatura clean_text has no nav/boilerplate; product specs appear near
+    # the top, so head-first truncation preserves the highest-value content.
+    if len(source_text) > _MAX_SOURCE_CHARS:
+        source_text = source_text[:_MAX_SOURCE_CHARS] + "\n[content truncated]"
 
     response = client.chat.completions.create(
         model=MODEL,

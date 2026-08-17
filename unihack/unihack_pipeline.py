@@ -97,7 +97,7 @@ OUTPUT_COLS = [
     # Pipeline metadata (prefixed _ so they're easy to strip for submission)
     "_classification_confidence", "_classification_method",
     "_brand_resolution_method",
-    "_enriched", "_enrichment_source", "_source_tier",
+    "_enriched", "_enrichment_source", "_source_tier", "_exact_mpn_verified",
     "_invoice_desc_ok", "_mobile_desc_ok",
 ]
 
@@ -209,6 +209,7 @@ def process_row(row: dict, enrich: bool = True) -> dict:
         "_enriched": str(enrichment.get("enriched", False)),
         "_enrichment_source": enrichment.get("source_url") or "",
         "_source_tier": enrichment.get("source_tier") or "",
+        "_exact_mpn_verified": str(enrichment.get("exact_mpn_verified", "")) if enrichment.get("enriched") else "",
         "_enrichment_error": enrichment.get("error") or "",
         "_invoice_desc_ok": str(descs.invoice_ok),
         "_mobile_desc_ok": str(descs.mobile_ok),

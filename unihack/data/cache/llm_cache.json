@@ -101,6 +101,156 @@
       "Classpath": "Tools & Equipment>Power Tools>Power Tool Accessories>Dust Collector Accessories",
       "confidence": "low",
       "method": "llm"
+    },
+    "Diablo 1/2\"x18\" - Sanding Belt 6pc::DCB518ASTS06G": {
+      "category_key": "Dust Extractor Bags",
+      "product_type": "Sanding Belt",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Tool Accessories",
+      "Classpath": "Tools & Equipment>Power Tools>Power Tool Accessories>Dust Collector Accessories",
+      "confidence": "low",
+      "method": "llm"
+    },
+    "Diablo 9\" - Metal Cut-Off Disc::DBD090094101F": {
+      "category_key": "Diamond Blades",
+      "product_type": "Metal Cut-Off Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Saw Blades",
+      "Classpath": "Tools & Equipment>Power Tools>Power Saw Blades>Diamond Saw Blades",
+      "confidence": "low",
+      "method": "llm"
+    },
+    "Diablo 12\" - Steel Demon Metal Cut-Off Disc::DBDS12125A01F": {
+      "category_key": "Diamond Blades",
+      "product_type": "Metal Cut-Off Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Saw Blades",
+      "Classpath": "Tools & Equipment>Power Tools>Power Saw Blades>Diamond Saw Blades",
+      "confidence": "medium",
+      "method": "llm"
+    },
+    "Milw 5\"x.045\"x7/8\" Metal Cut Off Disc::49-94-0013": {
+      "category_key": "Diamond Blades",
+      "product_type": "Metal Cut Off Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Saw Blades",
+      "Classpath": "Tools & Equipment>Power Tools>Power Saw Blades>Diamond Saw Blades",
+      "confidence": "medium",
+      "method": "llm"
+    },
+    "Milw 6-1/2\"x1/8\"x5/8\" DKO Metal Cut Off Disc::49-94-0029": {
+      "category_key": "Diamond Blades",
+      "product_type": "Metal Cut Off Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Saw Blades",
+      "Classpath": "Tools & Equipment>Power Tools>Power Saw Blades>Diamond Saw Blades",
+      "confidence": "medium",
+      "method": "llm"
+    },
+    "Milw Voltage Detector::3200-20": {
+      "category_key": "GFCI Receptacles",
+      "product_type": "Voltage Detector",
+      "Dept": "Electrical",
+      "Class": "Wiring Devices",
+      "Fine": "GFCI & AFCI Devices",
+      "Classpath": "Electrical>Wiring Devices>GFCI & AFCI Devices>GFCI & AFCI Receptacles",
+      "confidence": "low",
+      "method": "llm"
+    },
+    "Milw Voltage Detector w/ LED::3202-20": {
+      "category_key": "Laser Levels",
+      "product_type": "Voltage Detector",
+      "Dept": "Test & Measurement",
+      "Class": "Measuring & Layout Tools",
+      "Fine": "Levels",
+      "Classpath": "Test & Measurement>Measuring & Layout Tools>Levels>Rotary & Straight Line Laser Levels",
+      "confidence": "low",
+      "method": "llm"
+    },
+    "Hole Drilling System::TP-1935": {
+      "category_key": "Hole Saws",
+      "product_type": "Hole Saw Set",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Saw Blades",
+      "Classpath": "Tools & Equipment>Power Tools>Power Saw Blades>Hole Saws & Accessories>Hole Saw Sets",
+      "confidence": "high",
+      "method": "llm"
+    },
+    "Milw 4\"x1/4\"x5/8\" Metal Grinding Wheel::49-94-0501": {
+      "category_key": "Diamond Blades",
+      "product_type": "Metal Grinding Wheel",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Saw Blades",
+      "Classpath": "Tools & Equipment>Power Tools>Power Saw Blades>Diamond Saw Blades",
+      "confidence": "medium",
+      "method": "llm"
+    },
+    "Milw 4-1/2\"x1/8\"x7/8\" Dual Metal Cut and Grind Disc::49-94-0803": {
+      "category_key": "Circular Saw Blades",
+      "product_type": "Cutting Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Saw Blades",
+      "Classpath": "Tools & Equipment>Power Tools>Power Saw Blades>Circular Saw Blades",
+      "confidence": "low",
+      "method": "llm"
+    },
+    "Milw 4-1/2\"x1/8\"x7/8\" Perform+Dual Metal Cut and Grind Disc::49-94-0903": {
+      "category_key": "Circular Saw Blades",
+      "product_type": "Perform+ Dual Metal Cut and Grind Disc",
+      "Dept": "Tools & Equipment",
+      "Class": "Power Tools",
+      "Fine": "Power Saw Blades",
+      "Classpath": "Tools & Equipment>Power Tools>Power Saw Blades>Circular Saw Blades",
+      "confidence": "medium",
+      "method": "llm"
+    },
+    "6'x36\" Select Alm w/Sq Bal Hor - Assembled Black Rail Panel::543340126": {
+      "category_key": "Deck Railing Kits",
+      "product_type": "Assembled Deck Rail Panel",
+      "Dept": "Building Materials",
+      "Class": "Decking",
+      "Fine": "Deck & Porch Railings",
+      "Classpath": "Building Materials>Decking>Deck & Porch Railings>Deck Railing Kits",
+      "confidence": "high",
+      "method": "llm"
+    },
+    "Trex Hideaway Universal Fastener 100 sq ft Bag::TXS0112-13": {
+      "category_key": "Deck Railing Kits",
+      "product_type": "Universal Deck Fastener",
+      "Dept": "Building Materials",
+      "Class": "Decking",
+      "Fine": "Deck & Porch Railings",
+      "Classpath": "Building Materials>Decking>Deck & Porch Railings>Deck Railing Kits",
+      "confidence": "medium",
+      "method": "llm"
+    },
+    "TimberTech AZEK 5/4\"x12\"x16' Harvest Brownstone PVC Trim::TB010512C2": {
+      "category_key": "Deck Railing Kits",
+      "product_type": "PVC Deck Trim",
+      "Dept": "Building Materials",
+      "Class": "Decking",
+      "Fine": "Deck & Porch Railings",
+      "Classpath": "Building Materials>Decking>Deck & Porch Railings>Deck Railing Kits",
+      "confidence": "medium",
+      "method": "llm"
+    },
+    "TimberTech AZEK 5/4\"x5\"x16' Harvest Brownstone PVC Trim::TB010505C2": {
+      "category_key": "Deck Railing Kits",
+      "product_type": "PVC Trim",
+      "Dept": "Building Materials",
+      "Class": "Decking",
+      "Fine": "Deck & Porch Railings",
+      "Classpath": "Building Materials>Decking>Deck & Porch Railings>Deck Railing Kits",
+      "confidence": "medium",
+      "method": "llm"
     }
   },
   "extract": {
@@ -2996,6 +3146,2281 @@
       ],
       "product_name": "Frigidaire Professional 24\" Stainless Steel Tub Built-In Dishwasher with CleanBoost\u2122",
       "short_description": "A 24\" built-in dishwasher with stainless steel tub and CleanBoost\u2122 feature"
+    },
+    "https://www.ajmadison.com/cgi-bin/ajmadison/PDSH4816AF.html": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Promotion Period",
+          "source_snippet": "Promotion Period: Jul 9, 2026 \u2013 Dec 30, 2026.",
+          "value": "Jul 9, 2026 \u2013 Dec 30, 2026"
+        },
+        {
+          "confidence": "high",
+          "name": "Online Claim Submission Deadline",
+          "source_snippet": "Online Claim Submission Deadline: Jan 30 2027",
+          "value": "Jan 30 2027"
+        },
+        {
+          "confidence": "high",
+          "name": "Rebate Payment Method",
+          "source_snippet": "Rebate Payment: A Virtual Prepaid Mastercard, which will be delivered within 8 weeks and expires 6 months after issuance.",
+          "value": "A Virtual Prepaid Mastercard, delivered within 8 weeks and expires 6 months after issuance"
+        },
+        {
+          "confidence": "high",
+          "name": "Max Rebate",
+          "source_snippet": "Max rebate: $2,000",
+          "unit": "USD",
+          "value": "$2,000"
+        },
+        {
+          "confidence": "high",
+          "name": "Bonus Savings",
+          "source_snippet": "Bonus savings up to $300 on individual models",
+          "unit": "USD",
+          "value": "$300 on individual models"
+        },
+        {
+          "confidence": "high",
+          "name": "Buy 4 appliances Additional Rebate",
+          "source_snippet": "Buy 4 appliances \u2013 Additional $200",
+          "unit": "USD",
+          "value": "$200"
+        },
+        {
+          "confidence": "high",
+          "name": "Buy 5 appliances Additional Rebate",
+          "source_snippet": "Buy 5 appliances \u2013 Additional $300",
+          "unit": "USD",
+          "value": "$300"
+        },
+        {
+          "confidence": "high",
+          "name": "Buy 6 appliances Additional Rebate",
+          "source_snippet": "Buy 6 appliances \u2013 Additional $400",
+          "unit": "USD",
+          "value": "$400"
+        },
+        {
+          "confidence": "high",
+          "name": "Buy 7 appliances Additional Rebate",
+          "source_snippet": "Buy 7 appliances - Additional $825",
+          "unit": "USD",
+          "value": "$825"
+        },
+        {
+          "confidence": "high",
+          "name": "Rebate Limit per Customer",
+          "source_snippet": "Limit: One rebate per customer/household/address",
+          "value": "One rebate per customer/household/address"
+        },
+        {
+          "confidence": "high",
+          "name": "Valid Region",
+          "source_snippet": "Only valid in the USA (excluding Puerto Rico)",
+          "value": "USA (excluding Puerto Rico)"
+        },
+        {
+          "confidence": "high",
+          "name": "Not Valid For",
+          "source_snippet": "Not valid for:\nClubs, organizations, or group sales\nMultiple units to apartments or condos\nDamaged, discounted, or closeout items\nCombinations with other Frigidaire promotions (unless stated)\nAll items must be on one invoice\nRebates will be voided if products are returned before rebate is fulfilled",
+          "value": "Clubs, organizations, or group sales; Multiple units to apartments or condos; Damaged, discounted, or closeout items; Combinations with other Frigidaire promotions (unless stated); All items must be on one invoice; Rebates void if products are returned before rebate is fulfilled"
+        }
+      ],
+      "category": "Promotion",
+      "product_name": "Frigidaire Promotion",
+      "short_description": "Rebate promotion terms for Frigidaire appliances; does not specify a single product."
+    },
+    "https://kelloggsupplyco.com/shop/electrical/light-bulbs-and-accessories/fluorescent-light-bulbs/fluorescent-tube-light-bulb/philips-15w-18-in-soft-white-t12-medium-bi-pin-fluorescent-tube-light-bulb?SKU=505821": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "| Wattage | 15 |",
+          "unit": "W",
+          "value": "15"
+        },
+        {
+          "confidence": "high",
+          "name": "Length",
+          "source_snippet": "| Length | 18 In. |",
+          "unit": "In.",
+          "value": "18"
+        },
+        {
+          "confidence": "high",
+          "name": "Light Color",
+          "source_snippet": "| Light Color | Soft White |",
+          "value": "Soft White"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "| Light Color | Soft White |",
+          "value": "Soft White"
+        },
+        {
+          "confidence": "high",
+          "name": "Bulb Shape",
+          "source_snippet": "| Bulb Shape | T12 |",
+          "value": "T12"
+        },
+        {
+          "confidence": "high",
+          "name": "Base Type",
+          "source_snippet": "| Base Type | Medium Bi-Pin |",
+          "value": "Medium Bi-Pin"
+        },
+        {
+          "confidence": "high",
+          "name": "Use",
+          "source_snippet": "| Use | General Purpose |",
+          "value": "General Purpose"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "| Lumens | 800 |",
+          "unit": "lm",
+          "value": "800"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temperature",
+          "source_snippet": "| Color Temperature | 2700K |",
+          "unit": "K",
+          "value": "2700"
+        },
+        {
+          "confidence": "high",
+          "name": "Life",
+          "source_snippet": "| Life in Hours | 9000 |",
+          "unit": "Hours",
+          "value": "9000"
+        },
+        {
+          "confidence": "high",
+          "name": "Energy Star Rated",
+          "source_snippet": "| Energy Star Rated | No |",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Maximum Overall Length (MOL)",
+          "source_snippet": "| Maximum Overall Length (MOL) | 18 In. |",
+          "unit": "In.",
+          "value": "18"
+        },
+        {
+          "confidence": "high",
+          "name": "UPC",
+          "source_snippet": "| UPC | 00046677141462 |",
+          "value": "00046677141462"
+        },
+        {
+          "confidence": "high",
+          "name": "Package Quantity",
+          "source_snippet": "| Package Quantity | 1 |",
+          "value": "1"
+        },
+        {
+          "confidence": "high",
+          "name": "Unit of Measurement",
+          "source_snippet": "| Unit of Measurement | Each |",
+          "value": "Each"
+        },
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "1-1/2 In. diameter.",
+          "unit": "In.",
+          "value": "1-1/2"
+        }
+      ],
+      "category": "Fluorescent Tube Light Bulb",
+      "manufacturer": "Philips",
+      "product_name": "Philips ALTO 15W 18 In. Soft White T12 Medium Bi-Pin Fluorescent Tube Light Bulb",
+      "short_description": "Fluorescent tube bulb with ALTO lamp technology, 15W, 18 inch length, soft white 2700K, T12 shape, medium bi-pin base, 800 lumens, 9000 hour life."
+    },
+    "https://www.feit.com/products/50-watt-equivalent-mr16-bright-white-reflector-led-3-pack-bpexn-930ca-3": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "energy used (wattage)\n6.6",
+          "unit": "W",
+          "value": "6.6"
+        },
+        {
+          "confidence": "high",
+          "name": "Equivalent Wattage",
+          "source_snippet": "6.6W (50W Replacement)",
+          "unit": "W",
+          "value": "50"
+        },
+        {
+          "confidence": "high",
+          "name": "Bulb Base",
+          "source_snippet": "bulb base\nGU5.3",
+          "value": "GU5.3"
+        },
+        {
+          "confidence": "high",
+          "name": "Bulb Shape",
+          "source_snippet": "bulb shape\nMR16",
+          "value": "MR16"
+        },
+        {
+          "confidence": "high",
+          "name": "Light Color",
+          "source_snippet": "light color\nBright White",
+          "value": "Bright White"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temperature",
+          "source_snippet": "color temperature (cct)\n3000",
+          "unit": "K",
+          "value": "3000"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Rendering Index (CRI)",
+          "source_snippet": "color accuracy (cri)\n90",
+          "value": "90"
+        },
+        {
+          "confidence": "high",
+          "name": "Beam Angle",
+          "source_snippet": "beam angle\n40",
+          "unit": "degrees",
+          "value": "40"
+        },
+        {
+          "confidence": "high",
+          "name": "Brightness",
+          "source_snippet": "brightness (lumens)\n500",
+          "unit": "lumens",
+          "value": "500"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumen Efficiency",
+          "source_snippet": "lumen efficiency (lpw)\n75.76",
+          "unit": "lm/W",
+          "value": "75.76"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimmable",
+          "source_snippet": "dimmable\nYes",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Enclosed Fixture Rated",
+          "source_snippet": "enclosed fixture rated\nYes",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "Voltage (V)\n12",
+          "unit": "V",
+          "value": "12"
+        },
+        {
+          "confidence": "high",
+          "name": "Safety Location Rating",
+          "source_snippet": "safety location\nDamp",
+          "value": "Damp"
+        },
+        {
+          "confidence": "high",
+          "name": "Pack Quantity",
+          "source_snippet": "pack quantity\n3",
+          "value": "3"
+        },
+        {
+          "confidence": "high",
+          "name": "Ideal Usage",
+          "source_snippet": "ideal usage\nTrack Lighting",
+          "value": "Track Lighting"
+        },
+        {
+          "confidence": "high",
+          "name": "Regulatory Compliance",
+          "source_snippet": "CEC compliant\nTitle 20\nDLC certified",
+          "value": "CEC compliant, Title 20, DLC certified"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty Years",
+          "source_snippet": "warranty years\n5",
+          "value": "5"
+        },
+        {
+          "confidence": "high",
+          "name": "Life Hours",
+          "source_snippet": "life hours\n25000",
+          "value": "25000"
+        },
+        {
+          "confidence": "high",
+          "name": "Life Years",
+          "source_snippet": "life years\n22.8",
+          "value": "22.8"
+        },
+        {
+          "confidence": "high",
+          "name": "Annual Energy Cost",
+          "source_snippet": "Annual Energy Cost ($)\n0.79",
+          "unit": "USD",
+          "value": "0.79"
+        },
+        {
+          "confidence": "high",
+          "name": "Battery Operated",
+          "source_snippet": "battery operated\nNo",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Hardwire",
+          "source_snippet": "hardwire\nNo",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Portable",
+          "source_snippet": "portable\nNo",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Smart",
+          "source_snippet": "smart\nNo",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Technology",
+          "source_snippet": "technology\nLED - SMD",
+          "value": "LED - SMD"
+        },
+        {
+          "confidence": "high",
+          "name": "Item Length",
+          "source_snippet": "item length (in)\n1.7",
+          "unit": "in",
+          "value": "1.7"
+        },
+        {
+          "confidence": "high",
+          "name": "Item Width",
+          "source_snippet": "item width (in)\n2",
+          "unit": "in",
+          "value": "2"
+        }
+      ],
+      "category": "LED bulb",
+      "manufacturer": "Feit Electric",
+      "model_numbers": [
+        "BPEXN/930CA/3"
+      ],
+      "product_name": "6.6W (50W Replacement) Bright White (3000K) GU5.3 Base MR16 Reflector LED Bulb (3-Pack)",
+      "short_description": "Traditional glass MR16 flood LED bulb, 6.6W (50W equivalent), bright white 3000K, GU5.3 base, dimmable, 500 lumens, 3-pack."
+    },
+    "https://www.lighting.philips.com/prof/indoor-luminaires/downlights/essential-smartbright-led-downlight/LP_CF_DN027_EU/family": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Luminous flux",
+          "source_snippet": "It offers multiple configurations from 300lm to 2000lm output",
+          "unit": "lm",
+          "value": "300lm to 2000lm"
+        },
+        {
+          "confidence": "high",
+          "name": "System efficiency",
+          "source_snippet": "System efficiency: up to 85lm/W",
+          "unit": "lm/W",
+          "value": "up to 85lm/W"
+        },
+        {
+          "confidence": "high",
+          "name": "Lifetime",
+          "source_snippet": "Long life time: 20Khrs to 30Khrs(L70B50@25\u00b0C)",
+          "unit": "hours",
+          "value": "20Khrs to 30Khrs (L70B50@25\u00b0C)"
+        }
+      ],
+      "category": "LED downlight",
+      "manufacturer": "Philips",
+      "model_numbers": [],
+      "product_name": "Essential SmartBright G2 LED Downlight",
+      "short_description": "Essential SmartBright G2 LED Downlight is a value-for-money product with high efficacy, offering 300\u20132000 lm output, up to 85 lm/W efficiency and 20K\u201330K hour lifetime."
+    },
+    "https://www.lighting.philips.com/prof/conventional-lamps-and-tubes/fluorescent-lamps-and-starters/tl/high-output-t12/927890203305_EU/product": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Rating",
+          "source_snippet": "R17d",
+          "value": "R17d"
+        },
+        {
+          "confidence": "high",
+          "name": "Lamp Type",
+          "source_snippet": "T12",
+          "value": "T12"
+        },
+        {
+          "confidence": "high",
+          "name": "Package Quantity",
+          "source_snippet": "15PK",
+          "value": "15PK"
+        }
+      ],
+      "category": "Fluorescent Lamp",
+      "manufacturer": "Philips",
+      "model_numbers": [
+        "F48T12/CW/HO"
+      ],
+      "product_name": "Philips F48T12/CW/HO ALTO 15PK",
+      "short_description": "Philips F48T12/CW/HO ALTO 15PK fluorescent lamp, R17d rating, T12 type, sold in 15-pack."
+    },
+    "https://owner.frigidaire.com/support-articles/article/delivery-check-list-dishwasher": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Power cord length",
+          "source_snippet": "Standard dishwashers come with a 6-foot power cord, water line and drain hose",
+          "unit": "foot",
+          "value": "6-foot"
+        },
+        {
+          "confidence": "high",
+          "name": "Connection material",
+          "source_snippet": "A stainless-steel connection must be used by our delivery teams to connect your water supply from the home to the dishwasher.",
+          "unit": "",
+          "value": "stainless-steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Shut-off valve location",
+          "source_snippet": "An accessible shut-off valve, located under the sink or behind the dishwasher location, must be available.",
+          "unit": "",
+          "value": "under the sink or behind the dishwasher location"
+        },
+        {
+          "confidence": "high",
+          "name": "Shut-off valve condition",
+          "source_snippet": "Note: the shut-off valve must be free of rust and corrosion.",
+          "unit": "",
+          "value": "free of rust and corrosion"
+        },
+        {
+          "confidence": "high",
+          "name": "Unsupported water connection materials",
+          "source_snippet": "If the existing water connection from the home\u2019s water supply to the dishwasher is plastic or copper, the team will not be able to uninstall your old product and install the new dishwasher.",
+          "unit": "",
+          "value": "plastic or copper"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "",
+      "model_numbers": [],
+      "product_name": "Dishwasher",
+      "short_description": "Delivery and Installation Guide for Dishwasher (Frigidaire)"
+    },
+    "https://www.whirlpool.com/kitchen/dishwasher-and-cleaning/comparison-chart.html": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Sound Level (dBA)",
+          "source_snippet": "64",
+          "unit": "dBA",
+          "value": "64"
+        },
+        {
+          "confidence": "high",
+          "name": "Handle",
+          "source_snippet": "Plastic",
+          "unit": "",
+          "value": "Plastic"
+        },
+        {
+          "confidence": "high",
+          "name": "Tub Type",
+          "source_snippet": "12",
+          "unit": "",
+          "value": "12"
+        },
+        {
+          "confidence": "high",
+          "name": "3rd Rack",
+          "source_snippet": "-",
+          "unit": "",
+          "value": "-"
+        },
+        {
+          "confidence": "high",
+          "name": "Adjustable 2nd Rack",
+          "source_snippet": "-",
+          "unit": "",
+          "value": "-"
+        },
+        {
+          "confidence": "high",
+          "name": "Folding Tines",
+          "source_snippet": "-",
+          "unit": "",
+          "value": "-"
+        },
+        {
+          "confidence": "high",
+          "name": "Cup Shelves",
+          "source_snippet": "-",
+          "unit": "",
+          "value": "-"
+        },
+        {
+          "confidence": "high",
+          "name": "Cycles",
+          "source_snippet": "3",
+          "unit": "",
+          "value": "3"
+        },
+        {
+          "confidence": "high",
+          "name": "Options",
+          "source_snippet": "4",
+          "unit": "",
+          "value": "4"
+        },
+        {
+          "confidence": "high",
+          "name": "Flush Install Capable",
+          "source_snippet": "-",
+          "unit": "",
+          "value": "-"
+        },
+        {
+          "confidence": "high",
+          "name": "Eco Series",
+          "source_snippet": "-",
+          "unit": "",
+          "value": "-"
+        },
+        {
+          "confidence": "high",
+          "name": "ADA Compliant",
+          "source_snippet": "-",
+          "unit": "",
+          "value": "-"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "Whirlpool",
+      "model_numbers": [],
+      "product_name": "Portable Dishwasher",
+      "short_description": "Portable Whirlpool dishwasher model with 64 dBA sound level, plastic handle, and 12\u2011inch tub type."
+    },
+    "https://www.lighting.philips.com/prof/led-lamps-and-tubes/led-spots/master-value-ledspot-lv/929001146908_EU/product": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Base",
+          "source_snippet": "Cap-Base GU5.3",
+          "unit": "",
+          "value": "GU5.3"
+        },
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "50 W",
+          "unit": "W",
+          "value": "50"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temperature",
+          "source_snippet": "4000 K",
+          "unit": "K",
+          "value": "4000"
+        },
+        {
+          "confidence": "high",
+          "name": "Luminous Flux",
+          "source_snippet": "450 lm",
+          "unit": "lm",
+          "value": "450"
+        },
+        {
+          "confidence": "high",
+          "name": "Lifetime",
+          "source_snippet": "25000 hour(s)",
+          "unit": "hour(s)",
+          "value": "25000"
+        },
+        {
+          "confidence": "high",
+          "name": "Luminous Efficacy",
+          "source_snippet": "82.00 lm/W",
+          "unit": "lm/W",
+          "value": "82.00"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimmable",
+          "source_snippet": "not dimmable",
+          "unit": "",
+          "value": "not dimmable"
+        },
+        {
+          "confidence": "high",
+          "name": "Switching Cycle",
+          "source_snippet": "Switching Cycle 50,000",
+          "unit": "",
+          "value": "50000"
+        },
+        {
+          "confidence": "high",
+          "name": "Lighting Technology",
+          "source_snippet": "Lighting Technology LEDspot",
+          "unit": "",
+          "value": "LEDspot"
+        }
+      ],
+      "category": "LED spot lamp",
+      "manufacturer": "Philips",
+      "model_numbers": [],
+      "product_name": "MASTER LED 5.5-50W 4000K MR16 36D",
+      "short_description": "Philips LEDspot MR16, non\u2011dimmable 50\u202fW, GU5.3 base, 4000\u202fK, 450\u202flm, 25\u202f000\u202fh life."
+    },
+    "https://www.us-appliance.com/pdsh4816af-frigidaire-24-professional-series-built-in-dishwasher-with-cleanboost-47-dbastainless-steel.html": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Noise Level",
+          "source_snippet": "quiet dishwasher (47 dBA)",
+          "unit": "dBA",
+          "value": "47"
+        },
+        {
+          "confidence": "high",
+          "name": "Energy Star Certified",
+          "source_snippet": "ENERGY STAR Certified",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize Effectiveness",
+          "source_snippet": "Remove 99.9% of common household bacteria with NSF-Certified Sanitize Option.",
+          "unit": "%",
+          "value": "99.9"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width: 24",
+          "unit": "inches",
+          "value": "24"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth: 24 1/2",
+          "unit": "inches",
+          "value": "24 1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height: 33 3/4-35 3/4",
+          "unit": "inches",
+          "value": "33 3/4-35 3/4"
+        },
+        {
+          "confidence": "high",
+          "name": "Quick Wash Cycle Time",
+          "source_snippet": "30-minute quick wash",
+          "unit": "minutes",
+          "value": "30"
+        },
+        {
+          "confidence": "high",
+          "name": "Detergent Dissolution Rate Increase",
+          "source_snippet": "dissolving detergent 6x faster",
+          "unit": "",
+          "value": "6x"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Stainless Steel Tub",
+          "unit": "",
+          "value": "Stainless Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "Smudge-Proof",
+          "unit": "",
+          "value": "Smudge-Proof"
+        },
+        {
+          "confidence": "high",
+          "name": "Annual Water Savings",
+          "source_snippet": "Saves over 4000 gallons of water every year",
+          "unit": "gallons",
+          "value": "over 4000"
+        },
+        {
+          "confidence": "high",
+          "name": "Third Level Rack",
+          "source_snippet": "Third Level Rack",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Adjustable Rack",
+          "source_snippet": "adjustable rack",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "LED Floor Indicator Light Colors",
+          "source_snippet": "Convenient LED floor light shows cycle status- blue when your dishes are washing and white when they are clean.",
+          "unit": "",
+          "value": "Blue (washing), White (clean)"
+        },
+        {
+          "confidence": "high",
+          "name": "Leak Sensor",
+          "source_snippet": "sensor is triggered stopping the cycle and containing overflowed water in a tray at the bottom of the dishwasher.",
+          "unit": "",
+          "value": "Yes"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "Frigidaire",
+      "model_numbers": [],
+      "product_name": "Frigidaire Professional 24\" Stainless Steel Tub Built-In Dishwasher with CleanBoost Technology",
+      "short_description": "Built-in dishwasher featuring CleanBoost technology, 47 dBA noise level, Energy Star certified, 30\u2011minute quick wash, NSF\u2011certified sanitize option, and stainless steel finish."
+    },
+    "https://www.lighting.philips.com/prof/indoor-luminaires/downlights/CDOWNL_CA/category": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "CCT_range",
+          "source_snippet": "CCT options span 2,700 K to 6,500 K, covering warm white through daylight",
+          "unit": "K",
+          "value": "2,700 K to 6,500 K"
+        },
+        {
+          "confidence": "high",
+          "name": "CRI_max",
+          "source_snippet": "CRI reaches up to 90 across the families",
+          "unit": "",
+          "value": "90"
+        },
+        {
+          "confidence": "high",
+          "name": "Efficacy_range",
+          "source_snippet": "Efficacy ranges from 80 to 114 lm/W across the families on this page",
+          "unit": "lm/W",
+          "value": "80 to 114 lm/W"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumen_output_range",
+          "source_snippet": "lumen output covers 680 to 2,000 lm depending on the family and wattage package selected",
+          "unit": "lm",
+          "value": "680 to 2,000 lm"
+        },
+        {
+          "confidence": "high",
+          "name": "Wattage_range",
+          "source_snippet": "Wattage spans 7.5 to 20 W",
+          "unit": "W",
+          "value": "7.5 to 20 W"
+        },
+        {
+          "confidence": "high",
+          "name": "DALI_dimming_supported",
+          "source_snippet": "DALI dimming is supported across the range",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "DALI_variant",
+          "source_snippet": "DALI-2 and D4i variants available for installations requiring multi-master addressing or sensor-on-driver capability",
+          "unit": "",
+          "value": "DALI-2, D4i"
+        },
+        {
+          "confidence": "high",
+          "name": "IP_ratings",
+          "source_snippet": "IP ratings across these families include IP20, IP30, IP40, IP44, and IP54 variants",
+          "unit": "",
+          "value": "IP20, IP30, IP40, IP44, IP54"
+        },
+        {
+          "confidence": "high",
+          "name": "UGR_range",
+          "source_snippet": "Family-level UGR ranges from 16 to 25",
+          "unit": "",
+          "value": "16 to 25"
+        },
+        {
+          "confidence": "high",
+          "name": "Mounting_formats",
+          "source_snippet": "The portfolio covers recessed (including deep-recessed and slim-format), surface-mounted, and surface-and-suspended formats",
+          "unit": "",
+          "value": "recessed, deep-recessed, slim-format, surface-mounted, surface-and-suspended"
+        }
+      ],
+      "category": "Downlights",
+      "manufacturer": "Signify",
+      "model_numbers": [],
+      "product_name": "LED Downlights (Category)",
+      "short_description": "Broad portfolio of LED downlight families spanning recessed, surface\u2011mounted, suspended, and slim\u2011format housings."
+    },
+    "https://rhodenshardware.com/p/philips-alto-fluorescent-bulb-soft-white-linear-046677141462": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "SKU",
+          "source_snippet": "SKU #3000005 Model #141465 UPC #046677141462",
+          "unit": "",
+          "value": "3000005"
+        },
+        {
+          "confidence": "high",
+          "name": "Model Number",
+          "source_snippet": "SKU #3000005 Model #141465 UPC #046677141462",
+          "unit": "",
+          "value": "141465"
+        },
+        {
+          "confidence": "high",
+          "name": "UPC",
+          "source_snippet": "SKU #3000005 Model #141465 UPC #046677141462",
+          "unit": "",
+          "value": "046677141462"
+        },
+        {
+          "confidence": "high",
+          "name": "Regular Price",
+          "source_snippet": "Regular Price $ 11.99",
+          "unit": "USD",
+          "value": "11.99"
+        },
+        {
+          "confidence": "high",
+          "name": "Lumens",
+          "source_snippet": "Delivers about 800 lumens with a 15W output",
+          "unit": "lm",
+          "value": "800"
+        },
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "Delivers about 800 lumens with a 15W output",
+          "unit": "W",
+          "value": "15"
+        },
+        {
+          "confidence": "high",
+          "name": "Length",
+          "source_snippet": "Features an 18-inch length",
+          "unit": "in",
+          "value": "18"
+        },
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "this 18-inch long, 1.5-inch diameter linear lamp",
+          "unit": "in",
+          "value": "1.5"
+        },
+        {
+          "confidence": "high",
+          "name": "Base Type",
+          "source_snippet": "standard medium bi-pin base",
+          "unit": "",
+          "value": "standard medium bi-pin"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temperature",
+          "source_snippet": "soft white color temperature of 2700K",
+          "unit": "",
+          "value": "2700K"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "soft white color temperature of 2700K",
+          "unit": "",
+          "value": "Soft White"
+        },
+        {
+          "confidence": "high",
+          "name": "Lifespan",
+          "source_snippet": "Offers about 9,000 hours of dependable service",
+          "unit": "hours",
+          "value": "9000"
+        },
+        {
+          "confidence": "high",
+          "name": "Weight",
+          "source_snippet": "| Weight | 1.72 |",
+          "unit": "",
+          "value": "1.72"
+        },
+        {
+          "confidence": "high",
+          "name": "Package Width",
+          "source_snippet": "| Package Width | 5.1 |",
+          "unit": "",
+          "value": "5.1"
+        },
+        {
+          "confidence": "high",
+          "name": "Package Length",
+          "source_snippet": "| Package Length | 18.85 |",
+          "unit": "",
+          "value": "18.85"
+        },
+        {
+          "confidence": "high",
+          "name": "Package Height",
+          "source_snippet": "| Package Height | 3.8 |",
+          "unit": "",
+          "value": "3.8"
+        },
+        {
+          "confidence": "high",
+          "name": "Brand",
+          "source_snippet": "| Brand | Philips |",
+          "unit": "",
+          "value": "Philips"
+        },
+        {
+          "confidence": "high",
+          "name": "Bulb Shape",
+          "source_snippet": "T12 linear form compatible with a broad range of fixtures",
+          "unit": "",
+          "value": "T12 linear"
+        }
+      ],
+      "category": "",
+      "manufacturer": "Philips",
+      "model_numbers": [
+        "141465"
+      ],
+      "product_name": "Philips Alto 15W T12 Fluorescent Tube",
+      "short_description": ""
+    },
+    "https://www.lighting.philips.com/prof/indoor-luminaires/downlights/smartbright-led-downlight-dn016/929002067312_EU/product": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Power",
+          "source_snippet": "10 W",
+          "unit": "W",
+          "value": "10"
+        },
+        {
+          "confidence": "high",
+          "name": "Luminous Flux",
+          "source_snippet": "800 lm",
+          "unit": "lm",
+          "value": "800"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temperature",
+          "source_snippet": "4000 K",
+          "unit": "K",
+          "value": "4000"
+        },
+        {
+          "confidence": "high",
+          "name": "Beam Type",
+          "source_snippet": "Wide beam",
+          "unit": "",
+          "value": "Wide beam"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "White",
+          "unit": "",
+          "value": "White"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "Matte",
+          "unit": "",
+          "value": "Matte"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Aluminum die-cast",
+          "unit": "",
+          "value": "Aluminum die-cast"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Polycarbonate",
+          "unit": "",
+          "value": "Polycarbonate"
+        },
+        {
+          "confidence": "high",
+          "name": "IP Rating",
+          "source_snippet": "IP20",
+          "unit": "",
+          "value": "IP20"
+        },
+        {
+          "confidence": "high",
+          "name": "IK Rating",
+          "source_snippet": "IK03",
+          "unit": "",
+          "value": "IK03"
+        },
+        {
+          "confidence": "high",
+          "name": "Impact Energy",
+          "source_snippet": "0.3 J",
+          "unit": "J",
+          "value": "0.3"
+        },
+        {
+          "confidence": "high",
+          "name": "Safety Class",
+          "source_snippet": "Safety class I",
+          "unit": "",
+          "value": "I"
+        },
+        {
+          "confidence": "high",
+          "name": "Power Supply",
+          "source_snippet": "Power supply unit (On/Off)",
+          "unit": "",
+          "value": "On/Off"
+        },
+        {
+          "confidence": "high",
+          "name": "Driver Included",
+          "source_snippet": "Driver included Yes",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Light Source Replaceable",
+          "source_snippet": "Light source replaceable No",
+          "unit": "",
+          "value": "No"
+        },
+        {
+          "confidence": "high",
+          "name": "Number of Gear Units",
+          "source_snippet": "Number of gear units 1 unit",
+          "unit": "",
+          "value": "1"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty Period",
+          "source_snippet": "Warranty period 3 years",
+          "unit": "years",
+          "value": "3"
+        }
+      ],
+      "category": "LED Downlight",
+      "manufacturer": "Philips",
+      "model_numbers": [
+        "DN016B",
+        "LED8/NW"
+      ],
+      "product_name": "Philips SmartBright LED Downlight DN016",
+      "short_description": "Philips SmartBright LED Downlight DN016, 10\u202fW, 800\u202flm, 4000\u202fK, wide beam, white finish."
+    },
+    "https://www.homewiseappliance.com/whirlpool-24-inch-eco-series-dishwasher-stainless-steel-wdts7024rz": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Noise Level",
+          "source_snippet": "operates at only 41 decibels",
+          "unit": "dB",
+          "value": "41"
+        },
+        {
+          "confidence": "high",
+          "name": "Noise Level",
+          "source_snippet": "Whisper-quiet operation at only 41 dBa",
+          "unit": "dB",
+          "value": "41"
+        },
+        {
+          "confidence": "high",
+          "name": "Place Settings",
+          "source_snippet": "15 spacious place settings",
+          "unit": "place settings",
+          "value": "15"
+        },
+        {
+          "confidence": "high",
+          "name": "Sani\u2011Rinse Bacteria Elimination",
+          "source_snippet": "eliminates 99.999% of food soil bacteria",
+          "unit": "%",
+          "value": "99.999"
+        },
+        {
+          "confidence": "high",
+          "name": "Certification",
+          "source_snippet": "NSF certified for safety and sanitation standards",
+          "unit": "",
+          "value": "NSF certified for safety and sanitation standards"
+        },
+        {
+          "confidence": "high",
+          "name": "Third Rack",
+          "source_snippet": "Innovative 3rd rack provides extra space for utensils and small items",
+          "unit": "",
+          "value": "Provides extra space for utensils and small items"
+        },
+        {
+          "confidence": "high",
+          "name": "Second Rack",
+          "source_snippet": "Adjustable 2nd Rack\nMake room for a blender jar or baking pans with easy-to-find adjusters that smoothly raise or lower the 2nd Rack.",
+          "unit": "",
+          "value": "Adjustable, smoothly raises or lowers"
+        },
+        {
+          "confidence": "high",
+          "name": "Quick Wash Cycle",
+          "source_snippet": "Quick Wash Cycle\nClean dishes fast with a cycle that thoroughly takes care of plates, pans and glasses when you need them done in a hurry.",
+          "unit": "",
+          "value": "Available"
+        },
+        {
+          "confidence": "high",
+          "name": "Sani\u2011Rinse Option",
+          "source_snippet": "Sani Rinse Option\nSanitizes dishes by eliminating 99.999% of food soil bacteria.",
+          "unit": "",
+          "value": "Available"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "Whirlpool",
+      "model_numbers": [
+        "WDTS7024RZ"
+      ],
+      "product_name": "Whirlpool Eco Series 24 Inch Fully Integrated Dishwasher",
+      "short_description": "Fully integrated 24\" dishwasher with 3rd rack, adjustable 2nd rack, 41 dB noise, 15 place settings, NSF certified, quick wash and sani\u2011rinse options."
+    },
+    "https://www.lighting.philips.com/main/prof/led-lamps-and-tubes/led-spots/essential-ledspot-mr16": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Base Type",
+          "source_snippet": "GU5.3 socket",
+          "unit": "",
+          "value": "GU5.3"
+        },
+        {
+          "confidence": "high",
+          "name": "Lifetime",
+          "source_snippet": "Lifetime up to 15,000 hours",
+          "unit": "hours",
+          "value": "15,000"
+        },
+        {
+          "confidence": "high",
+          "name": "Energy Savings",
+          "source_snippet": "Up to 90% energy saving compared with traditional halogen lamps",
+          "unit": "%",
+          "value": "90"
+        }
+      ],
+      "category": "LED spot",
+      "manufacturer": "Philips",
+      "model_numbers": [],
+      "product_name": "Essential LEDspots MR16",
+      "short_description": "Essential LEDspots MR16 are compatible with most existing fixtures with a GU5.3 socket and are designed as a retrofit replacement for halogen spots."
+    },
+    "https://www.dewalt.com/product/dcb518asts06g/": {
+      "attributes": [],
+      "category": "",
+      "manufacturer": "DEWALT",
+      "model_numbers": [],
+      "product_name": "DEWALT Giveaway Page",
+      "short_description": "The source text is a promotional giveaway announcement and does not contain specific product specifications or measurable attributes."
+    },
+    "https://www.3mcanada.ca/3M/en_CA/p/d/b40065039": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Overall Diameter (Imperial)",
+          "source_snippet": "Overall Diameter (Imperial) | 3 in, 5 in, 6 in, 8 in",
+          "unit": "",
+          "value": "3 in, 5 in, 6 in, 8 in"
+        },
+        {
+          "confidence": "high",
+          "name": "Overall Diameter (Metric)",
+          "source_snippet": "Overall Diameter (Metric) | 76.2 mm, 127 mm, 152.4 mm, 203.2 mm",
+          "unit": "",
+          "value": "76.2 mm, 127 mm, 152.4 mm, 203.2 mm"
+        },
+        {
+          "confidence": "high",
+          "name": "Product Form",
+          "source_snippet": "Product Form | Disc",
+          "unit": "",
+          "value": "Disc"
+        },
+        {
+          "confidence": "high",
+          "name": "Grit",
+          "source_snippet": "Grit | 80+, 120+, 150+, 180+, 220+, 240+, 320+, 400+, 500+, 600+, 800+, 1000+",
+          "unit": "",
+          "value": "80+, 120+, 150+, 180+, 220+, 240+, 320+, 400+, 500+, 600+, 800+, 1000+"
+        },
+        {
+          "confidence": "high",
+          "name": "Attachment Type",
+          "source_snippet": "Attachment Type | Hook & Loop",
+          "unit": "",
+          "value": "Hook & Loop"
+        },
+        {
+          "confidence": "high",
+          "name": "Abrasive Material",
+          "source_snippet": "Abrasive Material | Precision Shaped Ceramic",
+          "unit": "",
+          "value": "Precision Shaped Ceramic"
+        }
+      ],
+      "category": "Abrasive Disc",
+      "manufacturer": "3M",
+      "model_numbers": [
+        "775L"
+      ],
+      "product_name": "3M Xtract\u2122 Cubitron\u2122 II Film Disc 775L",
+      "short_description": "3M Xtract\u2122 Cubitron\u2122 II Film Disc 775L is a film-backed sanding disc with Precision Shaped Ceramic grain, available in grades 80+ to 1000+ and sizes 3-8 inches, featuring Hook & Loop attachment and multi-hole dust extraction."
+    },
+    "https://www.diablotools.com/products/dbd090094101f": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "9\" Metal Cut-Off Disc",
+          "unit": "in",
+          "value": "9"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Featuring an aluminum oxide blend",
+          "unit": "",
+          "value": "aluminum oxide blend"
+        },
+        {
+          "confidence": "high",
+          "name": "Reinforcement",
+          "source_snippet": "Fully reinforced for hand-held work",
+          "unit": "",
+          "value": "Fully reinforced"
+        },
+        {
+          "confidence": "high",
+          "name": "Duty",
+          "source_snippet": "IDEAL FOR\nMedium Duty",
+          "unit": "",
+          "value": "Medium Duty"
+        },
+        {
+          "confidence": "high",
+          "name": "Ideal for",
+          "source_snippet": "Ideal for working in hard-to-reach areas",
+          "unit": "",
+          "value": "hard-to-access areas"
+        },
+        {
+          "confidence": "high",
+          "name": "Suggested Projects",
+          "source_snippet": "Suggested Projects\nCutting Angle Iron, Metal Slotting, Cutting Steel Studs, Fabricating Sheet Metal",
+          "unit": "",
+          "value": "Cutting Angle Iron, Metal Slotting, Cutting Steel Studs, Fabricating Sheet Metal"
+        },
+        {
+          "confidence": "high",
+          "name": "Recommended Saw Type",
+          "source_snippet": "Use with 9\" cordless saws for cutting metal",
+          "unit": "",
+          "value": "9\" cordless saws"
+        },
+        {
+          "confidence": "high",
+          "name": "Application",
+          "source_snippet": "Fully reinforced for hand-held work",
+          "unit": "",
+          "value": "hand-held cutting"
+        }
+      ],
+      "category": "Metal Cut-Off Disc",
+      "manufacturer": "Diablo",
+      "model_numbers": [
+        "DBD090094101F"
+      ],
+      "product_name": "9\" Metal Cut-Off Disc",
+      "short_description": "Premium aluminum oxide blend cut-off disc, fully reinforced for hand-held use, ideal for hard-to-reach areas and medium duty metal cutting."
+    },
+    "https://www.milwaukeetool.com/Products/49-94-0013": {
+      "attributes": [],
+      "category": "",
+      "manufacturer": "",
+      "model_numbers": [],
+      "product_name": "",
+      "short_description": "The provided source snippet contains only navigation elements and no specific product specifications or identifiable product name."
+    },
+    "https://www.milwaukeetool.com/Products/49-94-0029": {
+      "attributes": [],
+      "category": "",
+      "manufacturer": "Milwaukee Tool",
+      "model_numbers": [],
+      "product_name": "",
+      "short_description": "The source provides only navigation and branding information without specific product details or specifications."
+    },
+    "https://www.milwaukeetool.com/Products/3202-20": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Voltage Range",
+          "source_snippet": "Voltage Range: 50V - 1000V AC",
+          "unit": "",
+          "value": "50V - 1000V AC"
+        },
+        {
+          "confidence": "high",
+          "name": "LED Work Light",
+          "source_snippet": "Independently Operable LED Work Light",
+          "unit": "",
+          "value": "Independently Operable"
+        },
+        {
+          "confidence": "high",
+          "name": "Tip Design",
+          "source_snippet": "Reinforced Tip Design for Increased Durability",
+          "unit": "",
+          "value": "Reinforced"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage Indicators",
+          "source_snippet": "Visual & Audible Voltage Indicators",
+          "unit": "",
+          "value": "Visual & Audible"
+        },
+        {
+          "confidence": "high",
+          "name": "Belt Clip",
+          "source_snippet": "Durable Belt Clip",
+          "unit": "",
+          "value": "Durable"
+        },
+        {
+          "confidence": "high",
+          "name": "Battery Replacement",
+          "source_snippet": "Quarter Turn Cap for Easy Battery Replacement",
+          "unit": "",
+          "value": "Quarter Turn Cap"
+        },
+        {
+          "confidence": "high",
+          "name": "Safety Rating",
+          "source_snippet": "CAT IV 1000V Safety Rating",
+          "unit": "",
+          "value": "CAT IV 1000V"
+        },
+        {
+          "confidence": "high",
+          "name": "Ingress Protection",
+          "source_snippet": "IP54: Water and Dust Protection",
+          "unit": "",
+          "value": "IP54"
+        },
+        {
+          "confidence": "high",
+          "name": "Power Source",
+          "source_snippet": "Powered by (2) AAA Batteries",
+          "unit": "",
+          "value": "2 AAA Batteries"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "2-Year Warranty",
+          "unit": "",
+          "value": "2-Year"
+        }
+      ],
+      "category": "Voltage Detector",
+      "manufacturer": "Milwaukee Tool",
+      "model_numbers": [
+        "3202-20"
+      ],
+      "product_name": "Voltage Detector w/ LED",
+      "short_description": "A non-contact voltage detector with an independently operable LED work light, detecting AC voltage from 50V to 1000V, rated CAT IV 1000V and IP54, powered by two AAA batteries."
+    },
+    "https://www.dewalt.com/product/bm-dw20-ylw-6/": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Maximum initial battery voltage",
+          "source_snippet": "*Maximum initial battery voltage (measured without a workload) is 20 and 60.",
+          "unit": "V",
+          "value": "20 and 60"
+        },
+        {
+          "confidence": "high",
+          "name": "Nominal voltage",
+          "source_snippet": "**Nominal voltage is 18 and 54 respectively.",
+          "unit": "V",
+          "value": "18 and 54"
+        }
+      ],
+      "category": "",
+      "manufacturer": "DEWALT",
+      "model_numbers": [],
+      "product_name": "",
+      "short_description": "The source page is a giveaway promotional page with no specific product specifications for a single product."
+    },
+    "https://www.milwaukeetool.com/News/Press-Releases/Milwaukee-Delivers-the-SMALLEST-and-LIGHTEST-Drilling-and-Driving-Solutions": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "Volts: 12V",
+          "unit": "V",
+          "value": "12"
+        },
+        {
+          "confidence": "high",
+          "name": "Torque",
+          "source_snippet": "Torque: 350 in-lbs.",
+          "unit": "in-lbs",
+          "value": "350"
+        },
+        {
+          "confidence": "high",
+          "name": "RPM",
+          "source_snippet": "RPM: 0-1550",
+          "unit": "",
+          "value": "0-1550"
+        },
+        {
+          "confidence": "high",
+          "name": "Tool Length",
+          "source_snippet": "Tool Length: 5.4\u201d",
+          "unit": "in",
+          "value": "5.4"
+        },
+        {
+          "confidence": "high",
+          "name": "Tool Weight (With Battery)",
+          "source_snippet": "Tool Weight (With Battery): 2.0 lbs.",
+          "unit": "lbs",
+          "value": "2.0"
+        }
+      ],
+      "category": "Drill Driver",
+      "manufacturer": "Milwaukee",
+      "model_numbers": [
+        "3401-20"
+      ],
+      "product_name": "M12 Subcompact Brushless \u215c\" Drill Driver",
+      "short_description": "M12 Subcompact Brushless \u215c\" Drill Driver (model 3401-20) is a 12V compact drill with 350 in-lbs torque, 0-1550 RPM, 5.4\" length, weighing 2.0 lbs with battery."
+    },
+    "https://www.milwaukeetool.com/Products/49-94-0501": {
+      "attributes": [],
+      "category": "Power Tools",
+      "manufacturer": "Milwaukee Tool",
+      "model_numbers": [],
+      "product_name": "",
+      "short_description": "Source snippet contains only navigation and overview headings without specific product specifications or model numbers."
+    },
+    "https://www.milwaukeetool.com/Products/49-94-0803": {
+      "attributes": [],
+      "category": "",
+      "manufacturer": "",
+      "model_numbers": [],
+      "product_name": "",
+      "short_description": "Source text contains only navigation and copyright information; no specific product details, specifications, or model numbers are provided."
+    },
+    "https://www.milwaukeetool.com/Products/49-94-0903": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Diameter",
+          "source_snippet": "4-1/2\" x 1/8\" x 7/8\" Performance+ Dual Metal Cut & Grind Wheel - Type 27",
+          "unit": "in",
+          "value": "4-1/2"
+        },
+        {
+          "confidence": "high",
+          "name": "Thickness",
+          "source_snippet": "4-1/2\" x 1/8\" x 7/8\" Performance+ Dual Metal Cut & Grind Wheel - Type 27",
+          "unit": "in",
+          "value": "1/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Arbor",
+          "source_snippet": "4-1/2\" x 1/8\" x 7/8\" Performance+ Dual Metal Cut & Grind Wheel - Type 27",
+          "unit": "in",
+          "value": "7/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Product Type",
+          "source_snippet": "4-1/2\" x 1/8\" x 7/8\" Performance+ Dual Metal Cut & Grind Wheel - Type 27",
+          "unit": "",
+          "value": "Performance+ Dual Metal Cut & Grind Wheel - Type 27"
+        }
+      ],
+      "category": "Cutting Wheel",
+      "manufacturer": "Milwaukee Tool",
+      "model_numbers": [
+        "49-94-0903"
+      ],
+      "product_name": "4-1/2\" x 1/8\" x 7/8\" Performance+ Dual Metal Cut & Grind Wheel - Type 27",
+      "short_description": "Performance+ Dual Metal Cut & Grind Wheel, size 4-1/2\" diameter, 1/8\" thickness, 7/8\" arbor."
+    },
+    "https://www.arlcoal.com/pd/6-ft-x-36-in-select-horizontal-t-rail-kit-with-square-composites-balusters-classic-white/14703": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Actual Product Height",
+          "source_snippet": "Actual Product Height | 11.75",
+          "unit": "",
+          "value": "11.75"
+        },
+        {
+          "confidence": "high",
+          "name": "Actual Product Length",
+          "source_snippet": "Actual Product Length | 73",
+          "unit": "",
+          "value": "73"
+        },
+        {
+          "confidence": "high",
+          "name": "Actual Product Weight",
+          "source_snippet": "Actual Product Weight | 19.37",
+          "unit": "",
+          "value": "19.37"
+        },
+        {
+          "confidence": "high",
+          "name": "Actual Product Width",
+          "source_snippet": "Actual Product Width | 3.5",
+          "unit": "",
+          "value": "3.5"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color | Classic White",
+          "unit": "",
+          "value": "Classic White"
+        },
+        {
+          "confidence": "high",
+          "name": "Bullet - Color Description",
+          "source_snippet": "Bullet - Color Description - en-US | Classic White",
+          "unit": "",
+          "value": "Classic White"
+        },
+        {
+          "confidence": "high",
+          "name": "Bullet - Design and Benefit",
+          "source_snippet": "Bullet - Design and Benefit - en-US | Made in the USA using a minimum of 40% recycled content",
+          "unit": "",
+          "value": "Made in the USA using a minimum of 40% recycled content"
+        },
+        {
+          "confidence": "high",
+          "name": "Bullet - Durability",
+          "source_snippet": "Bullet - Durability - en-US | Unrivaled fade, stain, scratch and mold resistance",
+          "unit": "",
+          "value": "Unrivaled fade, stain, scratch and mold resistance"
+        },
+        {
+          "confidence": "high",
+          "name": "Bullet - Installation",
+          "source_snippet": "Bullet - Installation - en-US | Trex products install easily with common tools; no sanding, staining or painting required",
+          "unit": "",
+          "value": "Trex products install easily with common tools; no sanding, staining or painting required"
+        },
+        {
+          "confidence": "high",
+          "name": "Bullet - Low Maintenance",
+          "source_snippet": "Bullet - Low Maintenance - en-US | High-performance composite material that requires no painting, sealing, or staining",
+          "unit": "",
+          "value": "High-performance composite material that requires no painting, sealing, or staining"
+        },
+        {
+          "confidence": "high",
+          "name": "Bullet - Warranty",
+          "source_snippet": "Bullet - Warranty - en-US | Backed by 25-Year Limited Residential Warranty",
+          "unit": "",
+          "value": "Backed by 25-Year Limited Residential Warranty"
+        },
+        {
+          "confidence": "high",
+          "name": "Description",
+          "source_snippet": "Description | WHITE WTSQ0636HSELTRK 40PC=PLT",
+          "unit": "",
+          "value": "WHITE WTSQ0636HSELTRK 40PC=PLT"
+        },
+        {
+          "confidence": "high",
+          "name": "GTIN",
+          "source_snippet": "GTIN | 00652835366877",
+          "unit": "",
+          "value": "00652835366877"
+        },
+        {
+          "confidence": "high",
+          "name": "I2of5",
+          "source_snippet": "I2of5 | 10652835366874",
+          "unit": "",
+          "value": "10652835366874"
+        },
+        {
+          "confidence": "high",
+          "name": "Item Label",
+          "source_snippet": "ITEMLABEL | 6-ft x 36-in Select Horizontal T-Rail Kit with Square Composites Balusters - Classic White",
+          "unit": "",
+          "value": "6-ft x 36-in Select Horizontal T-Rail Kit with Square Composites Balusters - Classic White"
+        },
+        {
+          "confidence": "high",
+          "name": "Net Content",
+          "source_snippet": "Net Content | 1",
+          "unit": "",
+          "value": "1"
+        },
+        {
+          "confidence": "high",
+          "name": "Net Content UOM",
+          "source_snippet": "Net Content UOM | EA",
+          "unit": "",
+          "value": "EA"
+        },
+        {
+          "confidence": "high",
+          "name": "SKU",
+          "source_snippet": "SKU | 88889737 543302126 WTSQ0636HSELTRK",
+          "unit": "",
+          "value": "88889737 543302126 WTSQ0636HSELTRK"
+        },
+        {
+          "confidence": "high",
+          "name": "Sub-Brand",
+          "source_snippet": "Sub-Brand | Select T-Rail",
+          "unit": "",
+          "value": "Select T-Rail"
+        },
+        {
+          "confidence": "high",
+          "name": "UPC",
+          "source_snippet": "UPC | 652835366877",
+          "unit": "",
+          "value": "652835366877"
+        },
+        {
+          "confidence": "high",
+          "name": "Manufacturer Part #",
+          "source_snippet": "Manufacturer Part #: WTSQ0636HSELTRK",
+          "unit": "",
+          "value": "WTSQ0636HSELTRK"
+        }
+      ],
+      "category": "Rail Kits",
+      "manufacturer": "",
+      "model_numbers": [
+        "WTSQ0636HSELTRK"
+      ],
+      "product_name": "6-ft x 36-in Select Horizontal T-Rail Kit with Square Composites Balusters - Classic White",
+      "short_description": "Select Horizontal T-Rail Kit with Square Composites Balusters in Classic White, made in the USA with 40% recycled content, 25-year limited residential warranty."
+    },
+    "https://www.trex.com/products/railing/select/6-x-36--rail-baluster-kit-horizontal": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Weight",
+          "source_snippet": "Weight(lbs) | 16.1",
+          "unit": "lbs",
+          "value": "16.1"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width(Inches) | 7.88",
+          "unit": "Inches",
+          "value": "7.88"
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height(Inches) | 3",
+          "unit": "Inches",
+          "value": "3"
+        },
+        {
+          "confidence": "high",
+          "name": "Length",
+          "source_snippet": "Length(Inches) | 74.75",
+          "unit": "Inches",
+          "value": "74.75"
+        },
+        {
+          "confidence": "high",
+          "name": "Railing Color",
+          "source_snippet": "Trex Select white railing with black round aluminum balusters",
+          "unit": "",
+          "value": "white"
+        },
+        {
+          "confidence": "high",
+          "name": "Baluster Color",
+          "source_snippet": "Trex Select white railing with black round aluminum balusters",
+          "unit": "",
+          "value": "black"
+        },
+        {
+          "confidence": "high",
+          "name": "Price",
+          "source_snippet": "$156.15",
+          "unit": "USD",
+          "value": "156.15"
+        }
+      ],
+      "category": "Railing",
+      "manufacturer": "Trex",
+      "model_numbers": [
+        "WTRD0636HSELKFS"
+      ],
+      "product_name": "Trex Select\u00ae Classic Horizontal 6' x 36\" Rail & Baluster Kit",
+      "short_description": "Trex Select white railing with black round aluminum balusters complements any decking or house color to create a luxurious outdoor living space."
+    },
+    "https://nationaldecking.com/product/trex-hideaway-clip-50-sq-ft-pack": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "SKU",
+          "source_snippet": "SKU:\n\n\t\t\t\t2030-TREX-HC-50",
+          "unit": "",
+          "value": "2030-TREX-HC-50"
+        },
+        {
+          "confidence": "high",
+          "name": "Price",
+          "source_snippet": "$58.00",
+          "unit": "",
+          "value": "$58.00"
+        },
+        {
+          "confidence": "high",
+          "name": "Coverage",
+          "source_snippet": "Coverage: Approximately 50 square feet (4.6m\u00b2) (90 pc) based on 16-inch on-center joist spacing.",
+          "unit": "",
+          "value": "Approximately 50 square feet (4.6m\u00b2) (90 pc) based on 16-inch on-center joist spacing."
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Material: Made of durable glass-filled nylon, which Trex claims is 40% stronger than standard stainless steel fasteners.",
+          "unit": "",
+          "value": "Made of durable glass-filled nylon, which Trex claims is 40% stronger than standard stainless steel fasteners."
+        },
+        {
+          "confidence": "high",
+          "name": "Compatibility",
+          "source_snippet": "Compatibility:\u00a0Designed for all Trex grooved-edge composite decking lines, including Transcend, Enhance, and Select.",
+          "unit": "",
+          "value": "Designed for all Trex grooved-edge composite decking lines, including Transcend, Enhance, and Select."
+        },
+        {
+          "confidence": "high",
+          "name": "Product Type",
+          "source_snippet": "| Product Type | Fasteners |",
+          "unit": "",
+          "value": "Fasteners"
+        },
+        {
+          "confidence": "high",
+          "name": "Brand",
+          "source_snippet": "| Brand | Trex |",
+          "unit": "",
+          "value": "Trex"
+        },
+        {
+          "confidence": "high",
+          "name": "Fasteners Type",
+          "source_snippet": "| Fasteners Type | Clips |",
+          "unit": "",
+          "value": "Clips"
+        },
+        {
+          "confidence": "high",
+          "name": "Pack Quantity",
+          "source_snippet": "| Pack Quantity | 90 |",
+          "unit": "",
+          "value": "90"
+        },
+        {
+          "confidence": "high",
+          "name": "Brand Compatibility",
+          "source_snippet": "| Brand Compatibility | Trex |",
+          "unit": "",
+          "value": "Trex"
+        },
+        {
+          "confidence": "high",
+          "name": "Coverage Area",
+          "source_snippet": "| Coverage Area | 50 sq/ft |",
+          "unit": "",
+          "value": "50 sq/ft"
+        },
+        {
+          "confidence": "high",
+          "name": "Board Compatibility",
+          "source_snippet": "| Board Compatibility | Grooved |",
+          "unit": "",
+          "value": "Grooved"
+        }
+      ],
+      "category": "Fasteners",
+      "manufacturer": "Trex",
+      "model_numbers": [
+        "2030-TREX-HC-50"
+      ],
+      "product_name": "Trex Hideaway Clip 50 sq/ft pack",
+      "short_description": "Trex Hideaway Clip 50 sq/ft pack feature a glass-filled nylon design that is 40% stronger than stainless steel, providing a secure, screw-free, and fastener-free surface for grooved composite decks."
+    },
+    "https://patioetcloturenational.ca/en/timbertech-harvest-azek-2": {
+      "attributes": [],
+      "category": "Decking",
+      "manufacturer": "",
+      "model_numbers": [],
+      "product_name": "Composite Decking Supplier Montreal",
+      "short_description": "Supplier page for composite decking and related products in Greater Montreal, no specific product details provided."
+    },
+    "https://alabamaapplianceoutlet.com/products/kdfm404kps-kitchenaid-16-place-360-max-jets-third-rack-dishwasher-50-wash-jets-44-dba-printshield%E2%84%A2-stainless": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Type",
+          "source_snippet": "Type | Built In",
+          "unit": "",
+          "value": "Built In"
+        },
+        {
+          "confidence": "high",
+          "name": "Control Type",
+          "source_snippet": "Control Type | Front Control",
+          "unit": "",
+          "value": "Front Control"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "Finish | Stainless Steel",
+          "unit": "",
+          "value": "Stainless Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "Capacity | 16 Place Settings",
+          "unit": "",
+          "value": "16 Place Settings"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimensions (H x W x D)",
+          "source_snippet": "Dimensions (H x W x D) | 33 5/8\" x 23 7/8\" x 24 1/2\"",
+          "unit": "",
+          "value": "33 5/8\" x 23 7/8\" x 24 1/2\""
+        },
+        {
+          "confidence": "high",
+          "name": "Height",
+          "source_snippet": "Height (in) | 33.625",
+          "unit": "in",
+          "value": "33.625"
+        },
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "Width (in) | 23.875",
+          "unit": "in",
+          "value": "23.875"
+        },
+        {
+          "confidence": "high",
+          "name": "Depth",
+          "source_snippet": "Depth (in) | 24.5",
+          "unit": "in",
+          "value": "24.5"
+        },
+        {
+          "confidence": "high",
+          "name": "Sound Level",
+          "source_snippet": "Sound Level | 44 dBA",
+          "unit": "dBA",
+          "value": "44"
+        },
+        {
+          "confidence": "high",
+          "name": "Controls",
+          "source_snippet": "Controls | Touchpad",
+          "unit": "",
+          "value": "Touchpad"
+        },
+        {
+          "confidence": "high",
+          "name": "Number of Cycles",
+          "source_snippet": "Number of Cycles | 5",
+          "unit": "",
+          "value": "5"
+        },
+        {
+          "confidence": "high",
+          "name": "Cycles",
+          "source_snippet": "Cycles | ProWash\u2122, Normal, Express Wash, Rinse, Tough/Heavy",
+          "unit": "",
+          "value": "ProWash\u2122, Normal, Express Wash, Rinse, Tough/Heavy"
+        },
+        {
+          "confidence": "high",
+          "name": "Features",
+          "source_snippet": "Features | 4 Hour Delay, Extended Heat Dry, Heated Dry, Hi Temp Wash, Sani Rinse",
+          "unit": "",
+          "value": "4 Hour Delay, Extended Heat Dry, Heated Dry, Hi Temp Wash, Sani Rinse"
+        },
+        {
+          "confidence": "high",
+          "name": "Drying System",
+          "source_snippet": "Drying System | Vent Dry with Heating Element",
+          "unit": "",
+          "value": "Vent Dry with Heating Element"
+        },
+        {
+          "confidence": "high",
+          "name": "Delay Start",
+          "source_snippet": "Delay Start | N/A",
+          "unit": "",
+          "value": "N/A"
+        },
+        {
+          "confidence": "high",
+          "name": "Interior Material",
+          "source_snippet": "Interior Material | Stainless Steel",
+          "unit": "",
+          "value": "Stainless Steel"
+        }
+      ],
+      "category": "DISHWASHERS",
+      "manufacturer": "KITCHENAID",
+      "model_numbers": [
+        "KDFM404KPS"
+      ],
+      "product_name": "KDFM404KPS \u2014 KitchenAid 16-place 360\u00b0 Max Jets Third-Rack Dishwasher",
+      "short_description": "Brand new KitchenAid built\u2011in dishwasher with 16 place settings, 360\u00b0 Max Jets, 50+ wash jets, 44\u202fdBA sound level, stainless steel interior and finish."
+    },
+    "https://www.geappliances.com/appliance/GE-Profile-Dishwasher-Double-Drawer-PDD415PYYFS": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Dimensions",
+          "source_snippet": "Dimensions: 34 H x 23.8125 W x 22.562 D",
+          "unit": "",
+          "value": "34 H x 23.8125 W x 22.562 D"
+        }
+      ],
+      "category": "",
+      "manufacturer": "GE",
+      "model_numbers": [
+        "PDD415PYYFS"
+      ],
+      "product_name": "GE Profile\u2122 Dishwasher Double Drawer",
+      "short_description": ""
+    },
+    "https://speedqueen.com/scoop-blog/knowledge/news/speed-queen-dryers-proven-to-sanitize-loads": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Load capacity",
+          "source_snippet": "Tests conducted with AHAM 8-pound load",
+          "unit": "lb",
+          "value": "8"
+        },
+        {
+          "confidence": "high",
+          "name": "Voltage",
+          "source_snippet": "Electric models must run on 240v",
+          "unit": "V",
+          "value": "240"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize cycle duration",
+          "source_snippet": "driven through a 75-minute cycle at the dryer\u2019s highest temperature setting",
+          "unit": "min",
+          "value": "75"
+        },
+        {
+          "confidence": "medium",
+          "name": "Sanitize cycle temperature",
+          "source_snippet": "driven through a 75-minute cycle at the dryer\u2019s highest temperature setting",
+          "unit": "",
+          "value": "Highest temperature setting"
+        },
+        {
+          "confidence": "high",
+          "name": "Fabric Selector (DR3)",
+          "source_snippet": "DR3 \u2013 Fabric Selector \u201cPerm Press/ Regular\u201d, Time Dry \u201cMax Dry\u201d",
+          "unit": "",
+          "value": "Perm Press/ Regular"
+        },
+        {
+          "confidence": "high",
+          "name": "Time Dry (DR3)",
+          "source_snippet": "DR3 \u2013 Fabric Selector \u201cPerm Press/ Regular\u201d, Time Dry \u201cMax Dry\u201d",
+          "unit": "",
+          "value": "Max Dry"
+        },
+        {
+          "confidence": "high",
+          "name": "Fabric Selector (DR5 & DC5)",
+          "source_snippet": "DR5 & DC5 \u2013 Fabric Selector \u201cRegular\u201d, Time Dry \u201cMax Dry\u201d",
+          "unit": "",
+          "value": "Regular"
+        },
+        {
+          "confidence": "high",
+          "name": "Time Dry (DR5 & DC5)",
+          "source_snippet": "DR5 & DC5 \u2013 Fabric Selector \u201cRegular\u201d, Time Dry \u201cMax Dry\u201d",
+          "unit": "",
+          "value": "Max Dry"
+        },
+        {
+          "confidence": "high",
+          "name": "Temperature setting (DR7)",
+          "source_snippet": "DR7 \u2013 Temp \u201cHigh\u201d, Time Dry 75+ min",
+          "unit": "",
+          "value": "High"
+        },
+        {
+          "confidence": "high",
+          "name": "Time Dry (DR7)",
+          "source_snippet": "DR7 \u2013 Temp \u201cHigh\u201d, Time Dry 75+ min",
+          "unit": "min",
+          "value": "75+ min"
+        }
+      ],
+      "category": "dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "DR3",
+        "DR5",
+        "DC5",
+        "DR7"
+      ],
+      "product_name": "Speed Queen Dryer",
+      "short_description": "Speed Queen dryers offer a sanitize cycle that runs at the highest temperature for at least 75 minutes, killing 99.9% of common household bacteria. Tests used an AHAM 8\u2011pound load, and electric models require 240\u202fV."
+    },
+    "https://products.geappliances.com/appliance/gea-specs/PTD70GBPTDG/parts": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Model",
+          "source_snippet": "Model PTD70GBPTDG",
+          "unit": "",
+          "value": "PTD70GBPTDG"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "GE Profile\u2122 ENERGY STAR\u00ae 7.4 cu. ft. Capacity Smart aluminized alloy drum Gas Dryer with Sanitize Cycle and Sensor Dry",
+          "unit": "cu. ft.",
+          "value": "7.4"
+        },
+        {
+          "confidence": "high",
+          "name": "Dryer Type",
+          "source_snippet": "GE Profile\u2122 ENERGY STAR\u00ae 7.4 cu. ft. Capacity Smart aluminized alloy drum Gas Dryer with Sanitize Cycle and Sensor Dry",
+          "unit": "",
+          "value": "Gas Dryer"
+        },
+        {
+          "confidence": "high",
+          "name": "Drum Material",
+          "source_snippet": "aluminized alloy drum",
+          "unit": "",
+          "value": "aluminized alloy"
+        },
+        {
+          "confidence": "high",
+          "name": "Sanitize Cycle",
+          "source_snippet": "with Sanitize Cycle",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Sensor Dry",
+          "source_snippet": "and Sensor Dry",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR Certification",
+          "source_snippet": "ENERGY STAR\u00ae",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Manufactured",
+          "source_snippet": "Manufactured March, 2022 - Present",
+          "unit": "",
+          "value": "March, 2022 - Present"
+        }
+      ],
+      "category": "Dryer",
+      "manufacturer": "GE",
+      "model_numbers": [
+        "PTD70GBPTDG"
+      ],
+      "product_name": "GE Profile\u2122 ENERGY STAR\u00ae 7.4 cu. ft. Capacity Smart aluminized alloy drum Gas Dryer with Sanitize Cycle and Sensor Dry",
+      "short_description": "Parts & Accessories page for GE Profile gas dryer model PTD70GBPTDG."
+    },
+    "https://www.ajmadison.com/cgi-bin/ajmadison/WDT730PAHZ.html": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "24 Inch",
+          "unit": "Inch",
+          "value": "24"
+        },
+        {
+          "confidence": "high",
+          "name": "Installation Type",
+          "source_snippet": "Fully Integrated Built-In Dishwasher",
+          "unit": "",
+          "value": "Fully Integrated Built-In"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "15 Place Setting Capacity",
+          "unit": "Place Settings",
+          "value": "15"
+        },
+        {
+          "confidence": "high",
+          "name": "Wash Cycles",
+          "source_snippet": "5 Wash Cylces",
+          "unit": "",
+          "value": "5"
+        },
+        {
+          "confidence": "high",
+          "name": "Noise Level",
+          "source_snippet": "51 dBA Silence Rating",
+          "unit": "dBA",
+          "value": "51"
+        },
+        {
+          "confidence": "high",
+          "name": "Sani Rinse Option",
+          "source_snippet": "Sani Rinse Option",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Soil Sensor",
+          "source_snippet": "Soil Sensor",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Sensor Cycle",
+          "source_snippet": "Sensor Cycle",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "1-Hour Wash Cycle",
+          "source_snippet": "1-Hour Wash Cycle",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Cycle Memory",
+          "source_snippet": "Cycle Memory",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "ENERGY STAR\u00ae",
+          "source_snippet": "ENERGY STAR\u00ae",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "Fingerprint Resistant Stainless Steel",
+          "unit": "",
+          "value": "Fingerprint Resistant Stainless Steel"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "Whirlpool",
+      "model_numbers": [
+        "WDT730PAHZ"
+      ],
+      "product_name": "Whirlpool WDT730PAHZ 24 Inch Fully Integrated Built-In Dishwasher",
+      "short_description": "24\u2011inch fully integrated built\u2011in dishwasher with 15 place\u2011setting capacity, 5 wash cycles, 51\u202fdBA noise level, Sani Rinse, soil sensor, sensor cycle, 1\u2011hour wash, cycle memory, ENERGY STAR\u00ae and fingerprint\u2011resistant stainless steel finish."
     }
   }
 }

@@ -468,14 +468,21 @@ def _is_wrong_page_type(
     if any(s in lower or s in url_norm for s in _PAGE_INSTALL_SIGNALS):
         return True, "installation or support article, not a product spec page"
 
-    # 3. Product family / range page (URL path contains /family or /range/)
+    # 3. Product family / range / category page (URL path signals)
     url_path = urlparse(url).path.lower()
-    if "/family" in url_path or "/range/" in url_path or url_path.endswith("/range"):
-        return True, "product family/range page covering multiple SKUs, not a single-model spec page"
+    if (
+        "/family" in url_path
+        or "/range/" in url_path
+        or url_path.endswith("/range")
+        or url_path.endswith("/category")
+        or "/category/" in url_path
+    ):
+        return True, "product family/range/category page covering multiple SKUs, not a single-model spec page"
 
-    # 4. Range-valued specs in content (e.g. "300lm to 2000lm") indicate a
-    #    family overview, not a single-product spec page.
-    if re.search(r"\d+\s*(?:lm|w|v|hz|k)\s+to\s+\d+\s*(?:lm|w|v|hz|k)", lower):
+    # 4. Range-valued specs in content (e.g. "300lm to 2000lm" or "2,700 K to
+    #    6,500 K") indicate a family overview, not a single-product spec page.
+    #    Pattern handles optional thousands comma and optional space before unit.
+    if re.search(r"\d[\d,]*\s*(?:lm|w|v|hz|k)\s+to\s+\d[\d,]*\s*(?:lm|w|v|hz|k)", lower):
         return True, "page shows a range of spec values (e.g. '300lm to 2000lm'), not a single-SKU spec page"
 
     return False, ""
@@ -664,6 +671,114 @@ def _tavily_discover(
     return None
 
 
+def _tavily_candidates(
+    mpn: str,
+    brand_name: str,
+    manufacturer_name: str,
+    part_desc: str,
+    mfr_domain: str,
+    verbose: bool = False,
+) -> list[tuple[str, str]]:
+    """
+    Return all (url, tier) candidates from Tavily in priority order:
+    domain-scoped results (tier='manufacturer') first, then general results.
+    Deduplicates URLs across both passes.
+
+    The caller iterates this list and applies quality gates to each candidate,
+    continuing to the next on any gate failure.  A bad domain-scoped hit never
+    blocks the general search — it just gets skipped.
+    """
+    client = _get_tavily_client()
+    if client is None:
+        if verbose:
+            print(f"  [tavily] TAVILY_API_KEY not set — skipping")
+        return []
+
+    # Build query (same logic as _tavily_discover)
+    brand_display = re.sub(r"[®™]", "", brand_name).strip()
+    mfr_short = manufacturer_name.split(",")[0].split("(")[0].strip()
+    desc_clean = part_desc
+    if brand_display:
+        desc_clean = re.sub(
+            r"^\s*" + re.escape(brand_display) + r"\s*[-–]?\s*",
+            "", desc_clean, flags=re.IGNORECASE,
+        ).strip()
+    desc_clean = re.sub(
+        r"^\s*" + re.escape(mpn) + r"\s*[-–]?\s*",
+        "", desc_clean, flags=re.IGNORECASE,
+    ).strip()
+
+    if desc_clean:
+        query = f"{brand_display} {mpn} {desc_clean} specifications"
+    elif mfr_short and mfr_short.lower() not in brand_display.lower():
+        query = f"{mfr_short} {brand_display} {mpn} specifications"
+    else:
+        query = f"{brand_display} {mpn} specifications"
+
+    if verbose:
+        print(f"  [tavily] query: '{query}'")
+
+    candidates: list[tuple[str, str]] = []
+    seen: set[str] = set()
+
+    # Pass A: domain-scoped — collect all results, not just first
+    if mfr_domain:
+        try:
+            scoped = client.search(
+                query=query,
+                include_domains=[mfr_domain],
+                max_results=3,
+                include_raw_content=False,
+            )
+            for r in scoped.get("results", []):
+                url = r.get("url", "")
+                score = r.get("score", 0)
+                if url and url not in seen:
+                    seen.add(url)
+                    candidates.append((url, "manufacturer"))
+                    if verbose:
+                        print(f"  [tavily] domain-scoped candidate score={score:.3f}: {url}")
+            if not candidates and verbose:
+                print(f"  [tavily] domain-scoped: no results on {mfr_domain}")
+        except Exception as e:
+            if verbose:
+                print(f"  [tavily] domain-scoped error: {e}")
+
+    # Pass B: general search — collect all results, not just first
+    try:
+        general = client.search(
+            query=query,
+            exclude_domains=_TAVILY_HARD_EXCLUDE,
+            max_results=5,
+            include_raw_content=False,
+        )
+        for r in general.get("results", []):
+            url = r.get("url", "")
+            score = r.get("score", 0)
+            if not url or url in seen:
+                continue
+            host_lower = urlparse(url).netloc.lower()
+            if any(excl.lstrip("www.") in host_lower for excl in _TAVILY_HARD_EXCLUDE):
+                continue
+            tier = _classify_source_tier(url, mfr_domain)
+            if not ALLOW_RETAILER_SOURCES and tier == "retailer":
+                if verbose:
+                    print(f"  [tavily] skip retailer (ALLOW_RETAILER_SOURCES=False): {url}")
+                continue
+            seen.add(url)
+            candidates.append((url, tier))
+            if verbose:
+                print(f"  [tavily] general candidate [{tier}] score={score:.3f}: {url}")
+    except Exception as e:
+        if verbose:
+            print(f"  [tavily] general search error: {e}")
+
+    if not candidates and verbose:
+        print(f"  [tavily] no candidates found for {mpn}")
+
+    return candidates
+
+
 def _ddg_search(query: str, max_results: int = 8) -> tuple[list[dict], str]:
     """
     DuckDuckGo HTML endpoint search (no API key, no rate limit contract).
@@ -849,41 +964,99 @@ def enrich_from_manufacturer(
                 print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars)")
             clean_text = page.clean_text
 
-    # ── Stage 2: Tavily web search ────────────────────────────────────────────
+    # ── Stage 2: Tavily — collect all gate-passing candidates, prefer MPN match ─
+    # Scrape every candidate from both domain-scoped and general search and apply
+    # all three quality gates to each.  Collect every candidate that passes all
+    # gates, then select the BEST one:
+    #
+    #   • exact_mpn_verified=True candidates rank above False ones, regardless
+    #     of Tavily score or domain-scoped vs general tier.  A retailer page that
+    #     explicitly mentions the MPN beats a manufacturer EU page that doesn't.
+    #   • Within the same verification status, Tavily rank order is preserved
+    #     (domain-scoped first, then general; stable sort).
+    #
+    # This prevents the common Philips pattern where domain-scoped returns an EU
+    # product page (similar but not the same SKU) while a general-search retailer
+    # page has the exact NA MPN in its text.
+    stage2_gated = False
     if url is None:
-        tavily_result = _tavily_discover(
+        # Each entry: (url, tier, text_with_title, mpn_verified)
+        _gate_passing: list[tuple[str, str, str, bool]] = []
+
+        for cand_url, cand_tier in _tavily_candidates(
             mpn=mpn,
             brand_name=brand_name,
             manufacturer_name=manufacturer_name,
             part_desc=part_desc,
             mfr_domain=mfr_domain,
             verbose=verbose,
-        )
-        if tavily_result:
-            tavily_url, tavily_tier = tavily_result
-            url = tavily_url
-            source_tier = tavily_tier
+        ):
+            if verbose:
+                print(f"  [enrich] Stage2 trying [{cand_tier}]: {cand_url}")
+            _throttle(cand_url)
+            page = scrape_product_page(cand_url)
+            if not page.success:
+                if verbose:
+                    print(f"  [enrich] scrape FAILED — skip: {page.error}")
+                continue
+            if len(page.clean_text) < 100:
+                if verbose:
+                    print(f"  [enrich] page too short ({len(page.clean_text)} chars) — skip")
+                continue
+
+            # Prepend page title before gates so the header region check in
+            # _is_wrong_page_type also sees the title (MPN in title = singular page).
+            page_title = page.title or ""
+            cand_text = (f"{page_title}\n" if page_title else "") + page.clean_text
+
+            # Gate 1: wrong brand
+            wb, br = _is_wrong_brand(cand_url, cand_text, brand_name, manufacturer_name, verbose)
+            if wb:
+                if verbose:
+                    print(f"  [enrich] brand gate — skip: {br}")
+                continue
+
+            # Gate 2: wrong page type
+            wt, tr = _is_wrong_page_type(mpn, cand_url, cand_text, verbose)
+            if wt:
+                if verbose:
+                    print(f"  [enrich] page-type gate — skip: {tr}")
+                continue
+
+            # Gate 3: promo content
+            if _is_promo_content(cand_text):
+                if verbose:
+                    print(f"  [enrich] promo gate — skip: {cand_url}")
+                continue
+
+            # All gates passed — record MPN verification for selection ranking
+            _mpn_lower = mpn.lower()
+            cand_mpn_verified = (
+                _mpn_lower in cand_text.lower()
+                or _mpn_lower in cand_url.lower()
+            )
+            _gate_passing.append((cand_url, cand_tier, cand_text, cand_mpn_verified))
+            if verbose:
+                print(f"  [enrich] Stage2 gate-pass [{cand_tier}] mpn_verified={cand_mpn_verified}: {cand_url}")
+
+        if _gate_passing:
+            # Sort: exact-MPN matches first; within each group preserve Tavily rank
+            # order (stable sort).  Pick the top candidate.
+            _gate_passing.sort(key=lambda c: (not c[3],))
+            url, source_tier, clean_text, _ = _gate_passing[0]
             result["source_url"] = url
             result["source_tier"] = source_tier
+            stage2_gated = True
             if verbose:
-                print(f"  [enrich] Stage2 Tavily [{source_tier}]: {url}")
-            _throttle(url)
-            page = scrape_product_page(url)
-            if not page.success:
-                result["error"] = f"Scrape failed: {page.error}"
-                if verbose:
-                    print(f"  [enrich] scrape FAILED: {page.error}")
-            elif len(page.clean_text) < 100:
-                result["error"] = "Page text too short — likely JS-rendered or blocked"
-                if verbose:
-                    print(f"  [enrich] page text too short ({len(page.clean_text)} chars)")
-            else:
-                if verbose:
-                    print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars)")
-                clean_text = page.clean_text
+                _best_mpn_v = _gate_passing[0][3]
+                _total = len(_gate_passing)
+                print(
+                    f"  [enrich] Stage2 selected [mpn_verified={_best_mpn_v}] "
+                    f"[{source_tier}] (1 of {_total} gate-passing): {url}"
+                )
         else:
             if verbose:
-                print(f"  [enrich] Stage2 Tavily found no usable URL for {mpn}")
+                print(f"  [enrich] Stage2 no gate-passing candidates for {mpn}")
 
     # ── Stage 2.5: MPN-based cache replay ────────────────────────────────────
     # Check whether a prior successful run cached the extraction for this MPN.
@@ -926,38 +1099,50 @@ def enrich_from_manufacturer(
             result["error"] = f"No manufacturer page found for {mpn} ({brand_name})"
         return result
 
-    # ── Brand-verification gate ───────────────────────────────────────────────
-    # Reject pages that belong to a different manufacturer (e.g. Feit specs
-    # returned for a Philips MPN).  Fires before LLM — no tokens wasted.
-    wrong_brand, brand_reason = _is_wrong_brand(
-        result["source_url"], clean_text, brand_name, manufacturer_name, verbose
-    )
-    if wrong_brand:
-        result["error"] = f"Brand mismatch: {brand_reason}"
-        if verbose:
-            print(f"  [enrich] brand-verification gate triggered for {mpn}: {brand_reason}")
-        return result
+    # ── Quality gates (Stage 1 and Stage 3 results only) ─────────────────────
+    # Stage 2 candidates already passed all three gates in the candidate loop
+    # above.  Only Stage 1 (direct URL) and Stage 3 (ScraperAPI) results reach
+    # this block.
+    if not stage2_gated:
+        wrong_brand, brand_reason = _is_wrong_brand(
+            result["source_url"], clean_text, brand_name, manufacturer_name, verbose
+        )
+        if wrong_brand:
+            result["error"] = f"Brand mismatch: {brand_reason}"
+            if verbose:
+                print(f"  [enrich] brand-verification gate triggered for {mpn}: {brand_reason}")
+            return result
 
-    # ── Wrong-page-type gate ──────────────────────────────────────────────────
-    # Reject comparison charts, installation/support articles, and product
-    # family pages before burning LLM tokens on multi-model or off-topic content.
-    wrong_type, type_reason = _is_wrong_page_type(
-        mpn, result["source_url"], clean_text, verbose
-    )
-    if wrong_type:
-        result["error"] = f"Wrong page type: {type_reason}"
-        if verbose:
-            print(f"  [enrich] wrong-page-type gate triggered for {mpn}: {type_reason}")
-        return result
+        wrong_type, type_reason = _is_wrong_page_type(
+            mpn, result["source_url"], clean_text, verbose
+        )
+        if wrong_type:
+            result["error"] = f"Wrong page type: {type_reason}"
+            if verbose:
+                print(f"  [enrich] wrong-page-type gate triggered for {mpn}: {type_reason}")
+            return result
 
-    # ── Promo-content gate ────────────────────────────────────────────────────
-    # Reject pages that are rebate/promotion landing pages rather than spec pages.
-    # Checked before LLM extraction to avoid burning tokens on useless content.
-    if _is_promo_content(clean_text):
-        result["error"] = "Page is promotional/rebate content — no technical specs present"
-        if verbose:
-            print(f"  [enrich] promo-content gate triggered — skipping LLM for {mpn}")
-        return result
+        if _is_promo_content(clean_text):
+            result["error"] = "Page is promotional/rebate content — no technical specs present"
+            if verbose:
+                print(f"  [enrich] promo-content gate triggered — skipping LLM for {mpn}")
+            return result
+
+    # ── MPN verification flag ─────────────────────────────────────────────────
+    # Check whether the exact input MPN appears literally in the page content,
+    # page title (prepended to clean_text above), or the source URL slug.
+    # True  → the page is confirmed to be about this specific product.
+    # False → the page is related (correct brand/category) but may be a nearby
+    #         model, EU variant, or family overview.  Specs are still useful but
+    #         the discrepancy is surfaced in the dashboard rather than silently
+    #         treated as a full match.
+    _mpn_lower = mpn.lower()
+    _url_lower = (result.get("source_url") or "").lower()
+    exact_mpn_verified = _mpn_lower in clean_text.lower() or _mpn_lower in _url_lower
+    result["exact_mpn_verified"] = exact_mpn_verified
+    if verbose:
+        status = "confirmed" if exact_mpn_verified else "NOT FOUND — related page"
+        print(f"  [enrich] exact_mpn_verified={exact_mpn_verified} ('{mpn}' {status} in page text/URL)")
 
     # ── LLM extraction (same path regardless of which stage fetched the page) ─
     try:
