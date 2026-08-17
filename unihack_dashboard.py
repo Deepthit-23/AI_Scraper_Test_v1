@@ -639,14 +639,15 @@ with tab1:
 
         display_cols = [
             "Mfg_Part_Num", "Part_Desc", "BRAND_NAME", "MANUFACTURER_NAME",
-            "Classpath", "INVOICE_DESC", "MOBILE_DESC", "_enriched", "_enrichment_source",
+            "Classpath", "INVOICE_DESC", "MOBILE_DESC",
+            "_enriched", "_source_tier", "_enrichment_source",
         ]
         view_df = df[[c for c in display_cols if c in df.columns]].copy()
         view_df = view_df.rename(columns={
             "Mfg_Part_Num": "MPN", "Part_Desc": "Input Description",
             "BRAND_NAME": "Brand", "MANUFACTURER_NAME": "Manufacturer",
             "INVOICE_DESC": "INVOICE DESC", "MOBILE_DESC": "MOBILE DESC",
-            "_enriched": "Enriched", "_enrichment_source": "Source URL",
+            "_enriched": "Enriched", "_source_tier": "Tier", "_enrichment_source": "Source URL",
         })
         if search:
             mask = view_df.apply(lambda r: search.lower() in " ".join(r.values.astype(str)).lower(), axis=1)
@@ -678,10 +679,19 @@ with tab1:
                 enriched_flag = row.get("_enriched","") == "True"
                 if enriched_flag:
                     src = row.get("_enrichment_source","")
-                    st.markdown("**Source:**")
+                    tier = row.get("_source_tier","")
+                    tier_badge = (
+                        f'<span class="badge" style="background:#dcfce7;color:#166534">manufacturer</span>'
+                        if tier == "manufacturer" else
+                        f'<span class="badge" style="background:#dbeafe;color:#1d4ed8">distributor</span>'
+                        if tier == "distributor" else
+                        f'<span class="badge" style="background:#fef9c3;color:#854d0e">retailer</span>'
+                        if tier == "retailer" else ""
+                    )
+                    st.markdown(f"**Source:** {tier_badge}", unsafe_allow_html=True)
                     st.markdown(f'<div class="source-chip">{src}</div>', unsafe_allow_html=True)
                 else:
-                    err = row.get("_enrichment_error","") or "no URL template or DDG returned 0 results"
+                    err = row.get("_enrichment_error","") or "no URL template; Tavily returned no usable URL"
                     st.markdown(f"**Not enriched:** {err[:120]}")
             with attr_col:
                 st.markdown("**Extracted Attributes**")
@@ -1061,7 +1071,7 @@ with tab2:
                             _disp_cols = [
                                 "Mfg_Part_Num", "Part_Desc", "BRAND_NAME", "MANUFACTURER_NAME",
                                 "Classpath", "INVOICE_DESC", "MOBILE_DESC",
-                                "_enriched", "_enrichment_source",
+                                "_enriched", "_source_tier", "_enrichment_source",
                             ]
                             _view = _result_df[[c for c in _disp_cols if c in _result_df.columns]].copy()
                             _view = _view.rename(columns={
@@ -1072,6 +1082,7 @@ with tab2:
                                 "INVOICE_DESC": "INVOICE DESC",
                                 "MOBILE_DESC": "MOBILE DESC",
                                 "_enriched": "Enriched",
+                                "_source_tier": "Tier",
                                 "_enrichment_source": "Source URL",
                             })
                             st.dataframe(_view, use_container_width=True, hide_index=True)
@@ -1097,9 +1108,18 @@ with tab2:
                                     st.markdown(f"**MOBILE_DESC:** {_rrow.get('MOBILE_DESC', '—')}")
                                     _enr = _rrow.get("_enriched", "") == "True"
                                     if _enr:
-                                        st.markdown(f'**Source:** <div class="source-chip">{_rrow.get("_enrichment_source","")}</div>', unsafe_allow_html=True)
+                                        _tier = _rrow.get("_source_tier", "")
+                                        _tier_badge = (
+                                            f'<span class="badge" style="background:#dcfce7;color:#166534">manufacturer</span>'
+                                            if _tier == "manufacturer" else
+                                            f'<span class="badge" style="background:#dbeafe;color:#1d4ed8">distributor</span>'
+                                            if _tier == "distributor" else
+                                            f'<span class="badge" style="background:#fef9c3;color:#854d0e">retailer</span>'
+                                            if _tier == "retailer" else ""
+                                        )
+                                        st.markdown(f'**Source:** {_tier_badge} <div class="source-chip">{_rrow.get("_enrichment_source","")}</div>', unsafe_allow_html=True)
                                     else:
-                                        _err = _rrow.get("_enrichment_error", "") or "no URL template match"
+                                        _err = _rrow.get("_enrichment_error", "") or "no URL template; Tavily returned no usable URL"
                                         st.markdown(f"**Not enriched:** {_err[:120]}")
                                 with _ac:
                                     st.markdown("**Extracted Attributes**")

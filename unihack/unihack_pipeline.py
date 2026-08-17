@@ -97,7 +97,7 @@ OUTPUT_COLS = [
     # Pipeline metadata (prefixed _ so they're easy to strip for submission)
     "_classification_confidence", "_classification_method",
     "_brand_resolution_method",
-    "_enriched", "_enrichment_source",
+    "_enriched", "_enrichment_source", "_source_tier",
     "_invoice_desc_ok", "_mobile_desc_ok",
 ]
 
@@ -145,8 +145,8 @@ def process_row(row: dict, enrich: bool = True) -> dict:
             enrichment = enrich_from_manufacturer(
                 mpn, mfr["manufacturer_name"], brand_name,
                 clf.get("product_type", ""),
+                part_desc=part_desc,
                 verbose=_verbose_enrich,
-                use_ddg=False,
             )
         except Exception as exc:
             enrichment["error"] = str(exc)
@@ -208,6 +208,7 @@ def process_row(row: dict, enrich: bool = True) -> dict:
         "_brand_resolution_method": mfr.get("_brand_resolution_method", "unknown"),
         "_enriched": str(enrichment.get("enriched", False)),
         "_enrichment_source": enrichment.get("source_url") or "",
+        "_source_tier": enrichment.get("source_tier") or "",
         "_enrichment_error": enrichment.get("error") or "",
         "_invoice_desc_ok": str(descs.invoice_ok),
         "_mobile_desc_ok": str(descs.mobile_ok),

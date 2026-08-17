@@ -1,19 +1,24 @@
 """
 Manufacturer web enrichment.
 
-Challenge sourcing rule: use the manufacturer's OWN website, not marketplaces.
+Discovery stages:
+  1. Direct URL template (fast, free, zero network if template exists).
+  2. Tavily web search (replaces DDG; 1,000 free credits/month; regional TLD
+     exclusions; returns scored results that Tavily has already fetched).
+  2.5 MPN cache replay (free; checks llm_cache for a prior extraction).
+  3. ScraperAPI last resort (costs credits; JS rendering; bypasses Cloudflare).
 
-Two-stage lookup:
-  1. Try a direct URL from our domain + URL-pattern table for the top ~15 brands.
-     A HEAD request confirms the page exists before we spend a full scrape + LLM call.
-  2. Fall back to DuckDuckGo HTML search scoped to the manufacturer's domain.
-     No API key required — uses the public HTML endpoint. Results are filtered
-     to reject known marketplace/distributor URLs.
+Source tiers
+  Every attribute extracted from web enrichment is tagged with the tier of the
+  page it came from:
+    "manufacturer"  — the brand's own registered domain (frigidaire.com, etc.)
+    "distributor"   — known B2B industrial supplier (MSC, Fastenal, Graybar…)
+    "retailer"      — any other non-blocked source (AJ Madison, ABCWarehouse…)
 
-The enrichment result feeds directly into the existing extract_product() pipeline
-(scraper/web_scraper.py + extractor/llm_extractor.py) — no code duplication.
-
-One LLM call per product (the attribute extraction call inside extract_product).
+Config flag
+  ALLOW_RETAILER_SOURCES (below): when True, the highest-scoring Tavily result
+  is used regardless of tier. When False, only manufacturer/distributor URLs are
+  accepted; everything else falls through to "not enriched."
 """
 
 import os
@@ -24,6 +29,10 @@ import requests
 from pathlib import Path
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
+
+# ── Source policy config ──────────────────────────────────────────────────────
+# Flip to False to restrict Stage 2 to manufacturer/distributor sources only.
+ALLOW_RETAILER_SOURCES: bool = True
 
 # Ensure we can import from the product-intel root
 _ROOT = Path(__file__).resolve().parent.parent.parent
@@ -315,6 +324,163 @@ def _is_marketplace(url: str) -> bool:
     return any(m in url.lower() for m in _MARKETPLACE_DOMAINS)
 
 
+# ── Hard-excluded domains (Tavily exclude_domains list) ───────────────────────
+# Judging brief explicitly forbids Amazon, eBay, Walmart, Home Depot.
+# Expanded to cover all major regional TLDs so they can't slip through.
+_TAVILY_HARD_EXCLUDE: list[str] = [
+    # Amazon
+    "amazon.com", "amazon.ca", "amazon.co.uk", "amazon.de", "amazon.ae",
+    "amazon.in", "amazon.fr", "amazon.it", "amazon.es", "amazon.com.au",
+    "amazon.co.jp", "amazon.com.mx", "amazon.com.br",
+    # eBay
+    "ebay.com", "ebay.ca", "ebay.co.uk", "ebay.de", "ebay.fr",
+    "ebay.it", "ebay.es", "ebay.com.au",
+    # Walmart
+    "walmart.com", "walmart.ca",
+    # Home Depot
+    "homedepot.com", "homedepot.ca",
+    # Grainger (forbidden per sourcing hierarchy)
+    "grainger.com", "grainger.ca", "grainger.co.uk",
+    # Zoro (Grainger subsidiary)
+    "zoro.com",
+]
+
+# ── Known B2B distributor domain keywords (source tier = "distributor") ───────
+# These are industrial/commercial suppliers that are NOT hard-excluded —
+# they carry real specs and are acceptable sourcing for industrial products.
+_DISTRIBUTOR_KEYWORDS: frozenset[str] = frozenset([
+    "mscdirect", "fastenal", "motionindustries", "wesco", "graybar",
+    "rexel", "anixter", "platt", "bulbconnection", "atlascopco",
+    "genlyte", "signify", "1000bulbs", "bulbs", "lightbulbs",
+    "galco", "automationdirect", "newark", "digikey", "mouser",
+    "alliedelec", "arrow", "ttelectronics",
+])
+
+
+def _classify_source_tier(url: str, mfr_domain: str) -> str:
+    """Classify a URL into 'manufacturer', 'distributor', or 'retailer'."""
+    host = urlparse(url).netloc.lower().lstrip("www.")
+    # Strip one leading subdomain level for comparison (e.g. lighting.philips.com → philips.com)
+    host_base = host.split(".", 1)[-1] if host.count(".") >= 2 else host
+    if mfr_domain:
+        clean_mfr = mfr_domain.lstrip("www.")
+        if host == clean_mfr or host_base == clean_mfr or host.endswith("." + clean_mfr):
+            return "manufacturer"
+    if any(kw in host for kw in _DISTRIBUTOR_KEYWORDS):
+        return "distributor"
+    return "retailer"
+
+
+# ── Tavily client (lazy init) ─────────────────────────────────────────────────
+_tavily_client = None
+
+
+def _get_tavily_client():
+    global _tavily_client
+    if _tavily_client is not None:
+        return _tavily_client
+    api_key = os.environ.get("TAVILY_API_KEY")
+    if not api_key:
+        return None
+    try:
+        from tavily import TavilyClient
+        _tavily_client = TavilyClient(api_key=api_key)
+        return _tavily_client
+    except ImportError:
+        return None
+
+
+def _tavily_discover(
+    mpn: str,
+    brand_name: str,
+    manufacturer_name: str,
+    part_desc: str,
+    mfr_domain: str,
+    verbose: bool = False,
+) -> tuple[str, str] | None:
+    """
+    Stage 2: Tavily search for the best product page for this MPN.
+
+    Builds a rich query from brand + MPN + cleaned Part_Desc to anchor
+    numeric MPNs to the right product (fixes Philips 801274/567313 mismatches
+    that occurred with brand+MPN-only queries).
+
+    Returns (url, source_tier) or None.
+    source_tier is 'manufacturer', 'distributor', or 'retailer'.
+    Respects ALLOW_RETAILER_SOURCES: when False, only manufacturer/distributor
+    results are accepted.
+    """
+    client = _get_tavily_client()
+    if client is None:
+        if verbose:
+            print(f"  [tavily] TAVILY_API_KEY not set or tavily-python not installed — skipping")
+        return None
+
+    # Build a richer query; strip leading "Brand MPN" from Part_Desc to avoid duplication.
+    # Strip brand first (Part_Desc is often "Brand MPN Description"), then MPN.
+    brand_display = re.sub(r"[®™]", "", brand_name).strip()
+    mfr_short = manufacturer_name.split(",")[0].split("(")[0].strip()
+    desc_clean = part_desc
+    if brand_display:
+        desc_clean = re.sub(r"^\s*" + re.escape(brand_display) + r"\s*[-–]?\s*", "", desc_clean, flags=re.IGNORECASE).strip()
+    desc_clean = re.sub(r"^\s*" + re.escape(mpn) + r"\s*[-–]?\s*", "", desc_clean, flags=re.IGNORECASE).strip()
+
+    if desc_clean:
+        query = f"{brand_display} {mpn} {desc_clean} specifications"
+    elif mfr_short and mfr_short.lower() not in brand_display.lower():
+        query = f"{mfr_short} {brand_display} {mpn} specifications"
+    else:
+        query = f"{brand_display} {mpn} specifications"
+
+    if verbose:
+        print(f"  [tavily] query: '{query}'")
+
+    try:
+        resp = client.search(
+            query=query,
+            exclude_domains=_TAVILY_HARD_EXCLUDE,
+            max_results=5,
+            include_raw_content=False,
+        )
+    except Exception as e:
+        if verbose:
+            print(f"  [tavily] search error: {e}")
+        return None
+
+    results = resp.get("results", [])
+    if verbose:
+        print(f"  [tavily] {len(results)} results returned")
+
+    for r in results:
+        url = r.get("url", "")
+        score = r.get("score", 0)
+        if not url:
+            continue
+
+        # Belt-and-suspenders: re-check hard exclusions (some regional TLDs
+        # may slip through if not in the exclude list)
+        host_lower = urlparse(url).netloc.lower()
+        if any(excl.lstrip("www.") in host_lower for excl in _TAVILY_HARD_EXCLUDE):
+            if verbose:
+                print(f"  [tavily] post-filter excluded: {url}")
+            continue
+
+        tier = _classify_source_tier(url, mfr_domain)
+
+        if not ALLOW_RETAILER_SOURCES and tier == "retailer":
+            if verbose:
+                print(f"  [tavily] skip retailer (ALLOW_RETAILER_SOURCES=False): {url}")
+            continue
+
+        if verbose:
+            print(f"  [tavily] selected [{tier}] score={score:.3f}: {url}")
+        return url, tier
+
+    if verbose:
+        print(f"  [tavily] no usable result found for {mpn}")
+    return None
+
+
 def _ddg_search(query: str, max_results: int = 8) -> tuple[list[dict], str]:
     """
     DuckDuckGo HTML endpoint search (no API key, no rate limit contract).
@@ -395,88 +561,45 @@ def find_manufacturer_page(
     manufacturer_name: str,
     brand_name: str,
     verbose: bool = False,
-    use_ddg: bool = True,
+    use_ddg: bool = False,
 ) -> str | None:
     """
-    Find the manufacturer's OWN official product page for this MPN.
-    Returns URL or None.
+    Stage 1: direct URL template lookup only.
 
-    use_ddg=False skips the DuckDuckGo fallback entirely; rows with no URL
-    template will return None immediately with a clean "no template" message.
-    Set False in production to avoid DDG rate-limiting and wasted latency.
+    Returns the manufacturer's product page URL if a known template exists
+    and the page responds with HTTP 200. Returns None otherwise.
+
+    use_ddg is kept for backward compatibility but is ignored (DDG was
+    replaced by Tavily in enrich_from_manufacturer; Stage 3 still uses DDG
+    internally via _scraperapi_stage3).
     """
     brand_key = _BRAND_KEY_MAP.get(brand_name.lower().strip(), "")
 
     if verbose:
         print(f"  [enrich] brand_name='{brand_name}'  brand_key='{brand_key}'")
 
-    # Stage 1: direct URL (template or callable)
     if brand_key:
         entry = _BRAND_DOMAINS.get(brand_key, {})
         has_direct = entry.get("product_url") or entry.get("url_fn")
         if has_direct:
-            if entry.get("url_fn"):
-                candidate = entry["url_fn"](mpn)
-            else:
-                candidate = entry["product_url"].format(mpn=mpn, mpn_lower=mpn.lower())
             if verbose:
+                candidate = (entry["url_fn"](mpn) if entry.get("url_fn")
+                             else entry["product_url"].format(mpn=mpn, mpn_lower=mpn.lower()))
                 print(f"  [enrich] trying direct URL: {candidate}")
             direct = _try_direct_url(mpn, brand_key)
             if direct:
                 if verbose:
                     print(f"  [enrich] direct URL OK → {direct}")
                 return direct
-            else:
-                if verbose:
-                    print(f"  [enrich] direct URL returned non-200 or error")
+            if verbose:
+                print(f"  [enrich] direct URL returned non-200 or error")
         else:
             if verbose:
                 print(f"  [enrich] no direct URL template for brand_key='{brand_key}'")
-
-    # Stage 2: DuckDuckGo search
-    domain = _BRAND_DOMAINS.get(brand_key, {}).get("domain", "")
-
-    if not use_ddg or domain in _DDG_BLOCKED_DOMAINS:
-        # Always print so callers can audit that DDG never fired — not just in verbose mode
-        reason = f"DDG blocked ({domain})" if domain in _DDG_BLOCKED_DOMAINS else "DDG disabled"
-        print(f"  [enrich] {reason} — skipping search for {mpn}")
-        return None
-    if domain:
-        query = f"site:{domain} {mpn} specifications"
     else:
-        mfr_short = manufacturer_name.split(",")[0].strip()
-        query = f"{mfr_short} {mpn} product specifications"
-
-    if verbose:
-        domain_display = domain or "(any)"
-        print(f"  [enrich] DDG query: '{query}'  (target domain: '{domain_display}')")
-
-    results, ddg_status = _ddg_search(query)
-
-    if verbose:
-        print(f"  [enrich] DDG status: {ddg_status}  ({len(results)} results)")
-        for r in results[:5]:
-            print(f"           {r['url']}")
-
-    for r in results:
-        url = r["url"]
-        if _is_marketplace(url):
-            if verbose:
-                print(f"  [enrich] skip marketplace: {url}")
-            continue
-        if domain and domain in url:
-            if verbose:
-                print(f"  [enrich] selected domain match: {url}")
-            return url
-        if brand_key and brand_key.replace("_", "").replace(" ", "") in url.lower():
-            if verbose:
-                print(f"  [enrich] selected brand-key match: {url}")
-            return url
         if verbose:
-            print(f"  [enrich] skip domain-mismatch: {url}")
+            print(f"  [enrich] brand_key not in _BRAND_KEY_MAP — no direct URL")
 
-    if verbose:
-        print(f"  [enrich] no usable URL found for {mpn}")
     return None
 
 
@@ -485,38 +608,49 @@ def enrich_from_manufacturer(
     manufacturer_name: str,
     brand_name: str,
     product_type: str = "",
+    part_desc: str = "",
     verbose: bool = False,
-    use_ddg: bool = True,
+    use_ddg: bool = False,
 ) -> dict:
     """
     Full enrichment for one product:
-      Stage 1: Direct URL template (fast, free)
-      Stage 2: DuckDuckGo search (free; skipped for blocked domains)
+      Stage 1: Direct URL template (fast, free) → source_tier = "manufacturer"
+      Stage 2: Tavily web search (1,000 free credits/month) → source_tier from _classify_source_tier
+      Stage 2.5: MPN cache replay (free; no network)
       Stage 3: ScraperAPI (last resort — costs credits; only runs if SCRAPERAPI_KEY set)
 
     Returns:
-        {enriched, source_url, attributes, series, product_record, error}
+        {enriched, source_url, source_tier, attributes, series, product_record, error}
 
     enriched=False means all stages failed; caller should proceed without
     enrichment rather than raising.
+    source_tier is 'manufacturer', 'distributor', or 'retailer'; None if not enriched.
     """
     result: dict = {
         "enriched": False,
         "source_url": None,
+        "source_tier": None,
         "attributes": [],
         "series": None,
         "product_record": None,
         "error": None,
     }
 
-    # ── Stages 1+2: direct URL template → DDG search (fast, free) ────────────
-    url = find_manufacturer_page(mpn, manufacturer_name, brand_name, verbose=verbose, use_ddg=use_ddg)
+    brand_key = _BRAND_KEY_MAP.get(brand_name.lower().strip(), "")
+    mfr_domain = _BRAND_DOMAINS.get(brand_key, {}).get("domain", "")
+
+    url: str | None = None
+    source_tier: str | None = None
     clean_text: str | None = None
 
+    # ── Stage 1: Direct URL template ─────────────────────────────────────────
+    url = find_manufacturer_page(mpn, manufacturer_name, brand_name, verbose=verbose)
     if url:
+        source_tier = "manufacturer"
         result["source_url"] = url
+        result["source_tier"] = source_tier
         if verbose:
-            print(f"  [enrich] scraping: {url}")
+            print(f"  [enrich] Stage1 hit [manufacturer]: {url}")
         _throttle(url)
         page = scrape_product_page(url)
         if not page.success:
@@ -526,18 +660,52 @@ def enrich_from_manufacturer(
         elif len(page.clean_text) < 100:
             result["error"] = "Page text too short — likely JS-rendered or blocked"
             if verbose:
-                print(f"  [enrich] page text too short ({len(page.clean_text)} chars) — JS-rendered or blocked")
+                print(f"  [enrich] page text too short ({len(page.clean_text)} chars)")
         else:
             if verbose:
-                print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars), running LLM extraction...")
+                print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars)")
             clean_text = page.clean_text
 
+    # ── Stage 2: Tavily web search ────────────────────────────────────────────
+    if url is None:
+        tavily_result = _tavily_discover(
+            mpn=mpn,
+            brand_name=brand_name,
+            manufacturer_name=manufacturer_name,
+            part_desc=part_desc,
+            mfr_domain=mfr_domain,
+            verbose=verbose,
+        )
+        if tavily_result:
+            tavily_url, tavily_tier = tavily_result
+            url = tavily_url
+            source_tier = tavily_tier
+            result["source_url"] = url
+            result["source_tier"] = source_tier
+            if verbose:
+                print(f"  [enrich] Stage2 Tavily [{source_tier}]: {url}")
+            _throttle(url)
+            page = scrape_product_page(url)
+            if not page.success:
+                result["error"] = f"Scrape failed: {page.error}"
+                if verbose:
+                    print(f"  [enrich] scrape FAILED: {page.error}")
+            elif len(page.clean_text) < 100:
+                result["error"] = "Page text too short — likely JS-rendered or blocked"
+                if verbose:
+                    print(f"  [enrich] page text too short ({len(page.clean_text)} chars)")
+            else:
+                if verbose:
+                    print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars)")
+                clean_text = page.clean_text
+        else:
+            if verbose:
+                print(f"  [enrich] Stage2 Tavily found no usable URL for {mpn}")
+
     # ── Stage 2.5: MPN-based cache replay ────────────────────────────────────
-    # If stages 1+2 produced no URL (site blocked / no template), check whether
-    # a prior successful run already extracted this MPN and left a cached result.
-    # The extract cache is keyed by URL, so we scan for any key containing the
-    # MPN string. When extract_product() finds a cache hit it ignores source_text
-    # entirely, so passing "" is safe and costs zero tokens.
+    # Check whether a prior successful run cached the extraction for this MPN.
+    # The extract cache is keyed by URL; scan for any key containing the MPN.
+    # extract_product() ignores source_text on cache hit, so "" is safe.
     if url is None and clean_text is None:
         try:
             from unihack import llm_cache as _lc
@@ -566,20 +734,27 @@ def enrich_from_manufacturer(
         )
         if s3_url:
             result["source_url"] = s3_url
+            if source_tier is None:
+                source_tier = _classify_source_tier(s3_url, mfr_domain)
+            result["source_tier"] = source_tier
 
     if clean_text is None:
         if not result["error"]:
             result["error"] = f"No manufacturer page found for {mpn} ({brand_name})"
         return result
 
-    # ── LLM extraction (same path regardless of which tier fetched the page) ───
+    # ── LLM extraction (same path regardless of which stage fetched the page) ─
     try:
         record = extract_product(clean_text, source_id=result["source_url"])
         result["product_record"] = record
-        result["attributes"] = record.attributes
         result["enriched"] = True
 
-        # Pull series name out of extracted attributes if present
+        # Stamp source_tier on every attribute extracted from this page
+        for attr in record.attributes:
+            attr.source_tier = source_tier
+
+        result["attributes"] = record.attributes
+
         for attr in record.attributes:
             if "series" in attr.name.lower():
                 result["series"] = attr.value

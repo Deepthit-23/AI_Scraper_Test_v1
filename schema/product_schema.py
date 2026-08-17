@@ -26,6 +26,11 @@ class Attribute(BaseModel):
     source_id: str = Field(
         ..., description="Which source document/page this came from (traceability)"
     )
+    source_tier: Optional[str] = Field(
+        None,
+        description="Origin tier: 'manufacturer', 'distributor', or 'retailer'. "
+                    "None when sourced from the input description rather than web enrichment.",
+    )
     needs_review: bool = Field(
         default=False, description="True if this should be flagged for a human to check"
     )
