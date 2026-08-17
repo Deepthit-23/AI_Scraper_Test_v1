@@ -409,6 +409,78 @@ def _is_wrong_brand(
     )
 
 
+# ── Wrong-page-type gate ──────────────────────────────────────────────────────
+_PAGE_COMPARISON_SIGNALS: frozenset[str] = frozenset([
+    "comparison chart", "compare models", "side by side",
+    "model comparison", "spec comparison", "compare features",
+    "compare dishwashers", "compare appliances", "compare washers",
+])
+
+_PAGE_INSTALL_SIGNALS: frozenset[str] = frozenset([
+    "installation checklist", "delivery checklist", "delivery check list",
+    "installation guide", "installation instructions", "how to install",
+    "support article", "support articles", "preparing for installation",
+    "before your delivery", "installation requirements",
+])
+
+
+def _is_wrong_page_type(
+    mpn: str,
+    url: str,
+    page_text: str,
+    verbose: bool = False,
+) -> tuple[bool, str]:
+    """
+    Return (True, reason) when the page is not a single-SKU product spec page.
+
+    Primary check: the EXACT MPN appearing in the first 400 chars of the page
+    (title/heading region) confirms the page is specifically about this product
+    and passes outright — unless a hard comparison-chart signal also fires.
+
+    When MPN is absent from the header (e.g. a manufacturer's EU catalog uses
+    regional order numbers, not North American MPNs), secondary checks determine
+    whether the page is a comparison chart, installation/support article, or
+    product family/range page.  Pages that pass all secondary checks are accepted
+    tentatively — brand and promo gates have already screened for the other
+    failure modes.
+    """
+    lower = page_text.lower()
+    mpn_lower = mpn.lower()
+    # Normalize URL path: hyphens/underscores → spaces so "delivery-check-list"
+    # matches the "delivery check list" signal.
+    url_norm = url.lower().replace("-", " ").replace("_", " ")
+
+    # ── Primary check: MPN in title/header region ─────────────────────────────
+    mpn_in_header = mpn_lower in lower[:400]
+    if mpn_in_header:
+        # Still hard-reject a comparison chart even when MPN appears in it
+        if any(s in lower or s in url_norm for s in _PAGE_COMPARISON_SIGNALS):
+            return True, "comparison chart listing multiple models (MPN appears as one of many)"
+        return False, ""
+
+    # ── Secondary checks: MPN absent from header ──────────────────────────────
+
+    # 1. Comparison / multi-model chart
+    if any(s in lower or s in url_norm for s in _PAGE_COMPARISON_SIGNALS):
+        return True, "comparison chart covering multiple models, not a single-SKU spec page"
+
+    # 2. Installation / support article
+    if any(s in lower or s in url_norm for s in _PAGE_INSTALL_SIGNALS):
+        return True, "installation or support article, not a product spec page"
+
+    # 3. Product family / range page (URL path contains /family or /range/)
+    url_path = urlparse(url).path.lower()
+    if "/family" in url_path or "/range/" in url_path or url_path.endswith("/range"):
+        return True, "product family/range page covering multiple SKUs, not a single-model spec page"
+
+    # 4. Range-valued specs in content (e.g. "300lm to 2000lm") indicate a
+    #    family overview, not a single-product spec page.
+    if re.search(r"\d+\s*(?:lm|w|v|hz|k)\s+to\s+\d+\s*(?:lm|w|v|hz|k)", lower):
+        return True, "page shows a range of spec values (e.g. '300lm to 2000lm'), not a single-SKU spec page"
+
+    return False, ""
+
+
 # ── Hard-excluded domains (Tavily exclude_domains list) ───────────────────────
 # Judging brief explicitly forbids Amazon, eBay, Walmart, Home Depot.
 # Expanded to cover all major regional TLDs so they can't slip through.
@@ -864,6 +936,18 @@ def enrich_from_manufacturer(
         result["error"] = f"Brand mismatch: {brand_reason}"
         if verbose:
             print(f"  [enrich] brand-verification gate triggered for {mpn}: {brand_reason}")
+        return result
+
+    # ── Wrong-page-type gate ──────────────────────────────────────────────────
+    # Reject comparison charts, installation/support articles, and product
+    # family pages before burning LLM tokens on multi-model or off-topic content.
+    wrong_type, type_reason = _is_wrong_page_type(
+        mpn, result["source_url"], clean_text, verbose
+    )
+    if wrong_type:
+        result["error"] = f"Wrong page type: {type_reason}"
+        if verbose:
+            print(f"  [enrich] wrong-page-type gate triggered for {mpn}: {type_reason}")
         return result
 
     # ── Promo-content gate ────────────────────────────────────────────────────
