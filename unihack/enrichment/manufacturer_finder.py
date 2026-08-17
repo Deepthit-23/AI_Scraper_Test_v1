@@ -324,6 +324,36 @@ def _is_marketplace(url: str) -> bool:
     return any(m in url.lower() for m in _MARKETPLACE_DOMAINS)
 
 
+# ── Promo-content filter ──────────────────────────────────────────────────────
+# Signals that a scraped page is a rebate/promotion landing page, not a spec page.
+_PROMO_SIGNALS: frozenset[str] = frozenset([
+    "rebate", "promotion period", "claim submission", "prepaid mastercard",
+    "bonus savings", "additional rebate", "rebate limit", "rebate payment",
+    "mail-in rebate", "rebate form", "cashback", "coupon code",
+])
+# Signals that confirm genuine technical content is present.
+_SPEC_SIGNALS: frozenset[str] = frozenset([
+    "watt", "volt", "amp", "hertz", "hz", "decibel", "dba", "db ",
+    "cubic feet", "cu ft", "gallon", "capacity", "dimension",
+    "height", "width", "depth", "weight", "lb", "kg",
+    "cycle", "temperature", "lumens", "color temperature", "efficacy",
+    "horsepower", "rpm", "torque", "pressure", "flow rate",
+    "ip rating", "ingress", "operating range",
+])
+
+
+def _is_promo_content(text: str) -> bool:
+    """
+    Return True when the scraped page is promotional / rebate copy with no
+    technical specifications.  Two or more promo signals AND zero spec signals
+    = page is useless for attribute extraction.
+    """
+    lower = text.lower()
+    promo_hits = sum(1 for kw in _PROMO_SIGNALS if kw in lower)
+    spec_hits  = sum(1 for kw in _SPEC_SIGNALS  if kw in lower)
+    return promo_hits >= 2 and spec_hits == 0
+
+
 # ── Hard-excluded domains (Tavily exclude_domains list) ───────────────────────
 # Judging brief explicitly forbids Amazon, eBay, Walmart, Home Depot.
 # Expanded to cover all major regional TLDs so they can't slip through.
@@ -741,6 +771,15 @@ def enrich_from_manufacturer(
     if clean_text is None:
         if not result["error"]:
             result["error"] = f"No manufacturer page found for {mpn} ({brand_name})"
+        return result
+
+    # ── Promo-content gate ────────────────────────────────────────────────────
+    # Reject pages that are rebate/promotion landing pages rather than spec pages.
+    # Checked before LLM extraction to avoid burning tokens on useless content.
+    if _is_promo_content(clean_text):
+        result["error"] = "Page is promotional/rebate content — no technical specs present"
+        if verbose:
+            print(f"  [enrich] promo-content gate triggered — skipping LLM for {mpn}")
         return result
 
     # ── LLM extraction (same path regardless of which stage fetched the page) ─
