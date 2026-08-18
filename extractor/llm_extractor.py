@@ -18,16 +18,19 @@ Claude is a ~10 line change -- see the commented block at the bottom of this fil
 
 import os
 import json
+import time
 from groq import Groq
 from schema.product_schema import ProductRecord, Attribute
 
 MODEL = "openai/gpt-oss-120b"
 
-# Overhead budget (system prompt + tool definition + user-message prefix) ≈ 1,000 tokens.
-# Hard cap on source_text leaves ~6,000 tokens for content, staying well under the
-# 8,000 TPM limit.  Trafilatura already removed nav/boilerplate, so a head-first
-# truncation keeps the product-spec region which appears near the top of clean_text.
-_MAX_SOURCE_CHARS = 24_000
+# Overhead budget (system prompt + large tool schema + user-message prefix) ≈ 2,000 tokens.
+# At 4 chars/token, 20,000 chars ≈ 5,000 source tokens + 2,000 overhead = 7,000 total,
+# staying comfortably under the 8,000 TPM limit even for token-dense table content
+# (pipe-formatted spec tables tokenize at ~3.5 chars/token, giving ~7,700 total).
+# Product specs appear near the top of Trafilatura-cleaned text, so head-first
+# truncation keeps the highest-value content.
+_MAX_SOURCE_CHARS = 20_000
 
 # This is the "shape" we force the model to fill in.
 # It mirrors schema/product_schema.py -- keep them in sync.
@@ -155,19 +158,40 @@ def extract_product(source_text: str, source_id: str) -> ProductRecord:
     if len(source_text) > _MAX_SOURCE_CHARS:
         source_text = source_text[:_MAX_SOURCE_CHARS] + "\n[content truncated]"
 
-    response = client.chat.completions.create(
-        model=MODEL,
-        max_tokens=2000,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {
-                "role": "user",
-                "content": f"Extract structured product data from this source (source_id: {source_id}):\n\n{source_text}",
-            },
-        ],
-        tools=[EXTRACTION_TOOL],
-        tool_choice={"type": "function", "function": {"name": "record_product_data"}},
-    )
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {
+            "role": "user",
+            "content": f"Extract structured product data from this source (source_id: {source_id}):\n\n{source_text}",
+        },
+    ]
+
+    # One retry on 400 tool_use_failed: openai/gpt-oss-120b occasionally truncates
+    # its own tool-call JSON output, leaving it unparseable.  The content is fine;
+    # a second attempt on the same input almost always succeeds.
+    response = None
+    for _attempt in range(2):
+        try:
+            response = client.chat.completions.create(
+                model=MODEL,
+                max_tokens=2000,
+                messages=messages,
+                tools=[EXTRACTION_TOOL],
+                tool_choice={"type": "function", "function": {"name": "record_product_data"}},
+            )
+            break
+        except Exception as _exc:
+            _err_code = getattr(_exc, "code", None) or (
+                (getattr(_exc, "body", None) or {}).get("error", {}).get("code")
+            )
+            if _attempt == 0 and _err_code == "tool_use_failed":
+                print(
+                    f"  [extract] 400 tool_use_failed (transient model error) — "
+                    f"retrying in 1.5 s  [{source_id}]"
+                )
+                time.sleep(1.5)
+                continue
+            raise
 
     if hasattr(response, "usage") and response.usage:
         try:
