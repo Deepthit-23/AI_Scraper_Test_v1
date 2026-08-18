@@ -4714,164 +4714,6 @@
       "product_name": "4-1/2\" x 1/8\" x 7/8\" Performance+ Dual Metal Cut & Grind Wheel - Type 27",
       "short_description": "Performance+ Dual Metal Cut & Grind Wheel, size 4-1/2\" diameter, 1/8\" thickness, 7/8\" arbor."
     },
-    "https://www.arlcoal.com/pd/6-ft-x-36-in-select-horizontal-t-rail-kit-with-square-composites-balusters-classic-white/14703": {
-      "attributes": [
-        {
-          "confidence": "high",
-          "name": "Actual Product Height",
-          "source_snippet": "Actual Product Height | 11.75",
-          "unit": "",
-          "value": "11.75"
-        },
-        {
-          "confidence": "high",
-          "name": "Actual Product Length",
-          "source_snippet": "Actual Product Length | 73",
-          "unit": "",
-          "value": "73"
-        },
-        {
-          "confidence": "high",
-          "name": "Actual Product Weight",
-          "source_snippet": "Actual Product Weight | 19.37",
-          "unit": "",
-          "value": "19.37"
-        },
-        {
-          "confidence": "high",
-          "name": "Actual Product Width",
-          "source_snippet": "Actual Product Width | 3.5",
-          "unit": "",
-          "value": "3.5"
-        },
-        {
-          "confidence": "high",
-          "name": "Color",
-          "source_snippet": "Color | Classic White",
-          "unit": "",
-          "value": "Classic White"
-        },
-        {
-          "confidence": "high",
-          "name": "Bullet - Color Description",
-          "source_snippet": "Bullet - Color Description - en-US | Classic White",
-          "unit": "",
-          "value": "Classic White"
-        },
-        {
-          "confidence": "high",
-          "name": "Bullet - Design and Benefit",
-          "source_snippet": "Bullet - Design and Benefit - en-US | Made in the USA using a minimum of 40% recycled content",
-          "unit": "",
-          "value": "Made in the USA using a minimum of 40% recycled content"
-        },
-        {
-          "confidence": "high",
-          "name": "Bullet - Durability",
-          "source_snippet": "Bullet - Durability - en-US | Unrivaled fade, stain, scratch and mold resistance",
-          "unit": "",
-          "value": "Unrivaled fade, stain, scratch and mold resistance"
-        },
-        {
-          "confidence": "high",
-          "name": "Bullet - Installation",
-          "source_snippet": "Bullet - Installation - en-US | Trex products install easily with common tools; no sanding, staining or painting required",
-          "unit": "",
-          "value": "Trex products install easily with common tools; no sanding, staining or painting required"
-        },
-        {
-          "confidence": "high",
-          "name": "Bullet - Low Maintenance",
-          "source_snippet": "Bullet - Low Maintenance - en-US | High-performance composite material that requires no painting, sealing, or staining",
-          "unit": "",
-          "value": "High-performance composite material that requires no painting, sealing, or staining"
-        },
-        {
-          "confidence": "high",
-          "name": "Bullet - Warranty",
-          "source_snippet": "Bullet - Warranty - en-US | Backed by 25-Year Limited Residential Warranty",
-          "unit": "",
-          "value": "Backed by 25-Year Limited Residential Warranty"
-        },
-        {
-          "confidence": "high",
-          "name": "Description",
-          "source_snippet": "Description | WHITE WTSQ0636HSELTRK 40PC=PLT",
-          "unit": "",
-          "value": "WHITE WTSQ0636HSELTRK 40PC=PLT"
-        },
-        {
-          "confidence": "high",
-          "name": "GTIN",
-          "source_snippet": "GTIN | 00652835366877",
-          "unit": "",
-          "value": "00652835366877"
-        },
-        {
-          "confidence": "high",
-          "name": "I2of5",
-          "source_snippet": "I2of5 | 10652835366874",
-          "unit": "",
-          "value": "10652835366874"
-        },
-        {
-          "confidence": "high",
-          "name": "Item Label",
-          "source_snippet": "ITEMLABEL | 6-ft x 36-in Select Horizontal T-Rail Kit with Square Composites Balusters - Classic White",
-          "unit": "",
-          "value": "6-ft x 36-in Select Horizontal T-Rail Kit with Square Composites Balusters - Classic White"
-        },
-        {
-          "confidence": "high",
-          "name": "Net Content",
-          "source_snippet": "Net Content | 1",
-          "unit": "",
-          "value": "1"
-        },
-        {
-          "confidence": "high",
-          "name": "Net Content UOM",
-          "source_snippet": "Net Content UOM | EA",
-          "unit": "",
-          "value": "EA"
-        },
-        {
-          "confidence": "high",
-          "name": "SKU",
-          "source_snippet": "SKU | 88889737 543302126 WTSQ0636HSELTRK",
-          "unit": "",
-          "value": "88889737 543302126 WTSQ0636HSELTRK"
-        },
-        {
-          "confidence": "high",
-          "name": "Sub-Brand",
-          "source_snippet": "Sub-Brand | Select T-Rail",
-          "unit": "",
-          "value": "Select T-Rail"
-        },
-        {
-          "confidence": "high",
-          "name": "UPC",
-          "source_snippet": "UPC | 652835366877",
-          "unit": "",
-          "value": "652835366877"
-        },
-        {
-          "confidence": "high",
-          "name": "Manufacturer Part #",
-          "source_snippet": "Manufacturer Part #: WTSQ0636HSELTRK",
-          "unit": "",
-          "value": "WTSQ0636HSELTRK"
-        }
-      ],
-      "category": "Rail Kits",
-      "manufacturer": "",
-      "model_numbers": [
-        "WTSQ0636HSELTRK"
-      ],
-      "product_name": "6-ft x 36-in Select Horizontal T-Rail Kit with Square Composites Balusters - Classic White",
-      "short_description": "Select Horizontal T-Rail Kit with Square Composites Balusters in Classic White, made in the USA with 40% recycled content, 25-year limited residential warranty."
-    },
     "https://www.trex.com/products/railing/select/6-x-36--rail-baluster-kit-horizontal": {
       "attributes": [
         {
@@ -5421,6 +5263,650 @@
       ],
       "product_name": "Whirlpool WDT730PAHZ 24 Inch Fully Integrated Built-In Dishwasher",
       "short_description": "24\u2011inch fully integrated built\u2011in dishwasher with 15 place\u2011setting capacity, 5 wash cycles, 51\u202fdBA noise level, Sani Rinse, soil sensor, sensor cycle, 1\u2011hour wash, cycle memory, ENERGY STAR\u00ae and fingerprint\u2011resistant stainless steel finish."
+    },
+    "https://www.milwaukeetool.com/News/Press-Releases/Milwaukee-Revolutionizes-Ceiling-Drilling": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Impact Energy",
+          "source_snippet": "Impact Energy: 1.7 ft-lbs",
+          "unit": "ft-lbs",
+          "value": "1.7"
+        },
+        {
+          "confidence": "high",
+          "name": "RPM",
+          "source_snippet": "RPM: 1310",
+          "unit": "rpm",
+          "value": "1310"
+        },
+        {
+          "confidence": "high",
+          "name": "BPM",
+          "source_snippet": "BPM: 4,740",
+          "unit": "BPM",
+          "value": "4740"
+        },
+        {
+          "confidence": "high",
+          "name": "Chuck Type",
+          "source_snippet": "SDS Plus Chuck",
+          "unit": "",
+          "value": "SDS Plus"
+        },
+        {
+          "confidence": "high",
+          "name": "OSHA Compliance",
+          "source_snippet": "OSHA Table 1 Compliant",
+          "unit": "",
+          "value": "Table 1 Compliant"
+        },
+        {
+          "confidence": "high",
+          "name": "Vibration System",
+          "source_snippet": "AVS Anti-Vibration System",
+          "unit": "",
+          "value": "AVS"
+        },
+        {
+          "confidence": "high",
+          "name": "ONE-KEY Enabled",
+          "source_snippet": "ONE-KEY\u2122 Enabled",
+          "unit": "",
+          "value": "Enabled"
+        },
+        {
+          "confidence": "high",
+          "name": "Weight (with battery)",
+          "source_snippet": "Weight (w/ battery): 7.1lbs",
+          "unit": "lbs",
+          "value": "7.1"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Warranty: 5 Years",
+          "unit": "years",
+          "value": "5"
+        },
+        {
+          "confidence": "high",
+          "name": "Price",
+          "source_snippet": "M18 FUEL\u2122 Overhead Rotary Hammer w/ Integrated Dust Extraction (3311-22)- $599",
+          "unit": "USD",
+          "value": "599"
+        },
+        {
+          "confidence": "high",
+          "name": "Maximum Hole Diameter (Concrete)",
+          "source_snippet": "drill up to 5/8\u201d holes in concrete",
+          "unit": "in",
+          "value": "5/8"
+        },
+        {
+          "confidence": "high",
+          "name": "Maximum Anchor Diameter",
+          "source_snippet": "fastest drilling for small ceiling anchors under \u00bd\"",
+          "unit": "in",
+          "value": "<0.5"
+        },
+        {
+          "confidence": "medium",
+          "name": "Battery Capacity",
+          "source_snippet": "M18\u2122 High Output\u2122 CP3.0ah Batteries (48-11-1835)",
+          "unit": "Ah",
+          "value": "3.0"
+        }
+      ],
+      "category": "Rotary Hammer",
+      "manufacturer": "Milwaukee Tool",
+      "model_numbers": [
+        "3311-22",
+        "3311-20",
+        "48-11-1835",
+        "48-59-1808",
+        "49-90-0900",
+        "49-90-0905",
+        "49-90-0910"
+      ],
+      "product_name": "M18 FUEL\u2122 Overhead Rotary Hammer w/ Integrated Dust Extraction",
+      "short_description": "2-in-1 overhead rotary hammer with integrated dust extraction, lightweight (7.1 lbs w/ battery), 1.7 ft\u2011lbs impact energy, 1310\u202fRPM, 4,740\u202fBPM, SDS Plus chuck, OSHA Table\u202f1 compliant, AVS anti\u2011vibration, ONE\u2011KEY enabled, and up to 5/8\" hole drilling in concrete."
+    },
+    "https://www.trex.com/products/accessory-hardware/hidden-fasteners-for-elevations-50-sqft": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "SKU",
+          "source_snippet": "SKU: ELVUNIVCLIP01",
+          "unit": "",
+          "value": "ELVUNIVCLIP01"
+        },
+        {
+          "confidence": "high",
+          "name": "Quantity per box",
+          "source_snippet": "Trex Hideaway\u00ae Steel Framing Hidden Fastener Clips - 90 count/box",
+          "unit": "count",
+          "value": "90"
+        },
+        {
+          "confidence": "high",
+          "name": "Price",
+          "source_snippet": "$58.99",
+          "unit": "$",
+          "value": "58.99"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Trex Hideaway\u00ae Universal Steel Framing Fastener Clips",
+          "unit": "",
+          "value": "Steel"
+        }
+      ],
+      "category": "Fastener Clips",
+      "manufacturer": "Trex",
+      "model_numbers": [
+        "ELVUNIVCLIP01"
+      ],
+      "product_name": "Trex Hideaway\u00ae Universal Steel Framing Fastener Clips",
+      "short_description": "Universal steel framing hidden fastener clips sold in a 90-count box."
+    },
+    "https://deckstore.com/products/timbertech-harvest-collection-advanced-pvc-fascia-board-by-azek?_pos=28&_ss=r": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Length",
+          "source_snippet": "Available in 12\u2032 lengths",
+          "unit": "ft",
+          "value": "12\u2032"
+        },
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Made from premium capped PVC material",
+          "unit": "",
+          "value": "premium capped PVC material"
+        },
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "multiple color options \u2014 such as Brownstone, Slate Gray, and Kona",
+          "unit": "",
+          "value": "Brownstone, Slate Gray, Kona"
+        }
+      ],
+      "category": "Fascia Board",
+      "manufacturer": "TimberTech",
+      "model_numbers": [],
+      "product_name": "TimberTech Advanced PVC Harvest Collection Fascia & Riser Board",
+      "short_description": "Durable, low-maintenance TimberTech AZEK Harvest Fascia made from premium capped PVC, available in 12' lengths and multiple colors (Brownstone, Slate Gray, Kona) for a cohesive deck finish."
+    },
+    "https://www.youtube.com/watch?v=AGBuJc4JHyE": {
+      "attributes": [],
+      "category": "",
+      "manufacturer": "Frigidaire",
+      "model_numbers": [
+        "PDSH4816AF"
+      ],
+      "product_name": "Frigidaire Professional PDSH4816AF Fly Over Video at Bill & Rod's Appliance",
+      "short_description": "No product specifications provided in the source; only video title mentions product name and model."
+    },
+    "https://www.youtube.com/watch?v=jMh1H-KcNgM": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Model Number",
+          "source_snippet": "Whirlpool 24\" Top Control Dishwasher with AI Intelligent Wash - Overview - WDTS7024RZ",
+          "unit": "",
+          "value": "WDTS7024RZ"
+        },
+        {
+          "confidence": "medium",
+          "name": "Control Type",
+          "source_snippet": "Whirlpool 24\" Top Control Dishwasher with AI Intelligent Wash - Overview - WDTS7024RZ",
+          "unit": "",
+          "value": "Top Control"
+        },
+        {
+          "confidence": "medium",
+          "name": "Size",
+          "source_snippet": "Whirlpool 24\" Top Control Dishwasher with AI Intelligent Wash - Overview - WDTS7024RZ",
+          "unit": "",
+          "value": "24\""
+        },
+        {
+          "confidence": "medium",
+          "name": "Feature",
+          "source_snippet": "Whirlpool 24\" Top Control Dishwasher with AI Intelligent Wash - Overview - WDTS7024RZ",
+          "unit": "",
+          "value": "AI Intelligent Wash"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "Whirlpool",
+      "model_numbers": [
+        "WDTS7024RZ"
+      ],
+      "product_name": "Whirlpool 24\" Top Control Dishwasher with AI Intelligent Wash",
+      "short_description": "Video overview of Whirlpool WDTS7024RZ top\u2011control dishwasher featuring AI Intelligent Wash."
+    },
+    "https://www.manua.ls/kitchenaid/kdfm404kps/manual": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Brand",
+          "source_snippet": "Brand | KitchenAid",
+          "unit": "",
+          "value": "KitchenAid"
+        },
+        {
+          "confidence": "high",
+          "name": "Model",
+          "source_snippet": "Model | KDFM404KPS",
+          "unit": "",
+          "value": "KDFM404KPS"
+        },
+        {
+          "confidence": "high",
+          "name": "Product",
+          "source_snippet": "Product | dishwasher",
+          "unit": "",
+          "value": "dishwasher"
+        },
+        {
+          "confidence": "high",
+          "name": "Language",
+          "source_snippet": "Language | English",
+          "unit": "",
+          "value": "English"
+        },
+        {
+          "confidence": "high",
+          "name": "Filetype",
+          "source_snippet": "Filetype | User manual (PDF), Installation Guide (PDF), Quickstart Guide (PDF), Warranty information (PDF), Energy label (PDF)",
+          "unit": "",
+          "value": "User manual (PDF), Installation Guide (PDF), Quickstart Guide (PDF), Warranty information (PDF), Energy label (PDF)"
+        },
+        {
+          "confidence": "high",
+          "name": "Average Rating",
+          "source_snippet": "rated by 2 users with an average score of 9.4",
+          "unit": "",
+          "value": "9.4"
+        },
+        {
+          "confidence": "high",
+          "name": "Number of Ratings",
+          "source_snippet": "rated by 2 users with an average score of 9.4",
+          "unit": "",
+          "value": "2"
+        },
+        {
+          "confidence": "high",
+          "name": "Manual Language Availability",
+          "source_snippet": "available in the following languages: English",
+          "unit": "",
+          "value": "English"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "KitchenAid",
+      "model_numbers": [
+        "KDFM404KPS"
+      ],
+      "product_name": "KitchenAid KDFM404KPS",
+      "short_description": "Manual page for the KitchenAid KDFM404KPS dishwasher, includes brand, model, rating, language, and filetype information."
+    },
+    "https://www.geappliances.com/appliance/GE-Profile-ENERGY-STAR-Fingerprint-Resistant-Top-Control-Stainless-Interior-Dishwasher-with-Microban-Antimicrobial-Technology-PDT715SYVFS": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Color",
+          "source_snippet": "Color:",
+          "unit": "",
+          "value": ""
+        },
+        {
+          "confidence": "high",
+          "name": "Dimensions",
+          "source_snippet": "Dimensions: 34 H x 23.75 W x 24 D",
+          "unit": "in",
+          "value": "34 H x 23.75 W x 24 D"
+        },
+        {
+          "confidence": "high",
+          "name": "Energy Star Certified",
+          "source_snippet": "GE Profile\u2122 ENERGY STAR\u00ae Fingerprint Resistant Top Control Stainless Interior Dishwasher with Microban\u2122 Antimicrobial Technology",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Fingerprint Resistant",
+          "source_snippet": "GE Profile\u2122 ENERGY STAR\u00ae Fingerprint Resistant Top Control Stainless Interior Dishwasher with Microban\u2122 Antimicrobial Technology",
+          "unit": "",
+          "value": "Yes"
+        },
+        {
+          "confidence": "high",
+          "name": "Control Type",
+          "source_snippet": "GE Profile\u2122 ENERGY STAR\u00ae Fingerprint Resistant Top Control Stainless Interior Dishwasher with Microban\u2122 Antimicrobial Technology",
+          "unit": "",
+          "value": "Top Control"
+        },
+        {
+          "confidence": "high",
+          "name": "Interior Finish",
+          "source_snippet": "Stainless Interior",
+          "unit": "",
+          "value": "Stainless"
+        },
+        {
+          "confidence": "high",
+          "name": "Antimicrobial Technology",
+          "source_snippet": "Microban\u2122 Antimicrobial Technology",
+          "unit": "",
+          "value": "Microban"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "GE",
+      "model_numbers": [
+        "PDT715SYVFS"
+      ],
+      "product_name": "GE Profile\u2122 ENERGY STAR\u00ae Fingerprint Resistant Top Control Stainless Interior Dishwasher with Microban\u2122 Antimicrobial Technology",
+      "short_description": "Dishwasher with ENERGY STAR, fingerprint resistant finish, top control, stainless interior, and Microban antimicrobial protection."
+    },
+    "https://www.canadianappliance.ca/Reviews/LG_LDPH5554D_Dishwasher_LG_LDPH5554D.html": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Width",
+          "source_snippet": "24-inch platform",
+          "unit": "in",
+          "value": "24"
+        },
+        {
+          "confidence": "high",
+          "name": "Form Factor",
+          "source_snippet": "full-size built-in dishwasher",
+          "unit": "",
+          "value": "full-size built-in"
+        },
+        {
+          "confidence": "high",
+          "name": "Tub Size",
+          "source_snippet": "full-size 24-inch tub",
+          "unit": "",
+          "value": "full-size 24-inch"
+        }
+      ],
+      "category": "Dishwasher",
+      "manufacturer": "LG",
+      "model_numbers": [
+        "LDPH5554D"
+      ],
+      "product_name": "LG LDPH5554D",
+      "short_description": "A modern, full-size built-in dishwasher with a 24-inch platform, designed for strong everyday cleaning performance and flexible loading."
+    },
+    "https://www.kichler.com/products/indoor-lighting/bath-and-vanity-lights/linear-vanity-light-bars/laurene-vanity-light-55239cpzled": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Size",
+          "source_snippet": "Size:31\" W x 5\" H x 4.75\" D",
+          "unit": "",
+          "value": "31\" W x 5\" H x 4.75\" D"
+        },
+        {
+          "confidence": "high",
+          "name": "Finish",
+          "source_snippet": "Finish:Champagne Bronze\u2122",
+          "unit": "",
+          "value": "Champagne Bronze\u2122"
+        },
+        {
+          "confidence": "high",
+          "name": "Dimmable",
+          "source_snippet": "Dimmable",
+          "unit": "",
+          "value": "Dimmable"
+        },
+        {
+          "confidence": "high",
+          "name": "Damp Rated",
+          "source_snippet": "Damp Rated",
+          "unit": "",
+          "value": "Damp Rated"
+        },
+        {
+          "confidence": "high",
+          "name": "Integrated LED",
+          "source_snippet": "Integrated LED",
+          "unit": "",
+          "value": "Integrated LED"
+        },
+        {
+          "confidence": "high",
+          "name": "Energy Efficient",
+          "source_snippet": "Energy Efficient",
+          "unit": "",
+          "value": "Energy Efficient"
+        },
+        {
+          "confidence": "high",
+          "name": "Mounts Horizontal or Vertical",
+          "source_snippet": "Both",
+          "unit": "",
+          "value": "Both"
+        },
+        {
+          "confidence": "high",
+          "name": "Wattage",
+          "source_snippet": "- Wattage: 35 W",
+          "unit": "W",
+          "value": "35"
+        },
+        {
+          "confidence": "high",
+          "name": "Delivered Lumens",
+          "source_snippet": "- Delivered Lumens: 2450L",
+          "unit": "lm",
+          "value": "2450"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Rendering Index",
+          "source_snippet": "- Color Rendering Index: 90",
+          "unit": "",
+          "value": "90"
+        },
+        {
+          "confidence": "high",
+          "name": "Color Temperature",
+          "source_snippet": "- Color Temperature: 3000K",
+          "unit": "K",
+          "value": "3000"
+        },
+        {
+          "confidence": "high",
+          "name": "Glass Type",
+          "source_snippet": "Clear Glass",
+          "unit": "",
+          "value": "Clear Glass"
+        },
+        {
+          "confidence": "high",
+          "name": "Shade",
+          "source_snippet": "Glass Cylinder Shade",
+          "unit": "",
+          "value": "Glass Cylinder Shade"
+        },
+        {
+          "confidence": "high",
+          "name": "Number of Lights",
+          "source_snippet": "1-Light",
+          "unit": "",
+          "value": "1-Light"
+        }
+      ],
+      "category": "Linear Vanity Light Bars",
+      "manufacturer": "",
+      "model_numbers": [
+        "55239CPZLED"
+      ],
+      "product_name": "Laurene 31\" Bath Bar in Champagne Bronze",
+      "short_description": "Say hello to a linear bath piece that meets the trending design of layered materials and metal finish accents, with the Laurene collection."
+    },
+    "http://www.trex.com/resources/building-specs": {
+      "attributes": [],
+      "category": "",
+      "manufacturer": "Trex",
+      "model_numbers": [],
+      "product_name": "",
+      "short_description": "The source provides general promotional information about Trex outdoor living products but does not list specific product specifications, model numbers, colors, dimensions, or other measurable attributes."
+    },
+    "https://speedqueen.com/nz/products/home-products/stacked-washers-dryers/atge9a": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Material",
+          "source_snippet": "Durable Stainless Steel Tub is gentler on your clothes and ensures long-lasting, dependable performance.",
+          "unit": "",
+          "value": "Stainless Steel Tub"
+        },
+        {
+          "confidence": "high",
+          "name": "Balance Technology",
+          "source_snippet": "Balance Technology virtually eliminates vibration and noise.",
+          "unit": "",
+          "value": "virtually eliminates vibration and noise"
+        },
+        {
+          "confidence": "high",
+          "name": "Time Remaining Display",
+          "source_snippet": "Time Remaining Display eliminates guesswork by clearly showing when your laundry will be finished.",
+          "unit": "",
+          "value": "eliminates guesswork by clearly showing when your laundry will be finished"
+        },
+        {
+          "confidence": "high",
+          "name": "Control Lock",
+          "source_snippet": "Control Lock allows you to lock the control system, preventing children from starting the machine",
+          "unit": "",
+          "value": "allows you to lock the control system, preventing children from starting the machine"
+        },
+        {
+          "confidence": "high",
+          "name": "Moisture Sensors & Moisture Level Selection",
+          "source_snippet": "Moisture Sensors & Moisture Level Selection allow you to preset the dryness level of each load and automatically stops the cycle once that level is reached.",
+          "unit": "",
+          "value": "allow you to preset the dryness level of each load and automatically stops the cycle once that level is reached"
+        },
+        {
+          "confidence": "high",
+          "name": "Up-Front Lint Filter",
+          "source_snippet": "Up-Front Lint Filter allows fast and easy cleaning.",
+          "unit": "",
+          "value": "allows fast and easy cleaning"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "Our industry-best 5-year warranty cover all parts and in-home labor*. Lifetime warranty outer drain tub and the stainless steel wash basket.",
+          "unit": "",
+          "value": "5-year warranty covering all parts and in\u2011home labor; lifetime warranty outer drain tub and stainless steel wash basket"
+        }
+      ],
+      "category": "Stacked Washer/Dryer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "ATGE9A"
+      ],
+      "product_name": "ATGE9A",
+      "short_description": "Stacked washer/dryer featuring a durable stainless steel tub, balance technology, time remaining display, control lock, moisture sensors with level selection, up\u2011front lint filter, and a 5\u2011year warranty with lifetime tub protection."
+    },
+    "https://www.youtube.com/watch?v=vQHV528hAxc": {
+      "attributes": [],
+      "category": "",
+      "manufacturer": "Maytag",
+      "model_numbers": [],
+      "product_name": "How To Reset Maytag Washer - 5 Methods That Actually Work!",
+      "short_description": "The source text provides only generic YouTube page information and does not contain any product specifications, model numbers, or measurable attributes for the Maytag washer."
+    },
+    "https://www.ajmadison.com/cgi-bin/ajmadison/TV2000WN.html": {
+      "attributes": [
+        {
+          "confidence": "high",
+          "name": "Size",
+          "source_snippet": "26 Inch",
+          "unit": "Inch",
+          "value": "26 Inch"
+        },
+        {
+          "confidence": "high",
+          "name": "Capacity",
+          "source_snippet": "3.19 cu. ft. Capacity",
+          "unit": "cu. ft.",
+          "value": "3.19"
+        },
+        {
+          "confidence": "high",
+          "name": "Weight Capacity",
+          "source_snippet": "wash up to 16 lbs of laundry",
+          "unit": "lbs",
+          "value": "16"
+        },
+        {
+          "confidence": "high",
+          "name": "Extraction Speed",
+          "source_snippet": "710 RPM Extraction Speed",
+          "unit": "RPM",
+          "value": "710"
+        },
+        {
+          "confidence": "high",
+          "name": "Control Type",
+          "source_snippet": "Manual Homestyle Control",
+          "unit": "",
+          "value": "Manual Homestyle Control"
+        },
+        {
+          "confidence": "high",
+          "name": "Tub Material",
+          "source_snippet": "Stainless Steel Tub",
+          "unit": "",
+          "value": "Stainless Steel"
+        },
+        {
+          "confidence": "high",
+          "name": "Suspension",
+          "source_snippet": "Automatic Balancing Suspension",
+          "unit": "",
+          "value": "Automatic Balancing"
+        },
+        {
+          "confidence": "high",
+          "name": "Warranty",
+          "source_snippet": "3-year parts-only warranty",
+          "unit": "",
+          "value": "3-year parts-only"
+        },
+        {
+          "confidence": "high",
+          "name": "Intended Use",
+          "source_snippet": "Commercial Use Only",
+          "unit": "",
+          "value": "Commercial Use Only"
+        }
+      ],
+      "category": "Washer",
+      "manufacturer": "Speed Queen",
+      "model_numbers": [
+        "TV2000WN"
+      ],
+      "product_name": "Speed Queen TV2000WN 26 Inch Light Commercial Non-Vended Top Load Washer",
+      "short_description": "Light commercial top load washer with 3.19 cu. ft. capacity, 710 RPM extraction speed, manual homestyle control, stainless steel tub, automatic balancing suspension, and a 3\u2011year parts\u2011only warranty."
     }
   }
 }
