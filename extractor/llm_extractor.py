@@ -24,13 +24,22 @@ from schema.product_schema import ProductRecord, Attribute
 
 MODEL = "openai/gpt-oss-120b"
 
-# Overhead budget (system prompt + large tool schema + user-message prefix) ≈ 2,000 tokens.
-# At 4 chars/token, 20,000 chars ≈ 5,000 source tokens + 2,000 overhead = 7,000 total,
-# staying comfortably under the 8,000 TPM limit even for token-dense table content
-# (pipe-formatted spec tables tokenize at ~3.5 chars/token, giving ~7,700 total).
-# Product specs appear near the top of Trafilatura-cleaned text, so head-first
-# truncation keeps the highest-value content.
-_MAX_SOURCE_CHARS = 20_000
+# Adaptive truncation: estimate tokens as len(text) / 3.0 (conservative floor — dense
+# pipe tables and alphanumeric part-number strings tokenize near this bound).  Sparse
+# prose typically hits 4.0–4.5 chars/token, so those pages keep more content.
+# Target 5,500 source tokens, leaving ~2,500 headroom against the known overhead budget
+# (system prompt + EXTRACTION_TOOL schema + user-message prefix ≈ 2,000 tokens confirmed
+# empirically), for a worst-case total of ~7,500 — safely under the 8,000 TPM limit.
+_MAX_SOURCE_TOKENS = 5_500
+_CHARS_PER_TOKEN_FLOOR = 3.0  # worst-case; dense content can tokenize this aggressively
+
+
+def _adaptive_truncate(text: str) -> str:
+    """Head-first truncation sized to the content's estimated token density."""
+    if len(text) / _CHARS_PER_TOKEN_FLOOR <= _MAX_SOURCE_TOKENS:
+        return text
+    max_chars = int(_MAX_SOURCE_TOKENS * _CHARS_PER_TOKEN_FLOOR)
+    return text[:max_chars] + "\n[content truncated]"
 
 # This is the "shape" we force the model to fill in.
 # It mirrors schema/product_schema.py -- keep them in sync.
@@ -152,11 +161,7 @@ def extract_product(source_text: str, source_id: str) -> ProductRecord:
 
     client = get_client()
 
-    # Truncate to avoid hitting the 8,000 TPM limit on openai/gpt-oss-120b.
-    # Trafilatura clean_text has no nav/boilerplate; product specs appear near
-    # the top, so head-first truncation preserves the highest-value content.
-    if len(source_text) > _MAX_SOURCE_CHARS:
-        source_text = source_text[:_MAX_SOURCE_CHARS] + "\n[content truncated]"
+    source_text = _adaptive_truncate(source_text)
 
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
