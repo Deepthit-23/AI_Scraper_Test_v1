@@ -901,6 +901,115 @@ def find_manufacturer_page(
     return None
 
 
+_CONFIDENCE_RANK: dict[str, int] = {"high": 2, "medium": 1, "low": 0}
+
+
+def _merge_pdf_attributes(record, pdf_attrs: list) -> None:
+    """Merge PDF-extracted attributes into the HTML record in-place.
+
+    For duplicate attribute names, the version with higher confidence wins.
+    PDF-only attributes are appended.
+    """
+    html_by_name = {a.name.lower(): i for i, a in enumerate(record.attributes)}
+    for pdf_attr in pdf_attrs:
+        key = pdf_attr.name.lower()
+        if key in html_by_name:
+            idx = html_by_name[key]
+            existing = record.attributes[idx]
+            if _CONFIDENCE_RANK.get(pdf_attr.confidence, 0) > _CONFIDENCE_RANK.get(existing.confidence, 0):
+                record.attributes[idx] = pdf_attr
+                html_by_name[key] = idx
+        else:
+            html_by_name[key] = len(record.attributes)
+            record.attributes.append(pdf_attr)
+
+
+def _try_pdf_enrichment(
+    record,
+    raw_html: str,
+    page_url: str,
+    source_tier: str | None,
+    verbose: bool = False,
+) -> str | None:
+    """
+    Discover PDF spec sheets linked from the accepted page and merge extracted
+    attributes into `record` in-place.  Returns the first successful PDF URL,
+    or None when no useful PDF was found.
+    """
+    import os as _os
+    from scraper.pdf_discovery import discover_pdf_links, is_pdf_spec_sheet, fetch_pdf_to_tempfile
+    from scraper.pdf_ingest import pdf_to_clean_text
+
+    pdf_urls = discover_pdf_links(raw_html, page_url)
+    if not pdf_urls:
+        return None
+
+    if verbose:
+        print(f"  [pdf] {len(pdf_urls)} candidate PDF link(s) found")
+
+    for pdf_url in pdf_urls[:3]:
+        if verbose:
+            print(f"  [pdf] fetching: {pdf_url}")
+
+        tmp_path = fetch_pdf_to_tempfile(pdf_url, headers=_HEADERS)
+        if not tmp_path:
+            if verbose:
+                print(f"  [pdf] fetch failed — skip")
+            continue
+
+        try:
+            parsed = pdf_to_clean_text(tmp_path)
+        except Exception as _e:
+            if verbose:
+                print(f"  [pdf] parse error: {_e} — skip")
+            try:
+                _os.unlink(tmp_path)
+            except Exception:
+                pass
+            continue
+
+        try:
+            _os.unlink(tmp_path)
+        except Exception:
+            pass
+
+        if not parsed.clean_text or len(parsed.clean_text) < 100:
+            if verbose:
+                print(f"  [pdf] content too sparse ({len(parsed.clean_text)} chars) — skip")
+            continue
+
+        if not is_pdf_spec_sheet(parsed.clean_text):
+            if verbose:
+                print(f"  [pdf] quality gate: not a spec sheet — skip")
+            continue
+
+        if verbose:
+            print(f"  [pdf] extracting from {len(parsed.clean_text):,} chars ({parsed.page_count} pages)")
+
+        try:
+            pdf_record = extract_product(parsed.clean_text, source_id=pdf_url)
+        except Exception as _e:
+            if verbose:
+                print(f"  [pdf] extraction failed: {_e} — skip")
+            continue
+
+        for attr in pdf_record.attributes:
+            attr.source_type = "pdf"
+            attr.source_tier = source_tier
+
+        _merge_pdf_attributes(record, pdf_record.attributes)
+        record.spec_pdf_url = pdf_url
+
+        if verbose:
+            print(
+                f"  [pdf] merged {len(pdf_record.attributes)} PDF attributes; "
+                f"spec_pdf_url={pdf_url}"
+            )
+        return pdf_url
+
+    return None
+
+
 def enrich_from_manufacturer(
     mpn: str,
     manufacturer_name: str,
@@ -940,6 +1049,7 @@ def enrich_from_manufacturer(
     url: str | None = None
     source_tier: str | None = None
     clean_text: str | None = None
+    raw_html: str | None = None
 
     # ── Stage 1: Direct URL template ─────────────────────────────────────────
     url = find_manufacturer_page(mpn, manufacturer_name, brand_name, verbose=verbose)
@@ -963,6 +1073,7 @@ def enrich_from_manufacturer(
             if verbose:
                 print(f"  [enrich] page scraped OK ({len(page.clean_text)} chars)")
             clean_text = page.clean_text
+            raw_html = page.raw_html
 
     # ── Stage 2: Tavily — collect all gate-passing candidates, prefer MPN match ─
     # Scrape every candidate from both domain-scoped and general search and apply
@@ -980,8 +1091,8 @@ def enrich_from_manufacturer(
     # page has the exact NA MPN in its text.
     stage2_gated = False
     if url is None:
-        # Each entry: (url, tier, text_with_title, mpn_verified)
-        _gate_passing: list[tuple[str, str, str, bool]] = []
+        # Each entry: (url, tier, text_with_title, mpn_verified, raw_html)
+        _gate_passing: list[tuple[str, str, str, bool, str]] = []
 
         for cand_url, cand_tier in _tavily_candidates(
             mpn=mpn,
@@ -1035,7 +1146,7 @@ def enrich_from_manufacturer(
                 _mpn_lower in cand_text.lower()
                 or _mpn_lower in cand_url.lower()
             )
-            _gate_passing.append((cand_url, cand_tier, cand_text, cand_mpn_verified))
+            _gate_passing.append((cand_url, cand_tier, cand_text, cand_mpn_verified, page.raw_html))
             if verbose:
                 print(f"  [enrich] Stage2 gate-pass [{cand_tier}] mpn_verified={cand_mpn_verified}: {cand_url}")
 
@@ -1043,7 +1154,7 @@ def enrich_from_manufacturer(
             # Sort: exact-MPN matches first; within each group preserve Tavily rank
             # order (stable sort).  Pick the top candidate.
             _gate_passing.sort(key=lambda c: (not c[3],))
-            url, source_tier, clean_text, _ = _gate_passing[0]
+            url, source_tier, clean_text, _, raw_html = _gate_passing[0]
             result["source_url"] = url
             result["source_tier"] = source_tier
             stage2_gated = True
@@ -1150,9 +1261,10 @@ def enrich_from_manufacturer(
         result["product_record"] = record
         result["enriched"] = True
 
-        # Stamp source_tier on every attribute extracted from this page
+        # Stamp source_tier and source_type on every HTML-extracted attribute
         for attr in record.attributes:
             attr.source_tier = source_tier
+            attr.source_type = "html"
 
         result["attributes"] = record.attributes
 
@@ -1160,6 +1272,18 @@ def enrich_from_manufacturer(
             if "series" in attr.name.lower():
                 result["series"] = attr.value
                 break
+
+        # PDF spec-sheet discovery (only when raw HTML is available)
+        if raw_html:
+            _try_pdf_enrichment(
+                record,
+                raw_html,
+                result["source_url"],
+                source_tier,
+                verbose=verbose,
+            )
+            # Re-sync attributes list after potential PDF merge
+            result["attributes"] = record.attributes
     except Exception as e:
         result["error"] = f"Extraction failed: {e}"
         if verbose:

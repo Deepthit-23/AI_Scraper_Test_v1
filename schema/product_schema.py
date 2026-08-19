@@ -31,6 +31,10 @@ class Attribute(BaseModel):
         description="Origin tier: 'manufacturer', 'distributor', or 'retailer'. "
                     "None when sourced from the input description rather than web enrichment.",
     )
+    source_type: Optional[Literal["html", "pdf"]] = Field(
+        None,
+        description="Whether this attribute was extracted from the HTML page or a PDF spec sheet.",
+    )
     needs_review: bool = Field(
         default=False, description="True if this should be flagged for a human to check"
     )
@@ -44,6 +48,9 @@ class ProductRecord(BaseModel):
     short_description: Optional[str] = None
     attributes: list[Attribute] = Field(default_factory=list)
     sources: list[str] = Field(default_factory=list, description="All source_ids used")
+    spec_pdf_url: Optional[str] = Field(
+        None, description="URL of the spec-sheet PDF discovered and extracted during enrichment."
+    )
 
     def completeness_score(self, expected_fields: list[str]) -> float:
         """Simple scale metric: what fraction of expected fields did we manage to fill?"""
