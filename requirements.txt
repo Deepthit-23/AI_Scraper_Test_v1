@@ -8,5 +8,8 @@ python-dotenv
 pydantic
 streamlit
 pandas
+fastapi
+uvicorn[standard]
+python-multipart
 # Optional, only needed for JS-heavy sites (uncomment if you use fetch_raw_html_with_browser):
 # playwright

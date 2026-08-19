@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product Intelligence</title>
+<style>
+/* ── Tokens ─────────────────────────────────────────────────────────────────── */
+:root {
+  --accent:        #0f766e;
+  --accent-tint:   #ccfbf1;
+  --accent-border: #99f6e4;
+  --bg:            #ffffff;
+  --bg-muted:      #f8fafc;
+  --border:        #e2e8f0;
+  --text:          #0f172a;
+  --text-muted:    #64748b;
+  --text-faint:    #94a3b8;
+  --shadow:        0 1px 4px rgba(0,0,0,.06);
+  --radius:        12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:         #0f172a;
+    --bg-muted:   #1e293b;
+    --border:     #334155;
+    --text:       #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-faint: #475569;
+    --shadow:     0 1px 6px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:         #0f172a;
+  --bg-muted:   #1e293b;
+  --border:     #334155;
+  --text:       #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-faint: #475569;
+  --shadow:     0 1px 6px rgba(0,0,0,.4);
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; line-height: 1.5;
+}
+input,button,select,textarea { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* ── Nav ────────────────────────────────────────────────────────────────────── */
+.nav {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: .7rem 2rem; border-bottom: 1px solid var(--border);
+  background: var(--bg); position: sticky; top: 0; z-index: 50;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: .5rem;
+  font-weight: 800; font-size: .95rem; letter-spacing: -.02em;
+  cursor: pointer;
+}
+.nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.nav-spacer { flex: 1; }
+.nav-link {
+  font-size: .82rem; font-weight: 600; color: var(--text-muted);
+  background: none; border: none; cursor: pointer;
+  padding: .3rem .6rem; border-radius: 6px;
+  transition: color .12s, background .12s;
+}
+.nav-link:hover, .nav-link.active { color: var(--accent); background: var(--accent-tint); }
+
+/* ── Main ───────────────────────────────────────────────────────────────────── */
+.main { max-width: 1220px; margin: 0 auto; padding: 2.5rem 2rem; }
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ── Hero ───────────────────────────────────────────────────────────────────── */
+.hero-title {
+  font-size: 2.15rem; font-weight: 900;
+  letter-spacing: -.04em; line-height: 1.1;
+  margin-bottom: .5rem; text-wrap: balance;
+}
+.hero-sub {
+  font-size: 1rem; color: var(--text-muted);
+  line-height: 1.6; max-width: 52rem; margin-bottom: 2.5rem;
+}
+
+/* ── Upload ─────────────────────────────────────────────────────────────────── */
+.landing-grid {
+  display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start;
+}
+@media (max-width: 680px) { .landing-grid { grid-template-columns: 1fr; } }
+
+.upload-panel {
+  background: var(--bg-muted); border: 2px dashed var(--border);
+  border-radius: 14px; padding: 2rem 2rem 1.5rem; text-align: center;
+  cursor: pointer; transition: border-color .18s, background .18s;
+}
+.upload-panel.drag-over { border-color: var(--accent); background: var(--accent-tint); }
+.upload-icon { font-size: 2.4rem; margin-bottom: .65rem; }
+.upload-label { font-weight: 700; font-size: 1rem; margin-bottom: .3rem; }
+.upload-hint { font-size: .77rem; color: var(--text-muted); line-height: 1.55; }
+.upload-cols { font-size: .72rem; color: var(--text-faint); margin-top: .25rem; font-family: monospace; }
+#file-input { display: none; }
+.upload-cta {
+  display: inline-block; margin-top: 1.1rem;
+  padding: .55rem 1.5rem; background: var(--accent); color: #fff;
+  border: none; border-radius: 8px; font-weight: 700; font-size: .88rem;
+  cursor: pointer; transition: opacity .12s;
+}
+.upload-cta:hover { opacity: .86; }
+
+.sample-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow);
+}
+.sample-card h3 { font-size: .98rem; font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+.sample-card p  { font-size: .81rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 1rem; }
+.sample-btn {
+  display: block; width: 100%; padding: .55rem 1rem;
+  background: var(--bg-muted); color: var(--accent);
+  border: 1px solid var(--accent-border); border-radius: 8px;
+  font-weight: 700; font-size: .84rem; cursor: pointer; text-align: center;
+  transition: background .12s;
+}
+.sample-btn:hover:not(:disabled) { background: var(--accent-tint); }
+.sample-btn:disabled { opacity: .38; cursor: not-allowed; }
+
+/* ── Alerts ─────────────────────────────────────────────────────────────────── */
+.alert {
+  display: flex; align-items: flex-start; gap: .6rem;
+  border-radius: 8px; padding: .7rem 1rem;
+  font-size: .83rem; margin-bottom: 1rem; line-height: 1.5;
+}
+.alert-icon { flex-shrink: 0; margin-top: .05rem; }
+.alert-info    { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+.alert-success { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.alert-error   { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.alert-warn    { background: #fffbeb; color: #854d0e; border: 1px solid #fde68a; }
+
+/* ── Config ─────────────────────────────────────────────────────────────────── */
+.section-header { margin-bottom: 1.5rem; }
+.section-header h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.02em; }
+.section-header p  { font-size: .83rem; color: var(--text-muted); margin-top: .25rem; }
+
+.config-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow);
+}
+.form-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 1.25rem; }
+@media (max-width: 680px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-field label {
+  display: block; font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text-muted); margin-bottom: .4rem;
+}
+.form-field input[type=number],
+.form-field input[type=text] {
+  width: 100%; padding: .5rem .75rem;
+  border: 1px solid var(--border); border-radius: 7px;
+  background: var(--bg-muted); color: var(--text);
+  font-size: .88rem; transition: border-color .12s;
+}
+.form-field input:focus { outline: none; border-color: var(--accent); }
+
+/* Toggle */
+.toggle-row { display: flex; align-items: center; gap: .75rem; padding-top: .15rem; }
+.toggle { position: relative; width: 44px; height: 24px; cursor: pointer; flex-shrink: 0; }
+.toggle input { opacity: 0; position: absolute; width: 0; height: 0; }
+.toggle-track {
+  position: absolute; inset: 0; border-radius: 999px;
+  background: var(--border); transition: background .18s;
+}
+.toggle input:checked + .toggle-track { background: var(--accent); }
+.toggle-thumb {
+  position: absolute; width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  top: 3px; left: 3px; transition: left .18s;
+}
+.toggle input:checked ~ .toggle-thumb { left: 23px; }
+.toggle-label { font-size: .85rem; color: var(--text-muted); }
+
+.form-footer { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.btn { border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: opacity .12s, background .12s; }
+.btn-primary { padding: .6rem 1.75rem; background: var(--accent); color: #fff; font-size: .9rem; }
+.btn-primary:hover:not(:disabled) { opacity: .86; }
+.btn-primary:disabled { opacity: .38; cursor: not-allowed; }
+.btn-ghost {
+  padding: .6rem 1.25rem; background: transparent;
+  color: var(--text-muted); border: 1px solid var(--border); font-size: .86rem;
+}
+.btn-ghost:hover { border-color: var(--text-muted); color: var(--text); }
+
+/* ── Progress ───────────────────────────────────────────────────────────────── */
+.prog-track { background: var(--border); border-radius: 999px; height: 8px; }
+.prog-fill  { height: 8px; border-radius: 999px; background: var(--accent); width: 0; transition: width .35s; }
+.prog-meta  { font-size: .8rem; color: var(--text-muted); margin: .45rem 0 1.25rem; }
+
+.run-log {
+  background: #0f172a; color: #e2e8f0;
+  font-family: "Menlo","Consolas","Courier New",monospace;
+  font-size: .775rem; line-height: 1.75; border-radius: 10px;
+  padding: 1rem 1.25rem; min-height: 7rem; max-height: 28rem; overflow-y: auto;
+}
+.log-ok   { color: #4ade80; }
+.log-err  { color: #f87171; }
+.log-muted { color: #94a3b8; }
+.log-dim   { color: #475569; }
+
+/* ── Stat cards ─────────────────────────────────────────────────────────────── */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-bottom: 2rem;
+}
+@media (max-width: 900px) { .stat-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 500px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.stat-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow);
+}
+.stat-label {
+  font-size: .67rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--text-muted); margin-bottom: .3rem;
+}
+.stat-value {
+  font-size: 1.85rem; font-weight: 800; line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.stat-sub { font-size: .71rem; color: var(--text-muted); margin-top: .2rem; }
+
+/* ── Results ────────────────────────────────────────────────────────────────── */
+.results-bar {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;
+}
+.results-bar h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.02em; flex: 1; }
+
+.search-box {
+  padding: .48rem .85rem; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg-muted); font-size: .87rem; width: 260px;
+}
+.search-box:focus { outline: none; border-color: var(--accent); }
+.results-count { font-size: .8rem; color: var(--text-muted); white-space: nowrap; }
+
+.download-btn {
+  padding: .5rem 1.1rem; background: var(--bg-muted); color: var(--accent);
+  border: 1px solid var(--accent-border); border-radius: 8px;
+  font-weight: 700; font-size: .83rem; cursor: pointer; transition: background .12s;
+}
+.download-btn:hover:not(:disabled) { background: var(--accent-tint); }
+.download-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+.table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+table.rtable { width: 100%; border-collapse: collapse; font-size: .81rem; }
+table.rtable thead th {
+  background: var(--bg-muted); color: var(--text-muted);
+  font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  padding: .6rem .85rem; text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--border); cursor: pointer; user-select: none;
+}
+table.rtable thead th:hover { color: var(--text); }
+table.rtable thead th.sort-asc::after  { content: " ↑"; color: var(--accent); }
+table.rtable thead th.sort-desc::after { content: " ↓"; color: var(--accent); }
+table.rtable tbody td {
+  padding: .58rem .85rem; border-bottom: 1px solid var(--border);
+  max-width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  vertical-align: middle;
+}
+table.rtable tbody tr:last-child td { border-bottom: none; }
+table.rtable tbody tr { cursor: pointer; transition: background .08s; }
+table.rtable tbody tr:hover   { background: var(--bg-muted); }
+table.rtable tbody tr.sel-row { background: var(--accent-tint); }
+
+/* ── Badges ─────────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-block; font-size: .61rem; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase;
+  padding: .15rem .55rem; border-radius: 999px;
+}
+.b-green { background: #dcfce7; color: #166534; }
+.b-amber { background: #fef9c3; color: #854d0e; }
+.b-blue  { background: #dbeafe; color: #1d4ed8; }
+.b-teal  { background: var(--accent-tint); color: var(--accent); border: 1px solid var(--accent-border); }
+.b-gray  { background: #f1f5f9; color: #64748b; }
+
+/* ── Detail panel ───────────────────────────────────────────────────────────── */
+.detail-panel {
+  margin-top: 2rem; background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+}
+.detail-head {
+  padding: .9rem 1.2rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: .75rem;
+}
+.detail-head h3 { font-size: .95rem; font-weight: 800; flex: 1; letter-spacing: -.01em; }
+.detail-close {
+  background: none; border: none; cursor: pointer; color: var(--text-muted);
+  font-size: 1.1rem; line-height: 1; padding: .25rem .4rem; border-radius: 5px;
+}
+.detail-close:hover { background: var(--bg-muted); color: var(--text); }
+.detail-body { display: grid; grid-template-columns: 1fr 2fr; }
+@media (max-width: 680px) { .detail-body { grid-template-columns: 1fr; } }
+.detail-info { padding: 1.2rem; border-right: 1px solid var(--border); }
+.detail-attrs { padding: 1.2rem; overflow-x: auto; }
+
+.detail-info dl { font-size: .82rem; }
+.detail-info dt {
+  font-size: .67rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--text-muted);
+  margin-top: .9rem; margin-bottom: .15rem;
+}
+.detail-info dt:first-child { margin-top: 0; }
+.detail-info dd { line-height: 1.45; word-break: break-word; }
+
+.attr-tbl { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.attr-tbl th {
+  text-align: left; font-size: .67rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--text-muted);
+  padding: .38rem .65rem; border-bottom: 1px solid var(--border);
+}
+.attr-tbl td { padding: .38rem .65rem; border-bottom: 1px solid var(--border); }
+.attr-tbl tr:last-child td { border-bottom: none; }
+
+/* ── Source chip ────────────────────────────────────────────────────────────── */
+.src-chip {
+  font-family: monospace; font-size: .71rem;
+  background: var(--accent-tint); border: 1px solid var(--accent-border);
+  color: var(--accent); border-radius: 6px; padding: .1rem .48rem;
+  display: inline-block; max-width: 100%; word-break: break-all;
+}
+
+/* ── Coverage ───────────────────────────────────────────────────────────────── */
+.lim-list { display: flex; flex-direction: column; gap: .9rem; }
+.lim-item {
+  border-left: 3px solid var(--accent); padding: .5rem .85rem;
+  background: var(--bg-muted); border-radius: 0 8px 8px 0;
+}
+.lim-title { font-weight: 700; font-size: .88rem; margin-bottom: .2rem; }
+.lim-body  { font-size: .81rem; color: var(--text-muted); line-height: 1.55; }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-brand" onclick="goHome()">
+    <div class="nav-dot"></div>
+    Product Intelligence
+  </div>
+  <span class="nav-spacer"></span>
+  <button class="nav-link" id="nav-coverage" onclick="showCoverage()">Coverage &amp; Limitations</button>
+</nav>
+
+<main class="main">
+
+<!-- ── Screen: Landing ──────────────────────────────────────────────────────── -->
+<div id="screen-landing" class="screen active">
+  <h1 class="hero-title">Product Intelligence Pipeline</h1>
+  <p class="hero-sub">Upload a product catalog CSV to enrich it with manufacturer specs, category classification, and structured attributes sourced from manufacturer and retailer pages.</p>
+
+  <div id="landing-alert"></div>
+
+  <div class="landing-grid">
+    <div
+      id="drop-zone"
+      class="upload-panel"
+      onclick="document.getElementById('file-input').click()"
+      ondragover="onDragOver(event)"
+      ondragleave="onDragLeave(event)"
+      ondrop="onDrop(event)"
+    >
+      <div class="upload-icon">📄</div>
+      <div class="upload-label">Drop your CSV here or click to browse</div>
+      <div class="upload-hint">Must include all required columns</div>
+      <div class="upload-cols">Mfg_Part_Num · Part_Desc · E1_Brand · Unilog_Brand · DIB_Brand · Part_Manuf</div>
+      <input type="file" id="file-input" accept=".csv" onchange="handleFile(this.files[0])">
+      <div><button class="upload-cta" onclick="event.stopPropagation();document.getElementById('file-input').click()">Select CSV file</button></div>
+    </div>
+
+    <div class="sample-card">
+      <h3>Browse sample results</h3>
+      <p>Explore a pre-computed output from a 200-row catalog run. No upload or API key required.</p>
+      <button class="sample-btn" id="sample-btn" onclick="loadSample()">View sample results →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Screen: Config ───────────────────────────────────────────────────────── -->
+<div id="screen-config" class="screen">
+  <div id="config-alert"></div>
+  <div class="section-header">
+    <h2>Run Configuration</h2>
+    <p id="config-sub">Configure the pipeline run, then click Run.</p>
+  </div>
+  <div class="config-card">
+    <div class="form-row">
+      <div class="form-field">
+        <label>Row limit</label>
+        <input type="number" id="row-limit" min="1" placeholder="All rows" title="Process only the first N rows of the uploaded file">
+      </div>
+      <div class="form-field">
+        <label>Category filter</label>
+        <input type="text" id="cat-filter" placeholder="e.g. drill, railing, LED" title="Only process rows whose Part_Desc or Part_Manuf contains this keyword">
+      </div>
+      <div class="form-field">
+        <label>Web enrichment</label>
+        <div class="toggle-row">
+          <label class="toggle">
+            <input type="checkbox" id="enrich-toggle">
+            <div class="toggle-track"></div>
+            <div class="toggle-thumb"></div>
+          </label>
+          <span class="toggle-label" id="enrich-lbl">Disabled</span>
+        </div>
+      </div>
+    </div>
+    <div id="enrich-info"></div>
+    <div class="form-footer">
+      <button class="btn btn-ghost" onclick="goHome()">← Back</button>
+      <button class="btn btn-primary" id="run-btn" onclick="startRun()">▶ Run Pipeline</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Screen: Progress ─────────────────────────────────────────────────────── -->
+<div id="screen-running" class="screen">
+  <div class="section-header"><h2>Running Pipeline</h2></div>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+  <div class="prog-meta" id="prog-meta">Initializing…</div>
+  <div class="run-log" id="run-log"></div>
+</div>
+
+<!-- ── Screen: Results ──────────────────────────────────────────────────────── -->
+<div id="screen-results" class="screen">
+  <div class="results-bar">
+    <h2 id="res-title">Results</h2>
+    <input class="search-box" type="search" id="search-box" placeholder="Search MPN, description, brand…" oninput="filterTable()">
+    <span class="results-count" id="res-count"></span>
+    <button class="download-btn" id="dl-btn" onclick="doDownload()" disabled>↓ Download CSV</button>
+  </div>
+  <p style="font-size:.81rem;color:var(--text-muted);margin-bottom:1.5rem" id="res-sub"></p>
+
+  <div class="stat-grid" id="stat-grid"></div>
+
+  <div class="table-wrap">
+    <table class="rtable">
+      <thead>
+        <tr>
+          <th onclick="sortBy('Mfg_Part_Num')"         data-col="Mfg_Part_Num">MPN</th>
+          <th onclick="sortBy('Part_Desc')"             data-col="Part_Desc">Input Description</th>
+          <th onclick="sortBy('BRAND_NAME')"            data-col="BRAND_NAME">Brand</th>
+          <th onclick="sortBy('Classpath')"             data-col="Classpath">Category</th>
+          <th onclick="sortBy('_enriched')"             data-col="_enriched">Enriched</th>
+          <th onclick="sortBy('_exact_mpn_verified')"   data-col="_exact_mpn_verified">MPN Verified</th>
+          <th onclick="sortBy('_source_tier')"          data-col="_source_tier">Tier</th>
+          <th onclick="sortBy('INVOICE_DESC')"          data-col="INVOICE_DESC">Invoice Desc</th>
+        </tr>
+      </thead>
+      <tbody id="res-tbody"></tbody>
+    </table>
+  </div>
+
+  <div id="detail-wrap"></div>
+</div>
+
+<!-- ── Screen: Coverage ─────────────────────────────────────────────────────── -->
+<div id="screen-coverage" class="screen">
+  <div class="section-header">
+    <h2>Coverage &amp; Limitations</h2>
+    <p>What the pipeline handles well, where it falls short, and what to validate before production use.</p>
+  </div>
+  <div class="lim-list">
+    <div class="lim-item">
+      <div class="lim-title">Product catalog coverage</div>
+      <div class="lim-body">Works best on branded, discrete products with a manufacturer website or major retailer listing. Commodity and unbranded items typically skip web enrichment — no reliable source to search.</div>
+    </div>
+    <div class="lim-item">
+      <div class="lim-title">Web enrichment source quality</div>
+      <div class="lim-body">Sources are ranked: manufacturer pages → distributors → retailers. MPN Verified (teal badge) means the exact MPN appeared on the source page. Amber "not confirmed" rows extracted specs from a related product on the same brand — treat those attributes as approximate and worth spot-checking.</div>
+    </div>
+    <div class="lim-item">
+      <div class="lim-title">JavaScript-rendered pages</div>
+      <div class="lim-body">Some manufacturer sites require a headless browser. The pipeline scrapes with ScraperAPI, which handles most sites but not all JS-heavy SPAs. Failed scrapes fall back to no enrichment for that row rather than erroring the whole run.</div>
+    </div>
+    <div class="lim-item">
+      <div class="lim-title">LLM extraction accuracy</div>
+      <div class="lim-body">Attributes are extracted by openai/gpt-oss-120b via Groq. The model is instructed to quote verbatim source snippets and avoid inference — but low-confidence attributes should be spot-checked, especially numeric values and model numbers. The pipeline applies an adaptive token budget (≤5,500 source tokens) to stay under the 8,000 TPM limit.</div>
+    </div>
+    <div class="lim-item">
+      <div class="lim-title">Groq free-tier rate limits</div>
+      <div class="lim-body">The free Groq tier allows ~100,000 tokens/day. A 30-row enrichment run uses roughly 35,000–50,000 tokens when there are no cache hits. Previous extractions are cached by source URL — re-running the same rows costs zero tokens. A full 200-row run may approach the daily limit; the quota resets at midnight UTC.</div>
+    </div>
+    <div class="lim-item">
+      <div class="lim-title">Category classification</div>
+      <div class="lim-body">Classification uses rule-based matching first, falling back to the LLM. Rows that match no rule are classified as "Hardware > General Hardware > Miscellaneous" — a safe fallback, but it indicates the taxonomy doesn't cover that product type yet.</div>
+    </div>
+    <div class="lim-item">
+      <div class="lim-title">Description templates</div>
+      <div class="lim-body">All five description fields (Mobile, Invoice, Short, Long, Retail) are generated from templates using extracted attributes — no additional LLM call. Character limits are enforced: Invoice ≤ 40 chars, Mobile ≤ 25 chars. The <code>_invoice_desc_ok</code> and <code>_mobile_desc_ok</code> columns in the output CSV flag compliance.</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+'use strict';
+
+// ── State ────────────────────────────────────────────────────────────────────
+let jobId        = null;
+let es           = null;       // EventSource
+let allResults   = [];
+let filtered     = [];
+let sortCol      = null;
+let sortAsc      = true;
+let resultSource = null;       // 'job' | 'sample'
+let groqAvail    = false;
+let sampleAvail  = false;
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+async function boot() {
+  try {
+    const h = await fetch('/health').then(r => r.json());
+    groqAvail   = h.groq_key_set;
+    sampleAvail = h.sample_available;
+  } catch { /* server starting */ }
+  document.getElementById('sample-btn').disabled = !sampleAvail;
+  document.getElementById('enrich-toggle').addEventListener('change', onEnrichChange);
+}
+
+// ── Screen routing ────────────────────────────────────────────────────────────
+function show(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+}
+
+function goHome() {
+  if (es) { es.close(); es = null; }
+  document.getElementById('landing-alert').innerHTML = '';
+  document.getElementById('file-input').value = '';
+  jobId = null;
+  show('landing');
+}
+
+function showCoverage() { show('coverage'); }
+
+// ── Drag & drop ───────────────────────────────────────────────────────────────
+function onDragOver(e)  { e.preventDefault(); document.getElementById('drop-zone').classList.add('drag-over'); }
+function onDragLeave()  { document.getElementById('drop-zone').classList.remove('drag-over'); }
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+}
+
+// ── Upload ───────────────────────────────────────────────────────────────────
+async function handleFile(file) {
+  if (!file?.name.endsWith('.csv')) {
+    setAlert('landing-alert', 'error', 'Please select a .csv file.');
+    return;
+  }
+  const fd = new FormData();
+  fd.append('file', file);
+  try {
+    const r    = await fetch('/upload', { method: 'POST', body: fd });
+    const data = await r.json();
+    if (!r.ok) {
+      const d = data.detail;
+      if (typeof d === 'object' && d.error === 'missing_columns') {
+        setAlert('landing-alert', 'error',
+          `Missing required columns: <strong>${d.missing.join(', ')}</strong><br>Found: ${d.found.join(', ')}`);
+      } else {
+        setAlert('landing-alert', 'error', typeof d === 'string' ? d : JSON.stringify(d));
+      }
+      return;
+    }
+    jobId = data.job_id;
+    resultSource = 'job';
+    setAlert('config-alert', 'success',
+      `Loaded <strong>${esc(file.name)}</strong> — ${data.rows.toLocaleString()} rows, ${data.columns.length} columns`);
+    document.getElementById('config-sub').textContent =
+      `${data.rows.toLocaleString()} rows loaded — configure the run below.`;
+    // Sync enrich toggle / info to current groq state
+    onEnrichChange();
+    show('config');
+  } catch(err) {
+    setAlert('landing-alert', 'error', 'Upload failed: ' + err.message);
+  }
+}
+
+// ── Enrich toggle ─────────────────────────────────────────────────────────────
+function onEnrichChange() {
+  const on  = document.getElementById('enrich-toggle').checked;
+  document.getElementById('enrich-lbl').textContent = on ? 'Enabled' : 'Disabled';
+  const box = document.getElementById('enrich-info');
+  if (on && !groqAvail) {
+    box.innerHTML = alert_html('warn', 'GROQ_API_KEY is not set on the server — enrichment will fail. Disable it or add the key to the environment.');
+  } else if (on) {
+    box.innerHTML = alert_html('warn', 'Enrichment fetches live data per row (~7,000 tokens each). Free tier: ~100,000 tokens/day, resets midnight UTC. Quota errors are logged per row; the run continues.');
+  } else {
+    box.innerHTML = alert_html('info', 'Fast mode — classification and description generation only; no web scraping or LLM extraction.');
+  }
+}
+function alert_html(type, msg) {
+  const icons = { success:'✓', error:'✗', info:'ℹ', warn:'⚠' };
+  return `<div class="alert alert-${type}"><span class="alert-icon">${icons[type]}</span><span>${msg}</span></div>`;
+}
+
+// ── Start run ─────────────────────────────────────────────────────────────────
+async function startRun() {
+  document.getElementById('run-btn').disabled = true;
+  const cfg = {
+    row_limit:       parseInt(document.getElementById('row-limit').value) || null,
+    enrich:          document.getElementById('enrich-toggle').checked,
+    category_filter: document.getElementById('cat-filter').value.trim(),
+  };
+  try {
+    const r = await fetch(`/run/${jobId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cfg),
+    });
+    if (!r.ok) {
+      const d = await r.json();
+      setAlert('config-alert', 'error', d.detail || 'Failed to start run.');
+      document.getElementById('run-btn').disabled = false;
+      return;
+    }
+  } catch(err) {
+    setAlert('config-alert', 'error', 'Network error: ' + err.message);
+    document.getElementById('run-btn').disabled = false;
+    return;
+  }
+  // Show progress screen
+  document.getElementById('prog-fill').style.width = '0';
+  document.getElementById('prog-meta').textContent = 'Starting…';
+  document.getElementById('run-log').innerHTML = '';
+  show('running');
+  // Connect SSE
+  es = new EventSource(`/progress/${jobId}`);
+  es.onmessage = onSseMsg;
+  es.onerror   = () => logLine('Connection interrupted — results will load when complete.', 'log-muted');
+}
+
+function onSseMsg(e) {
+  const d = JSON.parse(e.data);
+  if (d.type === 'row') {
+    const pct = Math.round(d.i / d.total * 100);
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-meta').textContent = `${d.i} / ${d.total} rows · ${pct}%`;
+    const icon = d.error ? '✗' : d.enriched ? '✓' : '—';
+    const cls  = d.error ? 'log-err' : d.enriched ? 'log-ok' : 'log-muted';
+    const info = d.enriched ? ` [${d.tier||'?'} · ${d.attrs}a]` : '';
+    const err  = d.error ? `  ⚠ ${d.error.substring(0,80)}` : '';
+    logLine(`${icon} [${String(d.i).padStart(2,'0')}/${d.total}] ${pad(d.mpn,20)} ${d.desc.substring(0,38)}${info}${err}  (${d.elapsed}s)`, cls);
+  } else if (d.type === 'done') {
+    es.close(); es = null;
+    document.getElementById('prog-fill').style.width = '100%';
+    document.getElementById('prog-meta').textContent =
+      `Done — ${d.total} rows, ${d.enriched} enriched, ${d.runtime}s`;
+    logLine(`\n✓ Complete: ${d.enriched}/${d.total} enriched in ${d.runtime}s`, 'log-ok');
+    setTimeout(() => fetchAndShowResults(jobId, 'job'), 700);
+  } else if (d.type === 'error') {
+    logLine('✗ ' + d.message, 'log-err');
+  }
+}
+
+function logLine(text, cls) {
+  const log = document.getElementById('run-log');
+  const div = document.createElement('div');
+  if (cls) div.className = cls;
+  div.textContent = text;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+// ── Load results ──────────────────────────────────────────────────────────────
+async function fetchAndShowResults(jid, source) {
+  const r    = await fetch(`/results/${jid}`);
+  const data = await r.json();
+  allResults   = data.results || [];
+  resultSource = source;
+  renderResults('Results', '', jid);
+}
+
+async function loadSample() {
+  try {
+    const r    = await fetch('/sample');
+    if (!r.ok) { alert('No sample results available yet.'); return; }
+    const data = await r.json();
+    allResults   = data.results || [];
+    resultSource = 'sample';
+    renderResults('Sample Results', `Pre-computed output from ${data.source}`, null);
+  } catch(e) { alert('Could not load sample: ' + e.message); }
+}
+
+// ── Render results screen ─────────────────────────────────────────────────────
+function renderResults(title, subtitle, jid) {
+  document.getElementById('res-title').textContent = title;
+  document.getElementById('res-sub').textContent   = subtitle;
+  const dlBtn = document.getElementById('dl-btn');
+  dlBtn.disabled = !jid;
+  dlBtn._jid     = jid;
+  renderStats();
+  filtered = [...allResults];
+  sortCol  = null; sortAsc = true;
+  document.getElementById('search-box').value = '';
+  renderTable();
+  document.getElementById('detail-wrap').innerHTML = '';
+  show('results');
+}
+
+// ── Stat cards ────────────────────────────────────────────────────────────────
+function renderStats() {
+  const n = allResults.length;
+  const MISC = 'Hardware>General Hardware>Miscellaneous';
+  let nC=0, nB=0, nE=0, nM=0, totalA=0;
+  for (const r of allResults) {
+    const cp = (r.Classpath||'').replace(/\s/g,'');
+    if (cp && cp !== MISC) nC++;
+    if ((r.BRAND_NAME||'').trim()) nB++;
+    if (r._enriched === 'True') nE++;
+    if (r._exact_mpn_verified === 'True') nM++;
+    for (let i=1;i<=10;i++) if ((r[`ATTRIBUTE_LABEL_${i}`]||'').trim()) totalA++;
+  }
+  const avg = n ? (totalA/n).toFixed(1) : '0';
+  const pct = (a,b) => b ? Math.round(a/b*100)+'%' : '0%';
+  document.getElementById('stat-grid').innerHTML = [
+    ['Processed',     n,              'rows'],
+    ['Classified',    pct(nC,n),      `${nC} of ${n}`],
+    ['Brand Resolved',pct(nB,n),      `${nB} of ${n}`],
+    ['Web Enriched',  pct(nE,n),      `${nE} of ${n}`],
+    ['MPN Verified',  pct(nM,nE||1),  `${nM} of ${nE} enriched`],
+    ['Avg Attributes',avg,            'per row'],
+  ].map(([l,v,s]) =>
+    `<div class="stat-card"><div class="stat-label">${l}</div><div class="stat-value">${v}</div><div class="stat-sub">${s}</div></div>`
+  ).join('');
+}
+
+// ── Table ─────────────────────────────────────────────────────────────────────
+function filterTable() {
+  const q = document.getElementById('search-box').value.toLowerCase();
+  filtered = q
+    ? allResults.filter(r =>
+        (r.Mfg_Part_Num||'').toLowerCase().includes(q) ||
+        (r.Part_Desc||'').toLowerCase().includes(q) ||
+        (r.BRAND_NAME||'').toLowerCase().includes(q) ||
+        (r.Classpath||'').toLowerCase().includes(q) ||
+        (r.INVOICE_DESC||'').toLowerCase().includes(q))
+    : [...allResults];
+  if (sortCol) doSort(filtered);
+  renderTable();
+  document.getElementById('detail-wrap').innerHTML = '';
+}
+
+function sortBy(col) {
+  sortAsc = sortCol === col ? !sortAsc : true;
+  sortCol = col;
+  document.querySelectorAll('.rtable thead th').forEach(th => {
+    th.classList.remove('sort-asc','sort-desc');
+    if (th.dataset.col === col) th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+  });
+  doSort(filtered);
+  renderTable();
+}
+
+function doSort(arr) {
+  arr.sort((a,b) => {
+    const av = (a[sortCol]||'').toLowerCase();
+    const bv = (b[sortCol]||'').toLowerCase();
+    return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+  });
+}
+
+function renderTable() {
+  document.getElementById('res-count').textContent =
+    `Showing ${filtered.length.toLocaleString()} of ${allResults.length.toLocaleString()} rows`;
+  document.getElementById('res-tbody').innerHTML = filtered.map((r,idx) => {
+    const catLeaf = (r.Classpath||'').split('>').pop().trim() || '—';
+    return `<tr onclick="openDetail(${idx})" data-i="${idx}">
+      <td><strong>${esc(r.Mfg_Part_Num||'')}</strong></td>
+      <td>${esc((r.Part_Desc||'').substring(0,50))}</td>
+      <td>${esc(r.BRAND_NAME||'—')}</td>
+      <td>${esc(catLeaf)}</td>
+      <td>${r._enriched==='True' ? badge('Yes','b-green') : badge('No','b-gray')}</td>
+      <td>${mpnBadge(r._exact_mpn_verified)}</td>
+      <td>${tierBadge(r._source_tier)}</td>
+      <td>${esc((r.INVOICE_DESC||'').substring(0,55))}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Detail panel ──────────────────────────────────────────────────────────────
+function openDetail(idx) {
+  document.querySelectorAll('#res-tbody tr').forEach(t => t.classList.remove('sel-row'));
+  const tr = document.querySelector(`#res-tbody tr[data-i="${idx}"]`);
+  if (tr) tr.classList.add('sel-row');
+  const r = filtered[idx];
+  if (!r) return;
+  const attrs = [];
+  for (let i=1;i<=10;i++) {
+    const lbl = (r[`ATTRIBUTE_LABEL_${i}`]||'').trim();
+    if (!lbl) break;
+    attrs.push([lbl, r[`ATTRIBUTE_VALUE_${i}`]||'', r[`ATTRIBUTE_UOM_${i}`]||'']);
+  }
+  const attrHtml = attrs.length
+    ? `<table class="attr-tbl"><thead><tr><th>#</th><th>Attribute</th><th>Value</th><th>Unit</th></tr></thead><tbody>${
+        attrs.map(([n,v,u],i) =>
+          `<tr><td style="color:var(--text-faint)">${i+1}</td><td>${esc(n)}</td><td>${esc(v)}</td><td>${esc(u)}</td></tr>`
+        ).join('')
+      }</tbody></table>`
+    : '<p style="font-size:.81rem;color:var(--text-muted)">No attributes extracted.</p>';
+  const srcHtml = r._enrichment_source
+    ? `<dt>Source URL</dt><dd><span class="src-chip">${esc(r._enrichment_source)}</span></dd>` : '';
+  document.getElementById('detail-wrap').innerHTML = `
+    <div class="detail-panel">
+      <div class="detail-head">
+        <h3>${esc(r.Mfg_Part_Num||'')} — ${esc((r.Part_Desc||'').substring(0,55))}</h3>
+        <button class="detail-close" onclick="document.getElementById('detail-wrap').innerHTML='';document.querySelectorAll('#res-tbody tr').forEach(t=>t.classList.remove('sel-row'))">✕</button>
+      </div>
+      <div class="detail-body">
+        <div class="detail-info">
+          <dl>
+            <dt>Brand</dt><dd>${esc(r.BRAND_NAME||'—')}</dd>
+            <dt>Manufacturer</dt><dd>${esc(r.MANUFACTURER_NAME||'—')}</dd>
+            <dt>Category</dt><dd>${esc(r.Classpath||'—')}</dd>
+            <dt>MPN status</dt><dd>${mpnBadge(r._exact_mpn_verified)}</dd>
+            <dt>Source tier</dt><dd>${tierBadge(r._source_tier)||'—'}</dd>
+            ${srcHtml}
+            <dt>Mobile Desc</dt><dd>${esc(r.MOBILE_DESC||'—')}</dd>
+            <dt>Invoice Desc</dt><dd>${esc(r.INVOICE_DESC||'—')}</dd>
+            <dt>Short Desc</dt><dd>${esc(r.SHORT_DESC||'—')}</dd>
+            <dt>Long Desc</dt><dd style="white-space:pre-line">${esc((r.LONG_DESC1||'').substring(0,500))}</dd>
+          </dl>
+        </div>
+        <div class="detail-attrs">${attrHtml}</div>
+      </div>
+    </div>`;
+  document.getElementById('detail-wrap').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+// ── Download ──────────────────────────────────────────────────────────────────
+function doDownload() {
+  const jid = document.getElementById('dl-btn')._jid;
+  if (!jid) return;
+  const a = Object.assign(document.createElement('a'), { href: `/results/${jid}/download`, download:'' });
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function pad(s,n) { return String(s).padEnd(n,' '); }
+function badge(t,cls) { return `<span class="badge ${cls}">${t}</span>`; }
+function mpnBadge(v) {
+  if (v==='True')  return badge('✓ Verified','b-teal');
+  if (v==='False') return badge('⚠ Not confirmed','b-amber');
+  return badge('—','b-gray');
+}
+function tierBadge(t) {
+  if (t==='manufacturer') return badge('Manufacturer','b-green');
+  if (t==='distributor')  return badge('Distributor','b-blue');
+  if (t==='retailer')     return badge('Retailer','b-amber');
+  return '';
+}
+function setAlert(id, type, html) {
+  const icons = { success:'✓', error:'✗', info:'ℹ', warn:'⚠' };
+  document.getElementById(id).innerHTML =
+    `<div class="alert alert-${type}"><span class="alert-icon">${icons[type]}</span><span>${html}</span></div>`;
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', boot);
+</script>
+</body>
+</html>
