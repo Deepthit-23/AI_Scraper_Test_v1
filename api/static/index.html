@@ -788,7 +788,7 @@ function renderTable() {
       <td>${esc(catLeaf)}</td>
       <td>${r._enriched==='True' ? badge('Yes','b-green') : badge('No','b-gray')}</td>
       <td>${mpnBadge(r._exact_mpn_verified)}</td>
-      <td>${tierBadge(r._source_tier)}</td>
+      <td>${r._enriched==='True' ? tierBadge(r._source_tier) : ''}</td>
       <td>${esc((r.INVOICE_DESC||'').substring(0,55))}</td>
     </tr>`;
   }).join('');
@@ -829,7 +829,7 @@ function openDetail(idx) {
             <dt>Manufacturer</dt><dd>${esc(r.MANUFACTURER_NAME||'—')}</dd>
             <dt>Category</dt><dd>${esc(r.Classpath||'—')}</dd>
             <dt>MPN status</dt><dd>${mpnBadge(r._exact_mpn_verified)}</dd>
-            <dt>Source tier</dt><dd>${tierBadge(r._source_tier)||'—'}</dd>
+            <dt>Source tier</dt><dd>${r._enriched==='True' ? (tierBadge(r._source_tier)||'—') : '—'}</dd>
             ${srcHtml}
             <dt>Mobile Desc</dt><dd>${esc(r.MOBILE_DESC||'—')}</dd>
             <dt>Invoice Desc</dt><dd>${esc(r.INVOICE_DESC||'—')}</dd>
