@@ -211,7 +211,7 @@ def process_row(row: dict, enrich: bool = True) -> dict:
         "_enrichment_source": enrichment.get("source_url") or "",
         "_source_tier": enrichment.get("source_tier") or "",
         "_exact_mpn_verified": str(enrichment.get("exact_mpn_verified", "")) if enrichment.get("enriched") else "",
-        "_enrichment_error": enrichment.get("error") or "",
+        "_enrichment_error": "" if enrichment.get("enriched") else (enrichment.get("error") or ""),
         "_invoice_desc_ok": str(descs.invoice_ok),
         "_mobile_desc_ok": str(descs.mobile_ok),
     }
