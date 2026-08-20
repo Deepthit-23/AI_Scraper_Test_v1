@@ -1093,6 +1093,8 @@ def enrich_from_manufacturer(
     if url is None:
         # Each entry: (url, tier, text_with_title, mpn_verified, raw_html)
         _gate_passing: list[tuple[str, str, str, bool, str]] = []
+        # Track gate rejection reasons for diagnostics (surfaced in result["error"])
+        _gate_rejects: list[str] = []
 
         for cand_url, cand_tier in _tavily_candidates(
             mpn=mpn,
@@ -1107,10 +1109,12 @@ def enrich_from_manufacturer(
             _throttle(cand_url)
             page = scrape_product_page(cand_url)
             if not page.success:
+                _gate_rejects.append(f"scrape-fail:{(page.error or '')[:40]}")
                 if verbose:
                     print(f"  [enrich] scrape FAILED — skip: {page.error}")
                 continue
             if len(page.clean_text) < 100:
+                _gate_rejects.append(f"too-short:{len(page.clean_text)}chars")
                 if verbose:
                     print(f"  [enrich] page too short ({len(page.clean_text)} chars) — skip")
                 continue
@@ -1123,6 +1127,7 @@ def enrich_from_manufacturer(
             # Gate 1: wrong brand
             wb, br = _is_wrong_brand(cand_url, cand_text, brand_name, manufacturer_name, verbose)
             if wb:
+                _gate_rejects.append(f"brand-mismatch:{br[:40]}")
                 if verbose:
                     print(f"  [enrich] brand gate — skip: {br}")
                 continue
@@ -1130,12 +1135,14 @@ def enrich_from_manufacturer(
             # Gate 2: wrong page type
             wt, tr = _is_wrong_page_type(mpn, cand_url, cand_text, verbose)
             if wt:
+                _gate_rejects.append(f"wrong-page-type:{tr[:40]}")
                 if verbose:
                     print(f"  [enrich] page-type gate — skip: {tr}")
                 continue
 
             # Gate 3: promo content
             if _is_promo_content(cand_text):
+                _gate_rejects.append(f"promo-content")
                 if verbose:
                     print(f"  [enrich] promo gate — skip: {cand_url}")
                 continue
@@ -1168,6 +1175,12 @@ def enrich_from_manufacturer(
         else:
             if verbose:
                 print(f"  [enrich] Stage2 no gate-passing candidates for {mpn}")
+            # Set a diagnostic error so the caller knows WHY Stage 2 produced nothing.
+            # This will be overridden if Stage 3 succeeds; preserved if it also fails.
+            if _gate_rejects:
+                result["error"] = f"Stage2 rejected all candidates: {'; '.join(_gate_rejects[:3])}"
+            else:
+                result["error"] = f"Stage2: no Tavily candidates for {mpn}"
 
     # ── Stage 2.5: MPN-based cache replay ────────────────────────────────────
     # Check whether a prior successful run cached the extraction for this MPN.
@@ -1285,8 +1298,21 @@ def enrich_from_manufacturer(
             # Re-sync attributes list after potential PDF merge
             result["attributes"] = record.attributes
     except Exception as e:
-        result["error"] = f"Extraction failed: {e}"
+        # Classify Groq HTTP errors explicitly so the error field is actionable
+        http_status = getattr(e, "status_code", None)
+        if http_status == 429:
+            body_err = ((getattr(e, "body", None) or {}).get("error") or {})
+            msg = body_err.get("message", str(e))
+            # Groq says "tokens per day (TPD)" for the daily quota, not "daily quota"
+            if any(k in msg.lower() for k in ("daily", "quota", "per day", "tpd", "tokens per day")):
+                result["error"] = f"LLM 429 quota-exhausted: {msg}"
+            else:
+                result["error"] = f"LLM 429 rate-limited (TPM): {msg}"
+        elif http_status:
+            result["error"] = f"LLM HTTP-{http_status}: {type(e).__name__}: {str(e)[:120]}"
+        else:
+            result["error"] = f"Extraction failed: {type(e).__name__}: {str(e)[:120]}"
         if verbose:
-            print(f"  [enrich] extraction FAILED: {e}")
+            print(f"  [enrich] extraction FAILED ({result['error'][:80]})")
 
     return result

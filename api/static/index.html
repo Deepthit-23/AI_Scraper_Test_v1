@@ -399,12 +399,12 @@ table.rtable tbody tr.sel-row { background: var(--accent-tint); }
   <div class="config-card">
     <div class="form-row">
       <div class="form-field">
-        <label>Row limit</label>
-        <input type="number" id="row-limit" min="1" placeholder="All rows" title="Process only the first N rows of the uploaded file">
+        <label>Start row</label>
+        <input type="number" id="start-row" min="1" value="1" title="First row to process (1-indexed, inclusive)">
       </div>
       <div class="form-field">
-        <label>Category filter</label>
-        <input type="text" id="cat-filter" placeholder="e.g. drill, railing, LED" title="Only process rows whose Part_Desc or Part_Manuf contains this keyword">
+        <label>End row</label>
+        <input type="number" id="end-row" min="1" value="50" title="Last row to process (1-indexed, inclusive). Maximum range: 50 rows.">
       </div>
       <div class="form-field">
         <label>Web enrichment</label>
@@ -418,7 +418,14 @@ table.rtable tbody tr.sel-row { background: var(--accent-tint); }
         </div>
       </div>
     </div>
-    <div id="enrich-info"></div>
+    <div id="clamp-note" style="font-size:.79rem;color:#854d0e;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:.4rem .75rem;margin-bottom:.75rem;display:none"></div>
+    <div class="form-row" style="grid-template-columns:1fr;margin-bottom:0">
+      <div class="form-field">
+        <label>Category filter <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-faint)">(optional)</span></label>
+        <input type="text" id="cat-filter" placeholder="e.g. drill, railing, LED" title="Only process rows whose Part_Desc or Part_Manuf contains this keyword">
+      </div>
+    </div>
+    <div id="enrich-info" style="margin-top:.9rem"></div>
     <div class="form-footer">
       <button class="btn btn-ghost" onclick="goHome()">← Back</button>
       <button class="btn btn-primary" id="run-btn" onclick="startRun()">▶ Run Pipeline</button>
@@ -475,6 +482,10 @@ table.rtable tbody tr.sel-row { background: var(--accent-tint); }
   </div>
   <div class="lim-list">
     <div class="lim-item">
+      <div class="lim-title">Live enrichment row limit</div>
+      <div class="lim-body">Live enrichment is limited to 50 rows per run, due to daily token quota limits on the underlying LLM API (free tier). You can test any 50-row range within a larger uploaded file by setting the start/end row — this is a quota constraint of the current deployment, not a limitation of the pipeline logic itself.<br><br>In practice, success rate varies by product type. Brands with a known URL template (e.g. Milwaukee Tool accessories) enrich at effectively 100% since each row uses a cached or direct scrape with no per-row search API call. Untemplated brands (e.g. Trex, TimberTech PVC decking) each require a fresh web search and LLM extraction (~3,000–7,000 tokens per row). On a recent 200-row full run, 68 rows enriched successfully — the remaining 132 were cut off by quota exhaustion mid-run, not because discovery or extraction failed for those brands specifically.</div>
+    </div>
+    <div class="lim-item">
       <div class="lim-title">Product catalog coverage</div>
       <div class="lim-body">Works best on branded, discrete products with a manufacturer website or major retailer listing. Commodity and unbranded items typically skip web enrichment — no reliable source to search.</div>
     </div>
@@ -492,7 +503,7 @@ table.rtable tbody tr.sel-row { background: var(--accent-tint); }
     </div>
     <div class="lim-item">
       <div class="lim-title">Groq free-tier rate limits</div>
-      <div class="lim-body">The free Groq tier allows ~100,000 tokens/day. A 30-row enrichment run uses roughly 35,000–50,000 tokens when there are no cache hits. Previous extractions are cached by source URL — re-running the same rows costs zero tokens. A full 200-row run may approach the daily limit; the quota resets at midnight UTC.</div>
+      <div class="lim-body">The free Groq tier allows 200,000 tokens per 24-hour rolling window. A 50-row enrichment run of untemplated brands uses roughly 100,000–200,000 tokens when there are no cache hits. Previous extractions are cached by source URL — re-running the same rows costs zero tokens. The quota is a rolling window (not a midnight UTC reset), so remaining budget depends on what was consumed in the prior 24 hours.</div>
     </div>
     <div class="lim-item">
       <div class="lim-title">Category classification</div>
@@ -584,6 +595,14 @@ async function handleFile(file) {
       `Loaded <strong>${esc(file.name)}</strong> — ${data.rows.toLocaleString()} rows, ${data.columns.length} columns`);
     document.getElementById('config-sub').textContent =
       `${data.rows.toLocaleString()} rows loaded — configure the run below.`;
+    // Set start/end row bounds based on actual row count
+    const startEl = document.getElementById('start-row');
+    const endEl   = document.getElementById('end-row');
+    startEl.max   = data.rows;
+    endEl.max     = data.rows;
+    startEl.value = 1;
+    endEl.value   = Math.min(50, data.rows);
+    document.getElementById('clamp-note').style.display = 'none';
     // Sync enrich toggle / info to current groq state
     onEnrichChange();
     show('config');
@@ -600,7 +619,7 @@ function onEnrichChange() {
   if (on && !groqAvail) {
     box.innerHTML = alert_html('warn', 'GROQ_API_KEY is not set on the server — enrichment will fail. Disable it or add the key to the environment.');
   } else if (on) {
-    box.innerHTML = alert_html('warn', 'Enrichment fetches live data per row (~7,000 tokens each). Free tier: ~100,000 tokens/day, resets midnight UTC. Quota errors are logged per row; the run continues.');
+    box.innerHTML = alert_html('warn', 'Enrichment is limited to 50 rows per run due to LLM token quota constraints on the free tier. You can test any 50-row slice of your uploaded file by adjusting the start row — this lets you sample different sections of a larger catalog across multiple runs. Quota errors are logged per row; the run continues.');
   } else {
     box.innerHTML = alert_html('info', 'Fast mode — classification and description generation only; no web scraping or LLM extraction.');
   }
@@ -613,8 +632,24 @@ function alert_html(type, msg) {
 // ── Start run ─────────────────────────────────────────────────────────────────
 async function startRun() {
   document.getElementById('run-btn').disabled = true;
+  const MAX_RANGE = 50;
+  let startRow = parseInt(document.getElementById('start-row').value) || 1;
+  let endRow   = parseInt(document.getElementById('end-row').value)   || 50;
+
+  // Clamp to MAX_RANGE and show inline note
+  const clampEl = document.getElementById('clamp-note');
+  if (endRow - startRow + 1 > MAX_RANGE) {
+    endRow = startRow + MAX_RANGE - 1;
+    document.getElementById('end-row').value = endRow;
+    clampEl.textContent = `Limited to 50 rows per run due to LLM API quota — adjust start row to test a different slice. Running rows ${startRow}–${endRow}.`;
+    clampEl.style.display = 'block';
+  } else {
+    clampEl.style.display = 'none';
+  }
+
   const cfg = {
-    row_limit:       parseInt(document.getElementById('row-limit').value) || null,
+    start_row:       startRow,
+    end_row:         endRow,
     enrich:          document.getElementById('enrich-toggle').checked,
     category_filter: document.getElementById('cat-filter').value.trim(),
   };

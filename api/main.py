@@ -66,7 +66,8 @@ def _prune_jobs() -> None:
 
 # ── Pydantic models ────────────────────────────────────────────────────────────
 class RunConfig(BaseModel):
-    row_limit: Optional[int] = None
+    start_row: int = 1
+    end_row: int = 50
     enrich: bool = False
     category_filter: str = ""
 
@@ -119,9 +120,11 @@ async def _run_pipeline(job_id: str, config: RunConfig) -> None:
     job = jobs[job_id]
     rows: list[dict] = list(job["rows"])
 
-    # Mirror Streamlit: take head(row_limit) first, then apply category filter
-    if config.row_limit:
-        rows = rows[: config.row_limit]
+    # Slice to the requested start/end range (1-indexed, inclusive); hard cap at 50 rows
+    _MAX_RANGE = 50
+    _start = max(0, config.start_row - 1)
+    _end   = min(config.end_row, config.start_row + _MAX_RANGE - 1)
+    rows   = rows[_start : min(_end, len(rows))]
     if config.category_filter:
         kw = config.category_filter.lower()
         rows = [
@@ -278,9 +281,13 @@ async def get_sample():
 # ── Health ─────────────────────────────────────────────────────────────────────
 @app.get("/health")
 async def health():
+    raw_key = os.environ.get("GROQ_API_KEY", "")
+    # Expose enough to confirm identity without leaking the full secret
+    key_preview = raw_key[:10] + "…" if len(raw_key) >= 10 else ("set" if raw_key else "")
     return {
         "ok": True,
-        "groq_key_set": bool(os.environ.get("GROQ_API_KEY")),
+        "groq_key_set": bool(raw_key),
+        "groq_key_preview": key_preview,
         "sample_available": OUTPUT_CSV.exists() or FALLBACK_CSV.exists(),
     }
 

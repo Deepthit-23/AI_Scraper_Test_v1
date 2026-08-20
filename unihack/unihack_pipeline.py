@@ -98,6 +98,7 @@ OUTPUT_COLS = [
     "_classification_confidence", "_classification_method",
     "_brand_resolution_method",
     "_enriched", "_enrichment_source", "_source_tier", "_exact_mpn_verified",
+    "_enrichment_error",
     "_invoice_desc_ok", "_mobile_desc_ok",
 ]
 

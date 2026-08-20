@@ -801,32 +801,50 @@ with tab_pipeline:
                     st.markdown("---")
                     st.markdown("#### Run Configuration")
 
-                    opt1, opt2, opt3 = st.columns([1, 1, 2])
+                    _MAX_RANGE = 50
+                    opt1, opt2, opt3, opt4 = st.columns([1, 1, 1, 2])
                     with opt1:
-                        row_limit = st.number_input(
-                            "Row limit",
+                        start_row = st.number_input(
+                            "Start row",
                             min_value=1, max_value=n_avail,
-                            value=min(10, n_avail), step=1,
-                            help="Start small — enriched rows take 10–30 s each.",
+                            value=1, step=1,
+                            help="First row to process (1-indexed).",
                         )
                     with opt2:
+                        end_row = st.number_input(
+                            "End row",
+                            min_value=int(start_row), max_value=n_avail,
+                            value=min(int(start_row) + _MAX_RANGE - 1, n_avail), step=1,
+                            help="Last row to process (1-indexed, inclusive). Maximum range: 50 rows.",
+                        )
+                    with opt3:
                         do_enrich = st.checkbox(
                             "Enable web enrichment", value=False,
                             help="Fetches live data from manufacturer and retailer sites. Uses API quota.",
                         )
-                    with opt3:
+                    with opt4:
                         cat_filter = st.text_input(
                             "Category filter (optional)",
                             placeholder="e.g.  drill,  LED bulb,  washer",
                             help="Only process rows where Part_Desc or Part_Manuf contains this keyword.",
                         )
 
+                    # Clamp range to MAX_RANGE
+                    if int(end_row) - int(start_row) + 1 > _MAX_RANGE:
+                        end_row = int(start_row) + _MAX_RANGE - 1
+                        st.caption(
+                            f"⚠ Range clamped to rows {int(start_row)}–{int(end_row)}. "
+                            "Limited to 50 rows per run due to LLM API quota — "
+                            "adjust start row to test a different slice."
+                        )
+
                     if do_enrich:
                         st.warning(
-                            "**Enrichment is on** — each row fetches live data from manufacturer / "
-                            "retailer sources and calls the extraction API (~7,000 tokens / enriched row). "
-                            "Free tier: ~100,000 tokens/day. Quota resets at midnight UTC. "
-                            "If quota runs out mid-run the error is logged per row and the run continues."
+                            "**Enrichment is limited to 50 rows per run** due to LLM token quota "
+                            "constraints on the free tier. You can test any 50-row slice of your "
+                            "uploaded file by adjusting the start row — this lets you sample different "
+                            "sections of a larger catalog across multiple runs. "
+                            "Quota errors are logged per row; the run continues."
                         )
                     else:
                         st.info(
@@ -838,7 +856,7 @@ with tab_pipeline:
                     st.markdown("<br>", unsafe_allow_html=True)
 
                     if st.button("▶  Run Pipeline", type="primary", key="run_pipeline_btn"):
-                        rows_to_run = upload_df.head(int(row_limit)).to_dict(orient="records")
+                        rows_to_run = upload_df.iloc[int(start_row)-1 : int(end_row)].to_dict(orient="records")
                         if cat_filter.strip():
                             kw = cat_filter.strip().lower()
                             rows_to_run = [
@@ -849,7 +867,7 @@ with tab_pipeline:
 
                         if not rows_to_run:
                             st.warning(
-                                f"No rows match `{cat_filter}` in the first {int(row_limit)} rows. "
+                                f"No rows match `{cat_filter}` in rows {int(start_row)}–{int(end_row)}. "
                                 "Try a different keyword or clear the filter."
                             )
                         else:
@@ -922,6 +940,23 @@ with tab_limitations:
 
     LIMITATIONS = [
         {
+            "title": "Live enrichment row limit",
+            "body": (
+                "Live enrichment is limited to 50 rows per run, due to daily token quota limits on "
+                "the underlying LLM API (free tier). You can test any 50-row range within a larger "
+                "uploaded file by setting the start and end row — this is a quota constraint of the "
+                "current deployment, not a limitation of the pipeline logic itself."
+                "<br><br>"
+                "In practice, success rate depends on which rows are sampled. Brands with a known "
+                "URL template (e.g. Milwaukee Tool accessories) enrich at effectively 100% since each "
+                "row uses a cached or direct scrape with no per-row search API call. Untemplated brands "
+                "(e.g. Trex, TimberTech PVC decking) each require a fresh web search and LLM extraction "
+                "call (~3,000–7,000 tokens per row). On a recent 200-row full run, 68 rows enriched "
+                "successfully — the remaining 132 were cut off by quota exhaustion mid-run, not because "
+                "discovery or extraction failed for those brands specifically."
+            ),
+        },
+        {
             "title": "Web enrichment: Stage 1 URL templates + Stage 2 Tavily search",
             "body": (
                 "Stage 1 uses direct URL templates for brands with a verified product URL pattern "
@@ -974,11 +1009,12 @@ with tab_limitations:
         {
             "title": "API token usage",
             "body": (
-                "Classification and attribute extraction use the Groq API. "
+                "Classification and attribute extraction use the Groq API (openai/gpt-oss-120b). "
                 "All LLM extractions are cached by source URL — re-running the pipeline on the "
                 "same rows costs zero tokens. "
                 "A fresh enriched run costs roughly 3,000–7,000 tokens per enriched row. "
-                "The free Groq tier provides ~100,000 tokens/day; the budget resets at midnight UTC."
+                "The free Groq tier provides 200,000 tokens per 24-hour rolling window. "
+                "At 50 rows per run, a full pass of untemplated brands uses roughly 100,000–200,000 tokens."
             ),
         },
     ]

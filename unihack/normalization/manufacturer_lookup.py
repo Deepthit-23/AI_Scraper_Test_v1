@@ -57,6 +57,12 @@ MANUFACTURER_CANONICAL: dict[str, dict] = {
     # ── Whirlpool ────────────────────────────────────────────────────────────
     "whirlpool":          {"manufacturer_name": "Whirlpool Corporation", "brand_name": "Whirlpool®"},
     "whirlpool corporation": {"manufacturer_name": "Whirlpool Corporation", "brand_name": "Whirlpool®"},
+    # Whirlpool sub-brands
+    "maytag":             {"manufacturer_name": "Whirlpool Corporation", "brand_name": "Maytag®"},
+    "kitchenaid":         {"manufacturer_name": "Whirlpool Corporation", "brand_name": "KitchenAid®"},
+    "amana":              {"manufacturer_name": "Whirlpool Corporation", "brand_name": "Amana®"},
+    "jennair":            {"manufacturer_name": "Whirlpool Corporation", "brand_name": "JennAir®"},
+    "jenn-air":           {"manufacturer_name": "Whirlpool Corporation", "brand_name": "JennAir®"},
 
     # ── Speed Queen / Alliance Laundry ───────────────────────────────────────
     "alliance laundry":   {"manufacturer_name": "Alliance Laundry Systems LLC", "brand_name": "Speed Queen®"},
@@ -64,8 +70,16 @@ MANUFACTURER_CANONICAL: dict[str, dict] = {
     "speed queen":        {"manufacturer_name": "Alliance Laundry Systems LLC", "brand_name": "Speed Queen®"},
 
     # ── GE Appliances / Haier ───────────────────────────────────────────────
+    # Haier acquired GE Appliances in 2016; consumer brand remains "GE Appliances"
     "ge appliances":      {"manufacturer_name": "GE Appliances", "brand_name": "GE®"},
-    "haier":              {"manufacturer_name": "Haier", "brand_name": "GE®"},
+    "ge appliances, a haier company": {"manufacturer_name": "GE Appliances", "brand_name": "GE®"},
+    "haier":              {"manufacturer_name": "GE Appliances", "brand_name": "GE®"},
+    "haier us appliance": {"manufacturer_name": "GE Appliances", "brand_name": "GE®"},
+    "general electric":   {"manufacturer_name": "GE Appliances", "brand_name": "GE®"},
+    # GE sub-brands
+    "ge profile":         {"manufacturer_name": "GE Appliances", "brand_name": "GE Profile™"},
+    "ge cafe":            {"manufacturer_name": "GE Appliances", "brand_name": "GE Café™"},
+    "ge café":            {"manufacturer_name": "GE Appliances", "brand_name": "GE Café™"},
 
     # ── Lighting — Signify/Philips ───────────────────────────────────────────
     "phillips lighting":  {"manufacturer_name": "Signify Holding", "brand_name": "Philips"},
@@ -178,16 +192,27 @@ _MPN_PREFIX_MAP: dict[str, dict] = {
     "FGID": {"manufacturer_name": "Electrolux Home Products",       "brand_name": "FRIGIDAIRE®"},
     "FFID": {"manufacturer_name": "Electrolux Home Products",       "brand_name": "FRIGIDAIRE®"},
     "FGHD": {"manufacturer_name": "Electrolux Home Products",       "brand_name": "FRIGIDAIRE®"},
-    # GE Profile (Haier)
-    "PDD":  {"manufacturer_name": "Haier",                          "brand_name": "Profile™"},
-    "PTD":  {"manufacturer_name": "Haier",                          "brand_name": "Profile™"},
-    "PEP":  {"manufacturer_name": "Haier",                          "brand_name": "Profile™"},
-    # GE Cafe (Haier)
-    "CHP":  {"manufacturer_name": "Haier",                          "brand_name": "CAFE™"},
+    # GE Profile (GE Appliances, Haier subsidiary)
+    "PDD":  {"manufacturer_name": "GE Appliances",                  "brand_name": "GE Profile™"},
+    "PTD":  {"manufacturer_name": "GE Appliances",                  "brand_name": "GE Profile™"},
+    "PEP":  {"manufacturer_name": "GE Appliances",                  "brand_name": "GE Profile™"},
+    # GE Cafe (GE Appliances, Haier subsidiary)
+    "CHP":  {"manufacturer_name": "GE Appliances",                  "brand_name": "GE Café™"},
     # Whirlpool dishwashers (WDTS before WDT)
     "WDTS": {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Whirlpool®"},
     "WDT":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Whirlpool®"},
     "WDF":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Whirlpool®"},
+    # Maytag (Whirlpool sub-brand)
+    "MDB":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Maytag®"},
+    "MHW":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Maytag®"},
+    "MED":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Maytag®"},
+    # KitchenAid (Whirlpool sub-brand) — 4-char before 3-char KDT
+    "KDTE": {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "KitchenAid®"},
+    "KDTM": {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "KitchenAid®"},
+    "KDFE": {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "KitchenAid®"},
+    # Amana (Whirlpool sub-brand)
+    "ADB":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Amana®"},
+    "NTW":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Amana®"},
     # Speed Queen / Alliance Laundry (DC5 before any DC*)
     "DC5":  {"manufacturer_name": "Alliance Laundry Systems LLC",   "brand_name": "Speed Queen®"},
     "DR":   {"manufacturer_name": "Alliance Laundry Systems LLC",   "brand_name": "Speed Queen®"},
@@ -210,16 +235,27 @@ _MPN_PREFIXES: dict[str, dict] = {
     "FGID": {"manufacturer_name": "Electrolux Home Products",       "brand_name": "FRIGIDAIRE®"},
     "FFID": {"manufacturer_name": "Electrolux Home Products",       "brand_name": "FRIGIDAIRE®"},
     "FGHD": {"manufacturer_name": "Electrolux Home Products",       "brand_name": "FRIGIDAIRE®"},
-    # GE Profile / CAFE (Haier) — 3-char before any 2-char PD
-    "PDD":  {"manufacturer_name": "Haier",                          "brand_name": "Profile™"},
-    "PTD":  {"manufacturer_name": "Haier",                          "brand_name": "Profile™"},
-    "PEP":  {"manufacturer_name": "Haier",                          "brand_name": "Profile™"},
-    "CHP":  {"manufacturer_name": "Haier",                          "brand_name": "CAFE™"},
+    # GE Profile / CAFE (GE Appliances, Haier subsidiary) — 3-char before any 2-char PD
+    "PDD":  {"manufacturer_name": "GE Appliances",                  "brand_name": "GE Profile™"},
+    "PTD":  {"manufacturer_name": "GE Appliances",                  "brand_name": "GE Profile™"},
+    "PEP":  {"manufacturer_name": "GE Appliances",                  "brand_name": "GE Profile™"},
+    "CHP":  {"manufacturer_name": "GE Appliances",                  "brand_name": "GE Café™"},
     # Whirlpool — 4-char WDTS before 3-char WDT
     "WDTS": {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Whirlpool®"},
     "WDT":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Whirlpool®"},
     "WDF":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Whirlpool®"},
     "WRS":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Whirlpool®"},
+    # KitchenAid (Whirlpool sub-brand) — 4-char before any shorter KD prefix
+    "KDTE": {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "KitchenAid®"},
+    "KDTM": {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "KitchenAid®"},
+    "KDFE": {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "KitchenAid®"},
+    # Maytag (Whirlpool sub-brand)
+    "MDB":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Maytag®"},
+    "MHW":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Maytag®"},
+    "MED":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Maytag®"},
+    # Amana (Whirlpool sub-brand)
+    "ADB":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Amana®"},
+    "NTW":  {"manufacturer_name": "Whirlpool Corporation",          "brand_name": "Amana®"},
     # Speed Queen / Alliance Laundry — DC5 (3-char) before DR/DV (2-char)
     "DC5":  {"manufacturer_name": "Alliance Laundry Systems LLC",   "brand_name": "Speed Queen®"},
     "DR":   {"manufacturer_name": "Alliance Laundry Systems LLC",   "brand_name": "Speed Queen®"},
@@ -271,6 +307,28 @@ _NON_MANUFACTURER_TERMS = frozenset([
 
 _MODEL = "openai/gpt-oss-120b"
 
+# Compiled patterns for desc-keyword brand scan — checked when MPN prefix doesn't match.
+# More-specific patterns (GE Profile) listed before generic ones (GE Appliances).
+_DESC_BRAND_PATTERNS: list[tuple[re.Pattern, str, str]] = [
+    (re.compile(r'\bge\s+profile\b', re.IGNORECASE),    "GE Appliances",       "GE Profile™"),
+    (re.compile(r'\bge\s+caf[eé]\b', re.IGNORECASE),    "GE Appliances",       "GE Café™"),
+    (re.compile(r'\bge\s+appliances?\b', re.IGNORECASE), "GE Appliances",       "GE®"),
+    (re.compile(r'\bmaytag\b', re.IGNORECASE),           "Whirlpool Corporation", "Maytag®"),
+    (re.compile(r'\bkitchenaid\b', re.IGNORECASE),       "Whirlpool Corporation", "KitchenAid®"),
+    (re.compile(r'\bamana\b', re.IGNORECASE),            "Whirlpool Corporation", "Amana®"),
+    (re.compile(r'\bjenn[- ]?air\b', re.IGNORECASE),     "Whirlpool Corporation", "JennAir®"),
+]
+
+
+def _desc_brand_scan(part_desc: str) -> dict | None:
+    """Return {manufacturer_name, brand_name} if the description names a known sub-brand."""
+    if not part_desc:
+        return None
+    for pattern, mfr, brand in _DESC_BRAND_PATTERNS:
+        if pattern.search(part_desc):
+            return {"manufacturer_name": mfr, "brand_name": brand}
+    return None
+
 
 def _is_non_manufacturer(name: str) -> bool:
     name_lower = name.lower()
@@ -292,6 +350,12 @@ def _infer_brand_from_desc(part_desc: str, mpn: str, existing_brand: str = "") -
                 result = dict(_MPN_PREFIX_MAP[prefix])
                 result["_brand_resolution_method"] = "mpn_prefix_lookup"
                 return result
+
+    # 0.5. Part_Desc keyword scan — catches GE Profile, Maytag, etc. before LLM
+    desc_hit = _desc_brand_scan(part_desc)
+    if desc_hit:
+        desc_hit["_brand_resolution_method"] = "desc_keyword"
+        return desc_hit
 
     # 1. Use existing brand column
     if existing_brand:
@@ -406,6 +470,12 @@ def normalize_manufacturer(
                 result = dict(val)
                 result["_brand_resolution_method"] = "mpn_prefix"
                 return result
+
+    # 0.5. Part_Desc keyword scan — catches conglomerate sub-brands when MPN prefix doesn't match
+    desc_hit = _desc_brand_scan(part_desc)
+    if desc_hit:
+        desc_hit["_brand_resolution_method"] = "desc_keyword"
+        return desc_hit
 
     # 1. Co-op / distributor check
     if _is_non_manufacturer(parsed["name"]) or _is_non_manufacturer(parsed["code"]):
